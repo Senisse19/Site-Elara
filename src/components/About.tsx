@@ -4,6 +4,7 @@ import { Users, Clock, CheckCircle, TrendingUp } from "lucide-react";
 import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {
+  // Force rebuild to clear cache
   const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
   const { elementRef: contentRef, isVisible: contentVisible } = useScrollAnimation(0.3);
   const { containerRef: statsRef, visibleItems } = useStaggeredAnimation(4, 100);
