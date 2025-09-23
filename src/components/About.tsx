@@ -1,36 +1,41 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Zap, Users, Trophy } from "lucide-react";
+import { Users, Clock, CheckCircle, TrendingUp } from "lucide-react";
+import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
+  const { elementRef: contentRef, isVisible: contentVisible } = useScrollAnimation(0.3);
+  const { containerRef: statsRef, visibleItems } = useStaggeredAnimation(4, 100);
+
   const stats = [
     {
-      icon: Code,
-      value: "4+",
+      icon: Clock,
+      value: "5+",
       label: "Anos de Experiência",
       description: "Desenvolvendo soluções"
     },
     {
-      icon: Zap,
-      value: "30+",
+      icon: TrendingUp,
+      value: "50+",
       label: "Processos Automatizados",
       description: "Eficiência comprovada"
     },
     {
       icon: Users,
-      value: "20+",
+      value: "30+",
       label: "Clientes Atendidos",
       description: "Projetos entregues"
     },
     {
-      icon: Trophy,
+      icon: CheckCircle,
       value: "100%",
       label: "Taxa de Sucesso",
       description: "Satisfação garantida"
     }
   ];
 
-  const skills = [
+  const technologies = [
     "Python", "JavaScript", "TypeScript", "React", "Node.js",
     "Automação RPA", "n8n", "APIs REST", "Integração de Sistemas",
     "Análise de Dados", "Machine Learning", "Inteligência Artificial", "DevOps", "Scrum"
@@ -39,18 +44,28 @@ const About = () => {
   return (
     <section id="sobre" className="py-20 bg-background">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Sobre Mim
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Sou apaixonado por tecnologia e automação, com foco em criar soluções 
-            que transformam a maneira como as empresas operam.
+            Com mais de 5 anos de experiência em automação e desenvolvimento, 
+            ajudo empresas a transformar processos manuais em soluções eficientes.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          <div className="space-y-6">
+          <div 
+            ref={contentRef}
+            className={`space-y-6 transition-all duration-700 ${
+              contentVisible ? 'animate-fade-in' : 'opacity-0 translate-x-10'
+            }`}
+          >
             <div className="relative">
               <img
                 src="/lovable-uploads/profile-photo-2.png"
@@ -66,7 +81,7 @@ const About = () => {
                 Transformando Ideias em Soluções
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                Com mais de 4 anos de experiência em desenvolvimento de software e gestão de automação, 
+                Com mais de 5 anos de experiência em desenvolvimento de software e gestão de automação, 
                 especializo-me em criar sistemas que otimizam processos empresariais e aumentam a 
                 produtividade das equipes.
               </p>
@@ -79,13 +94,13 @@ const About = () => {
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">Principais Tecnologias:</h4>
               <div className="flex flex-wrap gap-2">
-                {skills.map((skill, index) => (
+                {technologies.map((tech, index) => (
                   <Badge 
                     key={index} 
                     variant="secondary"
                     className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
-                    {skill}
+                    {tech}
                   </Badge>
                 ))}
               </div>
@@ -93,9 +108,17 @@ const About = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={statsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
-            <Card key={index} className="p-6 text-center hover:shadow-glow transition-all duration-300">
+            <Card 
+              key={index} 
+              className={`p-6 text-center hover:shadow-glow transition-all duration-500 ${
+                visibleItems.includes(index) 
+                  ? 'animate-fade-in animate-scale-in' 
+                  : 'opacity-0 translate-y-10 scale-95'
+              }`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
               <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
                 <stat.icon className="h-6 w-6 text-primary" />
               </div>

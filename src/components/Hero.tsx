@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Hero = () => {
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation(0.2);
+  const { elementRef: imageRef, isVisible: imageVisible } = useScrollAnimation(0.3);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -13,7 +17,12 @@ const Hero = () => {
     <section id="inicio" className="min-h-screen flex items-center bg-section-gradient">
       <div className="container mx-auto px-6 py-20">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          <div className="lg:w-1/2 space-y-8">
+          <div 
+            ref={heroRef}
+            className={`lg:w-1/2 space-y-8 transition-all duration-700 ${
+              heroVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-foreground pt-8 md:pt-0">
                 Olá, eu sou
@@ -81,7 +90,12 @@ const Hero = () => {
           </div>
           
           <div className="lg:w-1/2 flex justify-center">
-            <div className="relative">
+            <div 
+              ref={imageRef}
+              className={`relative transition-all duration-1000 delay-300 ${
+                imageVisible ? 'animate-scale-in' : 'opacity-0 scale-95'
+              }`}
+            >
               <div className="absolute inset-0 bg-hero-gradient rounded-full blur-3xl opacity-20 scale-110"></div>
               <img
                 src="/lovable-uploads/profile-photo-1.png"

@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { 
   Mail, 
   Phone, 
@@ -18,6 +19,9 @@ import {
 
 const Contact = () => {
   const { toast } = useToast();
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
+  const { elementRef: formRef, isVisible: formVisible } = useScrollAnimation(0.3);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -156,7 +160,12 @@ const Contact = () => {
   return (
     <section id="contato" className="py-20 bg-section-gradient">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Entre em Contato
           </h2>
@@ -166,7 +175,12 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div 
+          ref={formRef}
+          className={`grid lg:grid-cols-3 gap-12 transition-all duration-700 ${
+            formVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {/* Contact Information */}
           <div className="space-y-8">
             <div>

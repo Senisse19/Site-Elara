@@ -9,8 +9,13 @@ import {
   Shield,
   ArrowRight 
 } from "lucide-react";
+import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const Services = () => {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
+  const { containerRef: servicesRef, visibleItems } = useStaggeredAnimation(6, 150);
+  const { elementRef: ctaRef, isVisible: ctaVisible } = useScrollAnimation(0.3);
+
   const services = [
     {
       icon: Settings,
@@ -60,7 +65,12 @@ const Services = () => {
   return (
     <section id="servicos" className="py-20 bg-section-gradient">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             O que Eu Faço
           </h2>
@@ -70,9 +80,17 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div ref={servicesRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service, index) => (
-            <Card key={index} className="p-6 hover:shadow-glow transition-all duration-300 group">
+            <Card 
+              key={index} 
+              className={`p-6 hover:shadow-glow transition-all duration-500 group ${
+                visibleItems.includes(index) 
+                  ? 'animate-fade-in animate-scale-in' 
+                  : 'opacity-0 translate-y-10 scale-95'
+              }`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
               <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
                 <service.icon className="h-6 w-6 text-primary" />
               </div>
@@ -98,7 +116,12 @@ const Services = () => {
         </div>
 
         <div className="text-center">
-          <div className="bg-card rounded-2xl p-8 shadow-card max-w-2xl mx-auto">
+          <div 
+            ref={ctaRef}
+            className={`bg-card rounded-2xl p-8 shadow-card max-w-2xl mx-auto transition-all duration-700 ${
+              ctaVisible ? 'animate-fade-in animate-scale-in' : 'opacity-0 translate-y-10 scale-95'
+            }`}
+          >
             <h3 className="text-2xl font-semibold text-foreground mb-4">
               Pronto para Automatizar seu Negócio?
             </h3>
@@ -108,7 +131,7 @@ const Services = () => {
             </p>
             <Button 
               size="lg"
-              onClick={() => window.open("http://wa.me/5551981221324", "_blank")}
+              onClick={() => scrollToContact()}
               className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
             >
               Solicitar Orçamento
