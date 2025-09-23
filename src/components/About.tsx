@@ -6,25 +6,25 @@ const About = () => {
   const stats = [
     {
       icon: Code,
-      value: "5+",
+      value: "4+",
       label: "Anos de Experiência",
       description: "Desenvolvendo soluções"
     },
     {
       icon: Zap,
-      value: "100+",
+      value: "30+",
       label: "Processos Automatizados",
       description: "Eficiência comprovada"
     },
     {
       icon: Users,
-      value: "50+",
+      value: "20+",
       label: "Clientes Atendidos",
       description: "Projetos entregues"
     },
     {
       icon: Trophy,
-      value: "98%",
+      value: "100%",
       label: "Taxa de Sucesso",
       description: "Satisfação garantida"
     }
@@ -32,8 +32,8 @@ const About = () => {
 
   const skills = [
     "Python", "JavaScript", "TypeScript", "React", "Node.js",
-    "Automação RPA", "APIs REST", "Integração de Sistemas",
-    "Análise de Dados", "Machine Learning", "DevOps", "Scrum"
+    "Automação RPA", "n8n", "APIs REST", "Integração de Sistemas",
+    "Análise de Dados", "Machine Learning", "Inteligência Artificial", "DevOps", "Scrum"
   ];
 
   return (
@@ -66,7 +66,7 @@ const About = () => {
                 Transformando Ideias em Soluções
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                Com mais de 5 anos de experiência em desenvolvimento de software e gestão de automação, 
+                Com mais de 4 anos de experiência em desenvolvimento de software e gestão de automação, 
                 especializo-me em criar sistemas que otimizam processos empresariais e aumentam a 
                 produtividade das equipes.
               </p>

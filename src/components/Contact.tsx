@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   Mail, 
   Phone, 
@@ -41,7 +42,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -54,22 +55,50 @@ const Contact = () => {
       return;
     }
 
-    // Note: Para enviar os dados para o Supabase, você precisa conectar o projeto
-    toast({
-      title: "Funcionalidade em desenvolvimento",
-      description: "Para enviar dados para o Supabase, conecte seu projeto primeiro.",
-      variant: "destructive"
-    });
+    try {
+      const { error } = await supabase
+        .from('contacts')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          budget: formData.budget,
+          message: formData.message
+        }]);
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      budget: "",
-      message: ""
-    });
+      if (error) {
+        console.error('Error submitting form:', error);
+        toast({
+          title: "Erro ao enviar",
+          description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      toast({
+        title: "Mensagem enviada!",
+        description: "Obrigado pelo contato. Retornarei em breve!",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        budget: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente.",
+        variant: "destructive"
+      });
+    }
   };
 
   const contactInfo = [
