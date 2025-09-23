@@ -53,7 +53,7 @@ const About = () => {
           <div className="space-y-6">
             <div className="relative">
               <img
-                src="/lovable-uploads/0307c0b2-93d6-4800-a683-afd3a09aa293.png"
+                src="/lovable-uploads/profile-photo-2.png"
                 alt="Victor Senisse - Perfil Profissional"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-card"
               />

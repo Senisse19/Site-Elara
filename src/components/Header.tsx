@@ -70,10 +70,10 @@ const Header = () => {
           </div>
           
           <Button 
-            onClick={() => scrollToSection("contato")}
+            onClick={() => window.open("http://wa.me/5551981221324", "_blank")}
             className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
           >
-            Entre em Contato
+            Solicitar Orçamento
           </Button>
         </div>
       </nav>

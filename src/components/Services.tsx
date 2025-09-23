@@ -108,7 +108,7 @@ const Services = () => {
             </p>
             <Button 
               size="lg"
-              onClick={scrollToContact}
+              onClick={() => window.open("http://wa.me/5551981221324", "_blank")}
               className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
             >
               Solicitar Orçamento
