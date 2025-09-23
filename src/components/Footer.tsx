@@ -51,8 +51,8 @@ const Footer = () => {
             <h4 className="text-lg font-semibold">Conecte-se</h4>
             <div className="space-y-2">
               <p className="text-primary-foreground/80">senissevictor@gmail.com</p>
-              <p className="text-primary-foreground/80">+55 (11) 99999-9999</p>
-              <p className="text-primary-foreground/80">São Paulo, SP - Brasil</p>
+              <p className="text-primary-foreground/80">+55 (51) 98122-1324</p>
+              <p className="text-primary-foreground/80">Porto Alegre, RS - Brasil</p>
             </div>
             
             <div className="flex gap-3 pt-2">

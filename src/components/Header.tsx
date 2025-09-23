@@ -70,35 +70,10 @@ const Header = () => {
                 {item.label}
               </Button>
             ))}
-            
-            {/* Auth buttons */}
-            {user ? (
-              <div className="flex items-center space-x-2">
-                {isAdmin && (
-                  <Link to="/admin">
-                    <Button variant="outline" size="sm">
-                      <Shield className="w-4 h-4 mr-2" />
-                      Admin
-                    </Button>
-                  </Link>
-                )}
-                <Button variant="outline" size="sm" onClick={signOut}>
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Sair
-                </Button>
-              </div>
-            ) : (
-              <Link to="/auth">
-                <Button variant="outline" size="sm">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Login
-                </Button>
-              </Link>
-            )}
           </div>
           
           <Button 
-            onClick={() => window.open("http://wa.me/5551981221324", "_blank")}
+            onClick={() => scrollToSection("contato")}
             className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
           >
             Solicitar Orçamento

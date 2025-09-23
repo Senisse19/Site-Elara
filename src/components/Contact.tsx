@@ -111,13 +111,13 @@ const Contact = () => {
     {
       icon: Phone,
       label: "Telefone",
-      value: "+55 (11) 99999-9999",
-      href: "tel:+5511999999999"
+      value: "+55 (51) 98122-1324",
+      href: "tel:+5551981221324"
     },
     {
       icon: MapPin,
       label: "Localização",
-      value: "São Paulo, SP - Brasil",
+      value: "Porto Alegre, RS - Brasil",
       href: null
     },
     {

@@ -15,7 +15,7 @@ const Hero = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-bold text-foreground">
+              <h1 className="text-5xl lg:text-6xl font-bold text-foreground pt-8 md:pt-0">
                 Olá, eu sou
                 <span className="text-primary block">Victor Senisse</span>
               </h1>
@@ -40,7 +40,7 @@ const Hero = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                onClick={() => window.open("http://wa.me/5551981221324", "_blank")}
+                onClick={() => scrollToSection("contato")}
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
                 Solicitar Orçamento
