@@ -30,7 +30,6 @@ const Footer = () => {
                 { label: "Início", id: "inicio" },
                 { label: "Sobre Mim", id: "sobre" },
                 { label: "Serviços", id: "servicos" },
-                { label: "Resumo", id: "resumo" },
                 { label: "Contato", id: "contato" }
               ].map((link) => (
                 <button
