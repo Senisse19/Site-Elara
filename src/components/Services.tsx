@@ -4,7 +4,7 @@ import {
   Settings, 
   Code2, 
   Database, 
-  Workflow, 
+  Bot, 
   BarChart3, 
   Shield,
   ArrowRight 
@@ -36,10 +36,10 @@ const Services = () => {
       features: ["APIs REST/GraphQL", "Webhooks", "Sincronização em tempo real", "Migração de dados"]
     },
     {
-      icon: Workflow,
-      title: "Gestão de Fluxos",
-      description: "Otimização e automatização de workflows empresariais para maior produtividade da equipe.",
-      features: ["Mapeamento de processos", "Fluxos automatizados", "Aprovações digitais", "Notificações inteligentes"]
+      icon: Bot,
+      title: "Agentes de IA",
+      description: "Desenvolvimento de agentes inteligentes para automatizar atendimento, análise e tomada de decisões.",
+      features: ["Chatbots conversacionais", "Agentes de análise", "Automação inteligente", "Integração com LLMs"]
     },
     {
       icon: BarChart3,
