@@ -314,36 +314,6 @@ const OnboardingGeneral = () => {
               {isSubmitting ? "Enviando..." : "Enviar e Continuar"}
             </Button>
           </form>
-
-          {/* Links de teste para navegação */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-sm text-muted-foreground mb-4 text-center">
-              Ou acesse diretamente uma das páginas específicas:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/onboarding/automation')}
-                className="w-full"
-              >
-                Automação
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/onboarding/chatbot')}
-                className="w-full"
-              >
-                Chatbot/IA
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/onboarding/website')}
-                className="w-full"
-              >
-                Website
-              </Button>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>
