@@ -10,7 +10,7 @@ import OnboardingPage from "./pages/OnboardingPage";
 import OnboardingAutomationPage from "./pages/OnboardingAutomationPage";
 import OnboardingChatbotPage from "./pages/OnboardingChatbotPage";
 import OnboardingWebsitePage from "./pages/OnboardingWebsitePage";
-import OnboardingAIInfrastructurePage from "./pages/OnboardingAIInfrastructurePage";
+import OnboardingAiInfrastructurePage from "./pages/OnboardingAiInfrastructurePage";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +26,7 @@ const App = () => (
           <Route path="/onboarding/automation" element={<OnboardingAutomationPage />} />
           <Route path="/onboarding/chatbot" element={<OnboardingChatbotPage />} />
           <Route path="/onboarding/website" element={<OnboardingWebsitePage />} />
-          <Route path="/onboarding/ai-infrastructure" element={<OnboardingAIInfrastructurePage />} />
+          <Route path="/onboarding/ai-infrastructure" element={<OnboardingAiInfrastructurePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
