@@ -17,6 +17,7 @@ export type Database = {
       contacts: {
         Row: {
           budget: string | null
+          Contatado: boolean | null
           created_at: string
           email: string
           id: string
@@ -27,6 +28,7 @@ export type Database = {
         }
         Insert: {
           budget?: string | null
+          Contatado?: boolean | null
           created_at?: string
           email: string
           id?: string
@@ -37,6 +39,7 @@ export type Database = {
         }
         Update: {
           budget?: string | null
+          Contatado?: boolean | null
           created_at?: string
           email?: string
           id?: string
@@ -47,56 +50,203 @@ export type Database = {
         }
         Relationships: []
       }
-      profiles: {
+      onboarding_automation: {
         Row: {
-          avatar_url: string | null
+          bottlenecks_description: string | null
           created_at: string
-          email: string | null
-          full_name: string | null
+          current_process_description: string
+          expected_output: string | null
           id: string
+          input_data_description: string | null
+          onboarding_general_id: string | null
+          process_frequency: string | null
+          process_name: string
+          systems_used: string[] | null
           updated_at: string
-          user_id: string
         }
         Insert: {
-          avatar_url?: string | null
+          bottlenecks_description?: string | null
           created_at?: string
-          email?: string | null
-          full_name?: string | null
+          current_process_description: string
+          expected_output?: string | null
           id?: string
+          input_data_description?: string | null
+          onboarding_general_id?: string | null
+          process_frequency?: string | null
+          process_name: string
+          systems_used?: string[] | null
           updated_at?: string
-          user_id: string
         }
         Update: {
-          avatar_url?: string | null
+          bottlenecks_description?: string | null
           created_at?: string
-          email?: string | null
-          full_name?: string | null
+          current_process_description?: string
+          expected_output?: string | null
           id?: string
+          input_data_description?: string | null
+          onboarding_general_id?: string | null
+          process_frequency?: string | null
+          process_name?: string
+          systems_used?: string[] | null
           updated_at?: string
-          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_automation_onboarding_general_id_fkey"
+            columns: ["onboarding_general_id"]
+            isOneToOne: false
+            referencedRelation: "onboarding_general"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      onboarding_chatbot: {
+        Row: {
+          created_at: string
+          frequent_questions: string | null
+          human_transfer_criteria: string | null
+          id: string
+          main_functions: string[] | null
+          onboarding_general_id: string | null
+          personality_description: string | null
+          platforms: string[] | null
+          system_integrations: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          frequent_questions?: string | null
+          human_transfer_criteria?: string | null
+          id?: string
+          main_functions?: string[] | null
+          onboarding_general_id?: string | null
+          personality_description?: string | null
+          platforms?: string[] | null
+          system_integrations?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          frequent_questions?: string | null
+          human_transfer_criteria?: string | null
+          id?: string
+          main_functions?: string[] | null
+          onboarding_general_id?: string | null
+          personality_description?: string | null
+          platforms?: string[] | null
+          system_integrations?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_chatbot_onboarding_general_id_fkey"
+            columns: ["onboarding_general_id"]
+            isOneToOne: false
+            referencedRelation: "onboarding_general"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      onboarding_general: {
+        Row: {
+          budget_range: string | null
+          challenge_description: string
+          company_name: string | null
+          company_website: string | null
+          created_at: string
+          email: string
+          expected_result: string | null
+          full_name: string
+          id: string
+          job_title: string | null
+          service_interest: string
+          status: string | null
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          budget_range?: string | null
+          challenge_description: string
+          company_name?: string | null
+          company_website?: string | null
+          created_at?: string
+          email: string
+          expected_result?: string | null
+          full_name: string
+          id?: string
+          job_title?: string | null
+          service_interest: string
+          status?: string | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          budget_range?: string | null
+          challenge_description?: string
+          company_name?: string | null
+          company_website?: string | null
+          created_at?: string
+          email?: string
+          expected_result?: string | null
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          service_interest?: string
+          status?: string | null
+          timeline?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
-      user_roles: {
+      onboarding_website: {
         Row: {
+          admired_websites: string | null
+          brand_identity_status: string | null
+          brand_keywords: string | null
+          content_readiness: string | null
           created_at: string
+          desired_pages: string[] | null
+          disliked_elements: string | null
           id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
+          main_call_to_action: string
+          onboarding_general_id: string | null
+          updated_at: string
         }
         Insert: {
+          admired_websites?: string | null
+          brand_identity_status?: string | null
+          brand_keywords?: string | null
+          content_readiness?: string | null
           created_at?: string
+          desired_pages?: string[] | null
+          disliked_elements?: string | null
           id?: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
+          main_call_to_action: string
+          onboarding_general_id?: string | null
+          updated_at?: string
         }
         Update: {
+          admired_websites?: string | null
+          brand_identity_status?: string | null
+          brand_keywords?: string | null
+          content_readiness?: string | null
           created_at?: string
+          desired_pages?: string[] | null
+          disliked_elements?: string | null
           id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
+          main_call_to_action?: string
+          onboarding_general_id?: string | null
+          updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_website_onboarding_general_id_fkey"
+            columns: ["onboarding_general_id"]
+            isOneToOne: false
+            referencedRelation: "onboarding_general"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

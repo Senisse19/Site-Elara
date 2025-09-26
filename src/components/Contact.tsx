@@ -1,109 +1,12 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Mail, Phone, MapPin, Clock, Linkedin, Instagram } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Linkedin, 
-  Github, 
-  Clock,
-  Send 
-} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
-  const { toast } = useToast();
-  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
-  const { elementRef: formRef, isVisible: formVisible } = useScrollAnimation(0.3);
-  
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    budget: "",
-    message: ""
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSelectChange = (value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      budget: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha nome, email e mensagem.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      const { error } = await supabase
-        .from('contacts')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          budget: formData.budget,
-          message: formData.message
-        }]);
-
-      if (error) {
-        console.error('Error submitting form:', error);
-        toast({
-          title: "Erro ao enviar",
-          description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente.",
-          variant: "destructive"
-        });
-        return;
-      }
-
-      toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pelo contato. Retornarei em breve!",
-      });
-
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        budget: "",
-        message: ""
-      });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      toast({
-        title: "Erro ao enviar",
-        description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente.",
-        variant: "destructive"
-      });
-    }
-  };
+  const navigate = useNavigate();
+  const { elementRef: sectionRef, isVisible } = useScrollAnimation();
 
   const contactInfo = [
     {
@@ -158,14 +61,15 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contato" className="py-20 bg-section-gradient">
+    <section 
+      id="contato" 
+      ref={sectionRef}
+      className={`py-20 bg-section-gradient transform transition-all duration-1000 ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`}
+    >
       <div className="container mx-auto px-6">
-        <div 
-          ref={titleRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-          }`}
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Entre em Contato
           </h2>
@@ -175,12 +79,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div 
-          ref={formRef}
-          className={`grid lg:grid-cols-3 gap-12 transition-all duration-700 ${
-            formVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-          }`}
-        >
+        <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
@@ -240,104 +139,37 @@ const Contact = () => {
             </Card>
           </div>
 
-          {/* Contact Form */}
+          {/* Onboarding Card */}
           <div className="lg:col-span-2">
-            <Card className="p-8 shadow-glow">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Nome completo *
-                    </label>
-                    <Input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Seu nome completo"
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Email *
-                    </label>
-                    <Input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="seu@email.com"
-                      className="w-full"
-                    />
-                  </div>
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle className="text-2xl">Vamos Começar Sua Transformação Digital!</CardTitle>
+                <CardDescription>
+                  Inicie o processo de onboarding para entendermos suas necessidades específicas e criarmos a solução perfeita para seu negócio.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center justify-center py-12">
+                <div className="text-center mb-8">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Pronto para revolucionar seu negócio com IA e automação?
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Nosso formulário de onboarding personalizado nos ajudará a entender suas necessidades específicas e criar uma proposta sob medida.
+                  </p>
                 </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Telefone
-                    </label>
-                    <Input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="(11) 99999-9999"
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Faixa de Orçamento
-                    </label>
-                    <Select onValueChange={handleSelectChange} value={formData.budget}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Selecione uma faixa de orçamento" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="ate-1500">Até R$ 1.500</SelectItem>
-                        <SelectItem value="1500-5000">De R$ 1.500 a R$ 5.000</SelectItem>
-                        <SelectItem value="acima-5000">Acima de R$ 5.000</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Assunto
-                  </label>
-                  <Input
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="Sobre o que você gostaria de conversar?"
-                    className="w-full"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Mensagem *
-                  </label>
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Conte-me mais sobre seu projeto ou necessidades..."
-                    rows={5}
-                    className="w-full resize-none"
-                  />
-                </div>
-
+                
                 <Button 
-                  type="submit"
+                  onClick={() => navigate('/onboarding')}
+                  className="w-full max-w-md py-6 text-lg" 
                   size="lg"
-                  className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
                 >
-                  <Send className="h-5 w-5 mr-2" />
-                  Enviar Mensagem
+                  Iniciar Onboarding
                 </Button>
-              </form>
+                
+                <p className="text-sm text-muted-foreground mt-4 text-center">
+                  O processo leva apenas alguns minutos e nos permite criar uma solução verdadeiramente personalizada para você.
+                </p>
+              </CardContent>
             </Card>
           </div>
         </div>

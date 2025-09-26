@@ -59,11 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const checkAdminStatus = async (userId: string) => {
     try {
       const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', userId)
-        .eq('role', 'admin')
-        .maybeSingle();
+        .rpc('is_admin');
       
       if (!error) {
         setIsAdmin(!!data);
