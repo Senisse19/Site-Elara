@@ -105,7 +105,7 @@ const OnboardingGeneral = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-6 max-w-6xl">
       <Card 
         ref={formRef}
         className={`max-w-4xl mx-auto transform transition-all duration-1000 shadow-2xl ${
