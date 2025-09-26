@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      onboarding_ai_infrastructure: {
+        Row: {
+          ai_objectives: string
+          ai_solution_type: string[] | null
+          compliance_requirements: string | null
+          computational_resources: string | null
+          created_at: string
+          data_sources: string | null
+          data_volume_description: string | null
+          deployment_timeline: string | null
+          expected_accuracy: string | null
+          id: string
+          infrastructure_requirements: string | null
+          onboarding_general_id: string | null
+          system_integrations: string | null
+          updated_at: string
+        }
+        Insert: {
+          ai_objectives: string
+          ai_solution_type?: string[] | null
+          compliance_requirements?: string | null
+          computational_resources?: string | null
+          created_at?: string
+          data_sources?: string | null
+          data_volume_description?: string | null
+          deployment_timeline?: string | null
+          expected_accuracy?: string | null
+          id?: string
+          infrastructure_requirements?: string | null
+          onboarding_general_id?: string | null
+          system_integrations?: string | null
+          updated_at?: string
+        }
+        Update: {
+          ai_objectives?: string
+          ai_solution_type?: string[] | null
+          compliance_requirements?: string | null
+          computational_resources?: string | null
+          created_at?: string
+          data_sources?: string | null
+          data_volume_description?: string | null
+          deployment_timeline?: string | null
+          expected_accuracy?: string | null
+          id?: string
+          infrastructure_requirements?: string | null
+          onboarding_general_id?: string | null
+          system_integrations?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       onboarding_automation: {
         Row: {
           bottlenecks_description: string | null

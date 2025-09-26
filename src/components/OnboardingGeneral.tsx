@@ -59,18 +59,14 @@ const OnboardingGeneral = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Formulário enviado com sucesso!",
-        description: "Obrigado pelo seu interesse. Em breve entraremos em contato.",
-      });
+      // Don't show success toast here - only show after final form submission
 
       // Redirect based on service interest
       const redirectMap: { [key: string]: string } = {
         'automation': '/onboarding/automation',
-        'ai_agents': '/onboarding/chatbot',
+        'ai_infrastructure': '/onboarding/ai-infrastructure',
         'chatbots': '/onboarding/chatbot',
         'website': '/onboarding/website',
-        'ai_infrastructure': '/contact',
         'consultation': '/contact'
       };
 
@@ -204,8 +200,8 @@ const OnboardingGeneral = () => {
                     <Label htmlFor="automation">Automação de Processos (RPA & Workflows)</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="ai_agents" id="ai_agents" />
-                    <Label htmlFor="ai_agents">Desenvolvimento de Agentes de IA</Label>
+                    <RadioGroupItem value="ai_infrastructure" id="ai_infrastructure" />
+                    <Label htmlFor="ai_infrastructure">Solução de IA com Infraestrutura</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="chatbots" id="chatbots" />
@@ -214,10 +210,6 @@ const OnboardingGeneral = () => {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="website" id="website" />
                     <Label htmlFor="website">Desenvolvimento de Site Personalizado</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="ai_infrastructure" id="ai_infrastructure" />
-                    <Label htmlFor="ai_infrastructure">Estruturação de Infraestrutura de IA</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="consultation" id="consultation" />
