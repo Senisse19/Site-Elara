@@ -105,10 +105,10 @@ const OnboardingGeneral = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-8">
       <Card 
         ref={formRef}
-        className={`max-w-4xl mx-auto transform transition-all duration-1000 ${
+        className={`max-w-4xl mx-auto transform transition-all duration-1000 shadow-2xl ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}
       >
@@ -129,7 +129,7 @@ const OnboardingGeneral = () => {
             <div className="space-y-6">
               <h3 className="text-xl font-semibold text-primary">Informações de Contato</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <Label htmlFor="fullName">Seu nome completo *</Label>
                   <Input
@@ -259,7 +259,7 @@ const OnboardingGeneral = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <Label htmlFor="timeline">Você tem um prazo em mente para a implementação deste projeto?</Label>
                   <Select value={formData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
@@ -279,27 +279,27 @@ const OnboardingGeneral = () => {
                   <RadioGroup 
                     value={formData.budgetRange} 
                     onValueChange={(value) => handleInputChange('budgetRange', value)}
-                    className="mt-3"
+                    className="mt-3 space-y-2"
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="up_to_5k" id="up_to_5k" />
-                      <Label htmlFor="up_to_5k">Até R$ 5.000</Label>
+                      <Label htmlFor="up_to_5k" className="text-sm">Até R$ 5.000</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="5k_to_15k" id="5k_to_15k" />
-                      <Label htmlFor="5k_to_15k">Entre R$ 5.001 e R$ 15.000</Label>
+                      <Label htmlFor="5k_to_15k" className="text-sm">Entre R$ 5.001 e R$ 15.000</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="15k_to_30k" id="15k_to_30k" />
-                      <Label htmlFor="15k_to_30k">Entre R$ 15.001 e R$ 30.000</Label>
+                      <Label htmlFor="15k_to_30k" className="text-sm">Entre R$ 15.001 e R$ 30.000</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="above_30k" id="above_30k" />
-                      <Label htmlFor="above_30k">Acima de R$ 30.000</Label>
+                      <Label htmlFor="above_30k" className="text-sm">Acima de R$ 30.000</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="prefer_meeting" id="prefer_meeting" />
-                      <Label htmlFor="prefer_meeting">Prefiro discutir em uma reunião</Label>
+                      <Label htmlFor="prefer_meeting" className="text-sm">Prefiro discutir em uma reunião</Label>
                     </div>
                   </RadioGroup>
                 </div>

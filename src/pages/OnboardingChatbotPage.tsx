@@ -1,15 +1,11 @@
-import Header from "@/components/Header";
 import OnboardingChatbot from "@/components/OnboardingChatbot";
-import Footer from "@/components/Footer";
 
 const OnboardingChatbotPage = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <main className="pt-8">
         <OnboardingChatbot />
       </main>
-      <Footer />
     </div>
   );
 };

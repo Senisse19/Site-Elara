@@ -1,15 +1,11 @@
-import Header from "@/components/Header";
 import OnboardingAutomation from "@/components/OnboardingAutomation";
-import Footer from "@/components/Footer";
 
 const OnboardingAutomationPage = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <main className="pt-8">
         <OnboardingAutomation />
       </main>
-      <Footer />
     </div>
   );
 };

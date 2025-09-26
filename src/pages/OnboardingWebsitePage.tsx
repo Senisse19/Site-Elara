@@ -1,15 +1,11 @@
-import Header from "@/components/Header";
 import OnboardingWebsite from "@/components/OnboardingWebsite";
-import Footer from "@/components/Footer";
 
 const OnboardingWebsitePage = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <main className="pt-8">
         <OnboardingWebsite />
       </main>
-      <Footer />
     </div>
   );
 };
