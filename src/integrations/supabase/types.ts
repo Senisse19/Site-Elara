@@ -14,42 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      contacts: {
-        Row: {
-          budget: string | null
-          Contatado: boolean | null
-          created_at: string
-          email: string
-          id: string
-          message: string
-          name: string
-          phone: string | null
-          subject: string | null
-        }
-        Insert: {
-          budget?: string | null
-          Contatado?: boolean | null
-          created_at?: string
-          email: string
-          id?: string
-          message: string
-          name: string
-          phone?: string | null
-          subject?: string | null
-        }
-        Update: {
-          budget?: string | null
-          Contatado?: boolean | null
-          created_at?: string
-          email?: string
-          id?: string
-          message?: string
-          name?: string
-          phone?: string | null
-          subject?: string | null
-        }
-        Relationships: []
-      }
       onboarding_automation: {
         Row: {
           bottlenecks_description: string | null
