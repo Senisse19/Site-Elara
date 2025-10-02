@@ -174,6 +174,7 @@ export type Database = {
           full_name: string
           id: string
           job_title: string | null
+          phone: string | null
           service_interest: string
           status: string | null
           timeline: string | null
@@ -190,6 +191,7 @@ export type Database = {
           full_name: string
           id?: string
           job_title?: string | null
+          phone?: string | null
           service_interest: string
           status?: string | null
           timeline?: string | null
@@ -206,6 +208,7 @@ export type Database = {
           full_name?: string
           id?: string
           job_title?: string | null
+          phone?: string | null
           service_interest?: string
           status?: string | null
           timeline?: string | null
@@ -262,57 +265,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      profiles: {
-        Row: {
-          created_at: string
-          email: string | null
-          full_name: string | null
-          id: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          email?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          email?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          created_at: string
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
       }
     }
     Views: {
