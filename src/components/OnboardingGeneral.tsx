@@ -41,7 +41,7 @@ const OnboardingGeneral = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('onboarding_general')
         .insert({
           full_name: formData.fullName,
@@ -55,13 +55,9 @@ const OnboardingGeneral = () => {
           expected_result: formData.expectedResult || null,
           timeline: formData.timeline || null,
           budget_range: formData.budgetRange || null
-        })
-        .select()
-        .single();
+        });
 
       if (error) throw error;
-
-      // Don't show success toast here - only show after final form submission
 
       // Redirect based on service interest
       const redirectMap: { [key: string]: string } = {
@@ -74,8 +70,7 @@ const OnboardingGeneral = () => {
 
       const redirectPath = redirectMap[formData.serviceInterest];
       if (redirectPath && redirectPath !== '/contact') {
-        // Remove toast from here - it will be shown only in the final form
-        navigate(`${redirectPath}?id=${data.id}`);
+        navigate(redirectPath);
       } else {
         // Show toast for consultation since it doesn't have a follow-up form
         toast({
