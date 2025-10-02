@@ -19,6 +19,7 @@ const OnboardingGeneral = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
+    phone: "",
     companyName: "",
     jobTitle: "",
     companyWebsite: "",
@@ -45,6 +46,7 @@ const OnboardingGeneral = () => {
         .insert({
           full_name: formData.fullName,
           email: formData.email,
+          phone: formData.phone || null,
           company_name: formData.companyName || null,
           job_title: formData.jobTitle || null,
           company_website: formData.companyWebsite || null,
@@ -85,6 +87,7 @@ const OnboardingGeneral = () => {
         setFormData({
           fullName: "",
           email: "",
+          phone: "",
           companyName: "",
           jobTitle: "",
           companyWebsite: "",
@@ -151,6 +154,19 @@ const OnboardingGeneral = () => {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
+                    required
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone">Seu telefone com DDD *</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="(11) 99999-9999"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
                     required
                     className="mt-1"
                   />
