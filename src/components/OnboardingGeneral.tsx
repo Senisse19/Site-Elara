@@ -69,29 +69,8 @@ const OnboardingGeneral = () => {
       };
 
       const redirectPath = redirectMap[formData.serviceInterest];
-      if (redirectPath && redirectPath !== '/contact') {
+      if (redirectPath) {
         navigate(redirectPath);
-      } else {
-        // Show toast for consultation since it doesn't have a follow-up form
-        toast({
-          title: "Formulário enviado com sucesso!",
-          description: "Obrigado pelo seu interesse. Em breve entraremos em contato.",
-        });
-        
-        // Reset form for consultation
-        setFormData({
-          fullName: "",
-          email: "",
-          phone: "",
-          companyName: "",
-          jobTitle: "",
-          companyWebsite: "",
-          serviceInterest: "",
-          challengeDescription: "",
-          expectedResult: "",
-          timeline: "",
-          budgetRange: ""
-        });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
