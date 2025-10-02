@@ -41,9 +41,13 @@ const OnboardingGeneral = () => {
     setIsSubmitting(true);
 
     try {
+      // Gerar UUID no frontend para poder passar na URL
+      const onboardingId = crypto.randomUUID();
+
       const { error } = await supabase
         .from('onboarding_general')
         .insert({
+          id: onboardingId,
           full_name: formData.fullName,
           email: formData.email,
           phone: formData.phone || null,
@@ -61,10 +65,10 @@ const OnboardingGeneral = () => {
 
       // Redirect based on service interest
       const redirectMap: { [key: string]: string } = {
-        'automation': '/onboarding/automation',
-        'ai_infrastructure': '/onboarding/ai-infrastructure',
-        'chatbots': '/onboarding/chatbot',
-        'website': '/onboarding/website',
+        'automation': `/onboarding/automation?id=${onboardingId}`,
+        'ai_infrastructure': `/onboarding/ai-infrastructure?id=${onboardingId}`,
+        'chatbots': `/onboarding/chatbot?id=${onboardingId}`,
+        'website': `/onboarding/website?id=${onboardingId}`,
         'consultation': '/contact'
       };
 
