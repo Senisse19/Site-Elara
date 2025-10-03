@@ -32,6 +32,7 @@ const OnboardingWebsite = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!onboardingId) {
       navigate('/onboarding');
     }
@@ -90,6 +91,7 @@ const OnboardingWebsite = () => {
         description: "Obrigado pelas informações detalhadas. Em breve entraremos em contato para discutir seu site personalizado.",
       });
 
+      window.scrollTo(0, 0);
       navigate('/');
     } catch (error) {
       console.error('Error submitting website details:', error);

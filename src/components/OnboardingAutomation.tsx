@@ -32,6 +32,7 @@ const OnboardingAutomation = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!onboardingId) {
       navigate('/onboarding');
     }
@@ -88,6 +89,7 @@ const OnboardingAutomation = () => {
         description: "Obrigado pelas informações detalhadas. Em breve entraremos em contato para discutir sua solução personalizada.",
       });
 
+      window.scrollTo(0, 0);
       navigate('/');
     } catch (error) {
       console.error('Error submitting automation details:', error);
