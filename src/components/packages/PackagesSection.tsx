@@ -16,7 +16,8 @@ import {
   Search,
   ClipboardList,
   Users,
-  Star
+  Star,
+  Info
 } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -216,7 +217,7 @@ const PackagesSection = () => {
           {packages.map((pkg, index) => (
             <Card 
               key={pkg.id} 
-              className={`p-8 hover:shadow-glow transition-all duration-500 group ${
+              className={`p-8 hover:shadow-glow transition-all duration-500 group flex flex-col ${
                 visibleItems.includes(index) 
                   ? 'animate-fade-in animate-scale-in' 
                   : 'opacity-0 translate-y-10 scale-95'
@@ -231,21 +232,16 @@ const PackagesSection = () => {
                 {pkg.title}
               </h3>
               
-              <p className="text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 {pkg.description}
               </p>
 
-              <div className="mb-2">
-                <div className="text-primary font-bold text-2xl">
-                  {pkg.price}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {pkg.priceType}
-                </div>
+              <div className="text-primary font-bold text-xl mb-6">
+                {pkg.price}
               </div>
               
-              <ul className="space-y-3 mb-6 mt-6">
-                {pkg.features.map((feature, featureIndex) => (
+              <ul className="space-y-3 mb-6 flex-grow">
+                {pkg.features.slice(0, 3).map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
                     <Check className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
                     <span>{feature}</span>
@@ -255,9 +251,9 @@ const PackagesSection = () => {
 
               <Button 
                 onClick={() => handleOpenForm(pkg.id)}
-                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
+                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto"
               >
-                {pkg.id === 'ai_agent' ? 'Ver Agentes Disponíveis' : 'Solicitar Demonstração'}
+                {pkg.id === 'ai_agent' ? 'Ver Agentes Disponíveis' : 'Solicitar Orçamento'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Card>
@@ -341,37 +337,28 @@ const PackagesSection = () => {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="space-y-4 mt-4">
+          <div className="space-y-3 mt-4">
             {aiAgents.map((agent) => (
-              <Card key={agent.id} className={`p-6 ${agent.isCombo ? 'border-primary border-2 bg-primary/5' : ''}`}>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full">
-                        <agent.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-foreground">
-                          {agent.title}
-                          {agent.isCombo && <span className="ml-2 text-xs bg-primary text-primary-foreground px-2 py-1 rounded">MAIS COMPLETO</span>}
-                        </h4>
-                        <div className="flex items-center gap-3 mt-1">
-                          <span className="text-sm font-semibold text-primary">Setup: {agent.setup}</span>
-                          <span className="text-sm font-bold text-foreground">{agent.monthly}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                      {agent.description}
-                    </p>
+              <Card key={agent.id} className={`p-5 hover:shadow-md transition-all ${agent.isCombo ? 'border-primary border-2 bg-primary/5' : ''}`}>
+                <div className="flex items-center gap-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
+                    <agent.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleOpenAgentInfo(agent.id)}
-                  >
-                    Saiba Mais
-                  </Button>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-lg font-semibold text-foreground">
+                        {agent.title}
+                      </h4>
+                      <button
+                        onClick={() => handleOpenAgentInfo(agent.id)}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        aria-label="Ver detalhes"
+                      >
+                        <Info className="h-5 w-5" />
+                      </button>
+                      {agent.isCombo && <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">MAIS COMPLETO</span>}
+                    </div>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -465,7 +452,7 @@ const PackagesSection = () => {
                 }}
                 className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
               >
-                Fale com um Especialista
+                Solicitar Orçamento
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
