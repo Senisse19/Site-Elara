@@ -14,260 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
-      ai_agent_leads: {
+      leads_central: {
         Row: {
-          agent_type: string
-          created_at: string
-          current_solution: string | null
-          custom_requirements: string | null
-          id: string
-          integration_platforms: string | null
-          lead_id: string
-          monthly_volume: string | null
-        }
-        Insert: {
-          agent_type: string
-          created_at?: string
-          current_solution?: string | null
-          custom_requirements?: string | null
-          id?: string
-          integration_platforms?: string | null
-          lead_id: string
-          monthly_volume?: string | null
-        }
-        Update: {
-          agent_type?: string
-          created_at?: string
-          current_solution?: string | null
-          custom_requirements?: string | null
-          id?: string
-          integration_platforms?: string | null
-          lead_id?: string
-          monthly_volume?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "ai_agent_leads_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "leads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      automation_leads: {
-        Row: {
-          created_at: string
-          current_process: string
-          expected_results: string | null
-          has_data_integration: boolean | null
-          id: string
-          lead_id: string
-          pain_points: string | null
-          process_frequency: string | null
-          systems_used: string | null
-        }
-        Insert: {
-          created_at?: string
-          current_process: string
-          expected_results?: string | null
-          has_data_integration?: boolean | null
-          id?: string
-          lead_id: string
-          pain_points?: string | null
-          process_frequency?: string | null
-          systems_used?: string | null
-        }
-        Update: {
-          created_at?: string
-          current_process?: string
-          expected_results?: string | null
-          has_data_integration?: boolean | null
-          id?: string
-          lead_id?: string
-          pain_points?: string | null
-          process_frequency?: string | null
-          systems_used?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "automation_leads_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "leads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      consulting_leads: {
-        Row: {
-          company_size: string | null
-          consulting_type: string
-          created_at: string
-          current_challenges: string | null
-          goals: string | null
-          id: string
-          lead_id: string
-          timeline: string | null
-        }
-        Insert: {
-          company_size?: string | null
-          consulting_type: string
-          created_at?: string
-          current_challenges?: string | null
-          goals?: string | null
-          id?: string
-          lead_id: string
-          timeline?: string | null
-        }
-        Update: {
-          company_size?: string | null
-          consulting_type?: string
-          created_at?: string
-          current_challenges?: string | null
-          goals?: string | null
-          id?: string
-          lead_id?: string
-          timeline?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "consulting_leads_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "leads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      leads: {
-        Row: {
-          additional_info: string | null
-          created_at: string
-          email: string
-          full_name: string
-          id: string
-          package_name: string
-          package_price: number | null
-          package_type: string
-          phone: string
-          updated_at: string
-        }
-        Insert: {
-          additional_info?: string | null
-          created_at?: string
-          email: string
-          full_name: string
-          id?: string
-          package_name: string
-          package_price?: number | null
-          package_type: string
-          phone: string
-          updated_at?: string
-        }
-        Update: {
-          additional_info?: string | null
-          created_at?: string
-          email?: string
-          full_name?: string
-          id?: string
-          package_name?: string
-          package_price?: number | null
-          package_type?: string
-          phone?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          created_at: string
+          created_at: string | null
+          details: Json | null
           email: string | null
-          full_name: string | null
-          id: string
-          updated_at: string
-          user_id: string
+          id: number
+          name: string | null
+          phone: string | null
+          source: string
+          status: string | null
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
+          details?: Json | null
           email?: string | null
-          full_name?: string | null
-          id: string
-          updated_at?: string
-          user_id: string
+          id?: number
+          name?: string | null
+          phone?: string | null
+          source: string
+          status?: string | null
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
+          details?: Json | null
           email?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      software_leads: {
-        Row: {
-          created_at: string
-          design_reference: string | null
-          has_design: boolean | null
-          id: string
-          integrations_needed: string | null
-          lead_id: string
-          project_type: string
-          required_features: string | null
-          timeline: string | null
-        }
-        Insert: {
-          created_at?: string
-          design_reference?: string | null
-          has_design?: boolean | null
-          id?: string
-          integrations_needed?: string | null
-          lead_id: string
-          project_type: string
-          required_features?: string | null
-          timeline?: string | null
-        }
-        Update: {
-          created_at?: string
-          design_reference?: string | null
-          has_design?: boolean | null
-          id?: string
-          integrations_needed?: string | null
-          lead_id?: string
-          project_type?: string
-          required_features?: string | null
-          timeline?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "software_leads_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "leads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      user_roles: {
-        Row: {
-          created_at: string
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
+          id?: number
+          name?: string | null
+          phone?: string | null
+          source?: string
+          status?: string | null
         }
         Relationships: []
       }
