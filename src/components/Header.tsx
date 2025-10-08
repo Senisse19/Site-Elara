@@ -47,19 +47,36 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? "bg-card/95 backdrop-blur-md shadow-card" : "bg-transparent"
     }`}>
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">
+          <div className="text-lg sm:text-2xl font-bold text-primary">
             Victor Senisse
           </div>
           
-          <div className="flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
                 onClick={() => scrollToSection(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
+                  activeSection === item.id ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
+
+          {/* Mobile menu */}
+          <div className="flex md:hidden items-center space-x-2">
+            {navItems.map((item) => (
+              <Button
+                key={item.id}
+                variant="ghost"
+                size="sm"
+                onClick={() => scrollToSection(item.id)}
+                className={`text-xs px-2 py-1 transition-colors hover:text-primary ${
                   activeSection === item.id ? "text-primary" : "text-muted-foreground"
                 }`}
               >

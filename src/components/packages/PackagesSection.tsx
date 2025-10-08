@@ -235,11 +235,11 @@ const PackagesSection = () => {
                   <img 
                     src={item.img} 
                     alt={item.name}
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                   />
-                  <div>
-                    <p className="font-semibold text-foreground">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">{item.role}</p>
+                  <div className="flex flex-col justify-center">
+                    <p className="font-semibold text-foreground leading-tight">{item.name}</p>
+                    <p className="text-sm text-muted-foreground leading-tight">{item.role}</p>
                   </div>
                 </div>
               </Card>
