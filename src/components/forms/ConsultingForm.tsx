@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { consultingFormSchema } from "@/lib/validations/forms";
 
 interface ConsultingFormProps {
   onSuccess: () => void;
@@ -14,6 +15,7 @@ interface ConsultingFormProps {
 const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -47,6 +49,26 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationErrors({});
+    
+    // Validate form data
+    const validation = consultingFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      validation.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          errors[error.path[0].toString()] = error.message;
+        }
+      });
+      setValidationErrors(errors);
+      toast({
+        title: "Erro de validação",
+        description: "Por favor, corrija os campos destacados",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -87,10 +109,9 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
 
       onSuccess();
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Por favor, tente novamente.",
+        description: "Ocorreu um erro ao enviar o formulário. Tente novamente.",
         variant: "destructive"
       });
     } finally {
@@ -109,7 +130,11 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
+            className={validationErrors.fullName ? "border-destructive" : ""}
           />
+          {validationErrors.fullName && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.fullName}</p>
+          )}
         </div>
 
         <div>
@@ -121,7 +146,11 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
             value={formData.email}
             onChange={handleInputChange}
             required
+            className={validationErrors.email ? "border-destructive" : ""}
           />
+          {validationErrors.email && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.email}</p>
+          )}
         </div>
 
         <div>
@@ -133,7 +162,11 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
             value={formData.phone}
             onChange={handleInputChange}
             required
+            className={validationErrors.phone ? "border-destructive" : ""}
           />
+          {validationErrors.phone && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.phone}</p>
+          )}
         </div>
       </div>
 
@@ -174,27 +207,37 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
         </div>
 
         <div>
-          <Label htmlFor="currentChallenges">Principais desafios atuais</Label>
+          <Label htmlFor="currentChallenges">Principais desafios atuais *</Label>
           <Textarea
             id="currentChallenges"
             name="currentChallenges"
             value={formData.currentChallenges}
             onChange={handleInputChange}
             rows={3}
+            required
             placeholder="Descreva os principais problemas que sua empresa enfrenta..."
+            className={validationErrors.currentChallenges ? "border-destructive" : ""}
           />
+          {validationErrors.currentChallenges && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.currentChallenges}</p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="goals">Objetivos com a consultoria</Label>
+          <Label htmlFor="goals">Objetivos com a consultoria *</Label>
           <Textarea
             id="goals"
             name="goals"
             value={formData.goals}
             onChange={handleInputChange}
             rows={3}
+            required
             placeholder="O que você espera alcançar?"
+            className={validationErrors.goals ? "border-destructive" : ""}
           />
+          {validationErrors.goals && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.goals}</p>
+          )}
         </div>
 
         <div>

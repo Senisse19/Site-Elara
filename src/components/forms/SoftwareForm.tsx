@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { softwareFormSchema } from "@/lib/validations/forms";
 
 interface SoftwareFormProps {
   onSuccess: () => void;
@@ -15,6 +16,7 @@ interface SoftwareFormProps {
 const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -44,6 +46,26 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationErrors({});
+    
+    // Validate form data
+    const validation = softwareFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      validation.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          errors[error.path[0].toString()] = error.message;
+        }
+      });
+      setValidationErrors(errors);
+      toast({
+        title: "Erro de validação",
+        description: "Por favor, corrija os campos destacados",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -85,10 +107,9 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
 
       onSuccess();
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Por favor, tente novamente.",
+        description: "Ocorreu um erro ao enviar o formulário. Tente novamente.",
         variant: "destructive"
       });
     } finally {
@@ -107,7 +128,11 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
+            className={validationErrors.fullName ? "border-destructive" : ""}
           />
+          {validationErrors.fullName && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.fullName}</p>
+          )}
         </div>
 
         <div>
@@ -119,7 +144,11 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
             value={formData.email}
             onChange={handleInputChange}
             required
+            className={validationErrors.email ? "border-destructive" : ""}
           />
+          {validationErrors.email && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.email}</p>
+          )}
         </div>
 
         <div>
@@ -131,7 +160,11 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
             value={formData.phone}
             onChange={handleInputChange}
             required
+            className={validationErrors.phone ? "border-destructive" : ""}
           />
+          {validationErrors.phone && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.phone}</p>
+          )}
         </div>
       </div>
 

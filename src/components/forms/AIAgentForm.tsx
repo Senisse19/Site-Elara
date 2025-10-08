@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { aiAgentFormSchema } from "@/lib/validations/forms";
 
 interface AIAgentFormProps {
   onSuccess: () => void;
@@ -14,6 +15,7 @@ interface AIAgentFormProps {
 const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -87,6 +89,26 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationErrors({});
+    
+    // Validate form data
+    const validation = aiAgentFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      validation.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          errors[error.path[0].toString()] = error.message;
+        }
+      });
+      setValidationErrors(errors);
+      toast({
+        title: "Erro de validação",
+        description: "Por favor, corrija os campos destacados",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -129,10 +151,9 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
 
       onSuccess();
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Por favor, tente novamente.",
+        description: "Ocorreu um erro ao enviar o formulário. Tente novamente.",
         variant: "destructive"
       });
     } finally {
@@ -145,37 +166,49 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       <div className="space-y-4">
         <div>
           <Label htmlFor="fullName">Nome Completo *</Label>
-          <Input
-            id="fullName"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleInputChange}
-            required
-          />
+            <Input
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              required
+              className={validationErrors.fullName ? "border-destructive" : ""}
+            />
+            {validationErrors.fullName && (
+              <p className="text-sm text-destructive mt-1">{validationErrors.fullName}</p>
+            )}
         </div>
 
         <div>
           <Label htmlFor="email">Email *</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className={validationErrors.email ? "border-destructive" : ""}
+            />
+            {validationErrors.email && (
+              <p className="text-sm text-destructive mt-1">{validationErrors.email}</p>
+            )}
         </div>
 
         <div>
           <Label htmlFor="phone">Telefone *</Label>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleInputChange}
-            required
-          />
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              className={validationErrors.phone ? "border-destructive" : ""}
+            />
+            {validationErrors.phone && (
+              <p className="text-sm text-destructive mt-1">{validationErrors.phone}</p>
+            )}
         </div>
       </div>
 

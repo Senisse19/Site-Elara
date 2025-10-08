@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { automationFormSchema } from "@/lib/validations/forms";
 
 interface AutomationFormProps {
   onSuccess: () => void;
@@ -14,6 +15,7 @@ interface AutomationFormProps {
 const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -34,6 +36,26 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationErrors({});
+    
+    // Validate form data
+    const validation = automationFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      validation.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          errors[error.path[0].toString()] = error.message;
+        }
+      });
+      setValidationErrors(errors);
+      toast({
+        title: "Erro de validação",
+        description: "Por favor, corrija os campos destacados",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -75,10 +97,9 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
 
       onSuccess();
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Por favor, tente novamente.",
+        description: "Ocorreu um erro ao enviar o formulário. Tente novamente.",
         variant: "destructive"
       });
     } finally {
@@ -97,7 +118,11 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
+            className={validationErrors.fullName ? "border-destructive" : ""}
           />
+          {validationErrors.fullName && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.fullName}</p>
+          )}
         </div>
 
         <div>
@@ -109,7 +134,11 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
             value={formData.email}
             onChange={handleInputChange}
             required
+            className={validationErrors.email ? "border-destructive" : ""}
           />
+          {validationErrors.email && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.email}</p>
+          )}
         </div>
 
         <div>
@@ -121,7 +150,11 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
             value={formData.phone}
             onChange={handleInputChange}
             required
+            className={validationErrors.phone ? "border-destructive" : ""}
           />
+          {validationErrors.phone && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.phone}</p>
+          )}
         </div>
       </div>
 
@@ -137,7 +170,11 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
             onChange={handleInputChange}
             rows={4}
             required
+            className={validationErrors.currentProcess ? "border-destructive" : ""}
           />
+          {validationErrors.currentProcess && (
+            <p className="text-sm text-destructive mt-1">{validationErrors.currentProcess}</p>
+          )}
         </div>
 
         <div>
