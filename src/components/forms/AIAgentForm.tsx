@@ -30,27 +30,45 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     { 
       value: "receptionist", 
       label: "Agente de Atendimento (Recepcionista)",
-      price: "R$ 1.490/mês"
-    },
-    { 
-      value: "sdr", 
-      label: "Agente SDR (Vendas)",
-      price: "R$ 2.490/mês"
-    },
-    { 
-      value: "internal_assistant", 
-      label: "Assistente Interno de Gestão",
-      price: "R$ 3.490/mês"
+      setup: "R$ 2.500",
+      monthly: "R$ 590/mês",
+      ideal: "Empresas que desejam oferecer respostas rápidas e eficientes a qualquer hora do dia."
     },
     { 
       value: "social_media", 
       label: "Agente Social Media",
-      price: "R$ 1.990/mês"
+      setup: "R$ 3.000",
+      monthly: "R$ 790/mês",
+      ideal: "Negócios que querem manter uma presença online ativa e constante, transformando interações em vendas."
+    },
+    { 
+      value: "sdr", 
+      label: "Agente SDR (Vendas)",
+      setup: "R$ 5.000",
+      monthly: "R$ 790/mês",
+      ideal: "Times de vendas que precisam focar no fechamento de negócios, deixando a qualificação para uma IA eficiente."
     },
     { 
       value: "bdr", 
       label: "Agente BDR (Prospecção Ativa)",
-      price: "R$ 2.990/mês"
+      setup: "R$ 4.500",
+      monthly: "R$ 890/mês",
+      ideal: "Empresas que desejam escalar a geração de leads e não depender apenas de quem chega até elas."
+    },
+    { 
+      value: "internal_assistant", 
+      label: "Assistente Interno de Gestão",
+      setup: "R$ 3.800",
+      monthly: "R$ 790/mês",
+      ideal: "Empresas que buscam aumentar a produtividade interna e reduzir a carga de trabalho manual."
+    },
+    { 
+      value: "combo", 
+      label: "COMBO - Agente de Prospecção e Vendas (BDR + SDR)",
+      setup: "R$ 8.000",
+      monthly: "R$ 1.490/mês",
+      ideal: "Empresas que desejam uma solução completa e integrada para escalar suas vendas de forma automatizada.",
+      isCombo: true
     }
   ];
 
@@ -65,7 +83,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
 
     try {
       const agentInfo = agentTypes.find(t => t.value === formData.agentType);
-      const packagePrice = agentInfo?.price.match(/\d+/)?.[0];
+      const packagePrice = agentInfo?.monthly.match(/\d+/)?.[0];
       
       const { data: leadData, error: leadError } = await supabase
         .from("leads")
@@ -154,21 +172,34 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       </div>
 
       <div className="space-y-4 pt-4 border-t">
-        <h3 className="font-semibold text-lg">Tipo de Agente</h3>
+        <h3 className="font-semibold text-lg">Tipo de Agente *</h3>
         
         <RadioGroup
           value={formData.agentType}
           onValueChange={(value) => setFormData(prev => ({ ...prev, agentType: value }))}
-          className="space-y-3"
+          className="space-y-2"
         >
           {agentTypes.map((type) => (
-            <div key={type.value} className="flex items-start space-x-2 p-3 border rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
-              <div className="flex-1">
-                <Label htmlFor={type.value} className="cursor-pointer font-medium">
-                  {type.label}
-                </Label>
-                <p className="text-sm text-muted-foreground">{type.price}</p>
+            <div key={type.value} className={`p-4 border rounded-lg hover:bg-accent/50 transition-colors ${type.isCombo ? 'border-primary bg-primary/5' : ''}`}>
+              <div className="flex items-start space-x-3">
+                <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
+                <div className="flex-1">
+                  <Label htmlFor={type.value} className="cursor-pointer font-medium text-base flex items-center gap-2">
+                    {type.label}
+                    {type.isCombo && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">MAIS COMPLETO</span>}
+                  </Label>
+                  {formData.agentType === type.value && (
+                    <div className="mt-3 space-y-2 animate-fade-in">
+                      <div className="flex items-center gap-3 text-sm">
+                        <span className="font-semibold text-primary">Setup: {type.setup}</span>
+                        <span className="font-bold text-foreground">{type.monthly}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground italic">
+                        <strong>Ideal para:</strong> {type.ideal}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}

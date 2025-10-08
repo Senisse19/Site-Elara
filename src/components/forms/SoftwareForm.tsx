@@ -29,12 +29,12 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
   });
 
   const projectTypes = [
-    { value: "ecommerce", label: "E-commerce" },
-    { value: "landing_page", label: "Landing Page" },
-    { value: "portfolio", label: "Portfólio Pessoal" },
-    { value: "blog", label: "Blog" },
-    { value: "system", label: "Sistema Personalizado" },
-    { value: "other", label: "Outro" }
+    { value: "landing_page", label: "Landing Page", price: "A partir de R$ 1.200" },
+    { value: "blog", label: "Blog", price: "A partir de R$ 2.500" },
+    { value: "portfolio", label: "Portfólio Pessoal", price: "A partir de R$ 1.800" },
+    { value: "ecommerce", label: "E-commerce", price: "A partir de R$ 8.000" },
+    { value: "system", label: "CRM ou Sistema Personalizado", price: "A partir de R$ 15.000" },
+    { value: "other", label: "Outro", price: "Sob consulta" }
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -146,11 +146,20 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
             className="mt-2 space-y-2"
           >
             {projectTypes.map((type) => (
-              <div key={type.value} className="flex items-center space-x-2">
-                <RadioGroupItem value={type.value} id={type.value} />
-                <Label htmlFor={type.value} className="cursor-pointer font-normal">
-                  {type.label}
-                </Label>
+              <div key={type.value} className="p-3 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <RadioGroupItem value={type.value} id={type.value} />
+                  <div className="flex-1">
+                    <Label htmlFor={type.value} className="cursor-pointer font-medium">
+                      {type.label}
+                    </Label>
+                    {formData.projectType === type.value && (
+                      <p className="text-sm font-semibold text-primary mt-1 animate-fade-in">
+                        {type.price}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </RadioGroup>
