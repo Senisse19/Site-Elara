@@ -202,8 +202,12 @@ const PackagesSection = () => {
             O que nossos clientes dizem
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <Card key={item} className="p-6">
+            {[
+              { img: "/lovable-uploads/client-1.png", name: "Nome do Cliente", role: "Cargo, Empresa" },
+              { img: "/lovable-uploads/client-2.png", name: "Nome do Cliente", role: "Cargo, Empresa" },
+              { img: "/lovable-uploads/client-3.png", name: "Nome do Cliente", role: "Cargo, Empresa" }
+            ].map((item, index) => (
+              <Card key={index} className="p-6">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 fill-primary text-primary" />
@@ -213,10 +217,14 @@ const PackagesSection = () => {
                   "Depoimento do cliente será adicionado aqui após implementação."
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full"></div>
+                  <img 
+                    src={item.img} 
+                    alt={item.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
                   <div>
-                    <p className="font-semibold text-foreground">Nome do Cliente</p>
-                    <p className="text-sm text-muted-foreground">Cargo, Empresa</p>
+                    <p className="font-semibold text-foreground">{item.name}</p>
+                    <p className="text-sm text-muted-foreground">{item.role}</p>
                   </div>
                 </div>
               </Card>
