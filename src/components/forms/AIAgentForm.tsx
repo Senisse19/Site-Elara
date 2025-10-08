@@ -30,43 +30,43 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     {
       value: "receptionist",
       label: "Agente de Atendimento (Recepcionista)",
-      setup: "R$ 2.500",
-      monthly: "R$ 590/mês",
+      setup: "A partir de R$ 2.500",
+      monthly: "A partir de R$ 590/mês",
       ideal: "Empresas que desejam oferecer respostas rápidas e eficientes a qualquer hora do dia."
     },
     {
       value: "social_media",
       label: "Agente Social Media",
-      setup: "R$ 3.000",
-      monthly: "R$ 790/mês",
+      setup: "A partir de R$ 3.000",
+      monthly: "A partir de R$ 790/mês",
       ideal: "Negócios que querem manter uma presença online ativa e constante, transformando interações em vendas."
     },
     {
       value: "sdr",
       label: "Agente SDR (Vendas)",
-      setup: "R$ 5.000",
-      monthly: "R$ 790/mês",
+      setup: "A partir de R$ 5.000",
+      monthly: "A partir de R$ 790/mês",
       ideal: "Times de vendas que precisam focar no fechamento de negócios, deixando a qualificação para uma IA eficiente."
     },
     {
       value: "bdr",
       label: "Agente BDR (Prospecção Ativa)",
-      setup: "R$ 4.500",
-      monthly: "R$ 890/mês",
+      setup: "A partir de R$ 4.500",
+      monthly: "A partir de R$ 890/mês",
       ideal: "Empresas que desejam escalar a geração de leads e não depender apenas de quem chega até elas."
     },
     {
       value: "internal_assistant",
       label: "Assistente Interno de Gestão",
-      setup: "R$ 3.800",
-      monthly: "R$ 790/mês",
+      setup: "A partir de R$ 3.800",
+      monthly: "A partir de R$ 790/mês",
       ideal: "Empresas que buscam aumentar a produtividade interna e reduzir a carga de trabalho manual."
     },
     {
       value: "combo_bdr_sdr",
       label: "COMBO - Agente de Prospecção e Vendas (BDR + SDR)",
-      setup: "R$ 8.000",
-      monthly: "R$ 1.490/mês",
+      setup: "A partir de R$ 8.000",
+      monthly: "A partir de R$ 1.490/mês",
       ideal: "Empresas que desejam escalar a geração de leads de forma automatizada e personalizada.",
       isCombo: true
     },
