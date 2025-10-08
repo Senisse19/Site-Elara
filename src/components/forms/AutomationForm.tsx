@@ -59,36 +59,25 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
     setIsSubmitting(true);
 
     try {
-      // Inserir lead principal
-      const { data: leadData, error: leadError } = await supabase
-        .from("leads")
+      const { error: leadError } = await supabase
+        .from("leads_central")
         .insert({
-          full_name: formData.fullName,
+          name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          package_type: "automation",
-          package_name: "Automação de Processos",
-          additional_info: formData.additionalInfo
-        })
-        .select()
-        .single();
-
-      if (leadError) throw leadError;
-
-      // Inserir detalhes específicos
-      const { error: detailsError } = await supabase
-        .from("automation_leads")
-        .insert({
-          lead_id: leadData.id,
-          current_process: formData.currentProcess,
-          systems_used: formData.systemsUsed,
-          process_frequency: formData.processFrequency,
-          pain_points: formData.painPoints,
-          expected_results: formData.expectedResults,
-          has_data_integration: formData.hasDataIntegration
+          source: "automacao",
+          details: {
+            current_process: formData.currentProcess,
+            systems_used: formData.systemsUsed,
+            process_frequency: formData.processFrequency,
+            pain_points: formData.painPoints,
+            expected_results: formData.expectedResults,
+            has_data_integration: formData.hasDataIntegration,
+            additional_info: formData.additionalInfo
+          }
         });
 
-      if (detailsError) throw detailsError;
+      if (leadError) throw leadError;
 
       toast({
         title: "Solicitação enviada!",

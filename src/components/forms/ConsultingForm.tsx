@@ -74,33 +74,25 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
     try {
       const consultingLabel = consultingTypes.find(t => t.value === formData.consultingType)?.label;
       
-      const { data: leadData, error: leadError } = await supabase
-        .from("leads")
+      const { error: leadError } = await supabase
+        .from("leads_central")
         .insert({
-          full_name: formData.fullName,
+          name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          package_type: "consulting",
-          package_name: `Consultoria - ${consultingLabel}`,
-          additional_info: formData.additionalInfo
-        })
-        .select()
-        .single();
-
-      if (leadError) throw leadError;
-
-      const { error: detailsError } = await supabase
-        .from("consulting_leads")
-        .insert({
-          lead_id: leadData.id,
-          consulting_type: formData.consultingType,
-          company_size: formData.companySize,
-          current_challenges: formData.currentChallenges,
-          goals: formData.goals,
-          timeline: formData.timeline
+          source: "consultoria",
+          details: {
+            consulting_type: formData.consultingType,
+            consulting_label: consultingLabel,
+            company_size: formData.companySize,
+            current_challenges: formData.currentChallenges,
+            goals: formData.goals,
+            timeline: formData.timeline,
+            additional_info: formData.additionalInfo
+          }
         });
 
-      if (detailsError) throw detailsError;
+      if (leadError) throw leadError;
 
       toast({
         title: "Solicitação enviada!",

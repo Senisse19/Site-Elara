@@ -113,36 +113,28 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
 
     try {
       const agentInfo = agentTypes.find(t => t.value === formData.agentType);
-      const packagePrice = agentInfo?.monthly.match(/\d+/)?.[0];
       
-      const { data: leadData, error: leadError } = await supabase
-        .from("leads")
+      const { error: leadError } = await supabase
+        .from("leads_central")
         .insert({
-          full_name: formData.fullName,
+          name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          package_type: "ai_agent",
-          package_name: agentInfo?.label || formData.agentType,
-          package_price: packagePrice ? parseInt(packagePrice) : null,
-          additional_info: formData.additionalInfo
-        })
-        .select()
-        .single();
-
-      if (leadError) throw leadError;
-
-      const { error: detailsError } = await supabase
-        .from("ai_agent_leads")
-        .insert({
-          lead_id: leadData.id,
-          agent_type: formData.agentType,
-          current_solution: formData.currentSolution,
-          monthly_volume: formData.monthlyVolume,
-          integration_platforms: formData.integrationPlatforms,
-          custom_requirements: formData.customRequirements
+          source: "agente_ia",
+          details: {
+            agent_type: formData.agentType,
+            agent_label: agentInfo?.label,
+            agent_setup: agentInfo?.setup,
+            agent_monthly: agentInfo?.monthly,
+            current_solution: formData.currentSolution,
+            monthly_volume: formData.monthlyVolume,
+            integration_platforms: formData.integrationPlatforms,
+            custom_requirements: formData.customRequirements,
+            additional_info: formData.additionalInfo
+          }
         });
 
-      if (detailsError) throw detailsError;
+      if (leadError) throw leadError;
 
       toast({
         title: "Solicitação enviada!",

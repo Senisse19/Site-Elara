@@ -70,35 +70,29 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
 
     try {
       const projectTypeLabel = projectTypes.find(t => t.value === formData.projectType)?.label || formData.projectType;
+      const projectTypePrice = projectTypes.find(t => t.value === formData.projectType)?.price;
       
-      const { data: leadData, error: leadError } = await supabase
-        .from("leads")
+      const { error: leadError } = await supabase
+        .from("leads_central")
         .insert({
-          full_name: formData.fullName,
+          name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          package_type: "software",
-          package_name: `Desenvolvimento - ${projectTypeLabel}`,
-          additional_info: formData.additionalInfo
-        })
-        .select()
-        .single();
-
-      if (leadError) throw leadError;
-
-      const { error: detailsError } = await supabase
-        .from("software_leads")
-        .insert({
-          lead_id: leadData.id,
-          project_type: formData.projectType,
-          has_design: formData.hasDesign,
-          design_reference: formData.designReference,
-          required_features: formData.requiredFeatures,
-          integrations_needed: formData.integrationsNeeded,
-          timeline: formData.timeline
+          source: "software",
+          details: {
+            project_type: formData.projectType,
+            project_label: projectTypeLabel,
+            project_price: projectTypePrice,
+            has_design: formData.hasDesign,
+            design_reference: formData.designReference,
+            required_features: formData.requiredFeatures,
+            integrations_needed: formData.integrationsNeeded,
+            timeline: formData.timeline,
+            additional_info: formData.additionalInfo
+          }
         });
 
-      if (detailsError) throw detailsError;
+      if (leadError) throw leadError;
 
       toast({
         title: "Solicitação enviada!",
