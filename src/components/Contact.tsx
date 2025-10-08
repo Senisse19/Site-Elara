@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock, Linkedin, Instagram } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
-  const navigate = useNavigate();
   const { elementRef: sectionRef, isVisible } = useScrollAnimation();
 
   const contactInfo = [
@@ -79,7 +76,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="max-w-2xl mx-auto">
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
@@ -136,40 +133,6 @@ const Contact = () => {
                 Respondo todas as mensagens em até 24 horas. Para projetos urgentes, 
                 entre em contato diretamente por telefone.
               </p>
-            </Card>
-          </div>
-
-          {/* Onboarding Card */}
-          <div className="lg:col-span-2">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="text-2xl">Vamos Começar Sua Transformação Digital!</CardTitle>
-                <CardDescription>
-                  Inicie o processo de onboarding para entendermos suas necessidades específicas e criarmos a solução perfeita para seu negócio.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="text-center mb-8">
-                  <h3 className="text-xl font-semibold mb-4">
-                    Pronto para revolucionar seu negócio com IA e automação?
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Nosso formulário de onboarding personalizado nos ajudará a entender suas necessidades específicas e criar uma proposta sob medida.
-                  </p>
-                </div>
-                
-                <Button 
-                  onClick={() => navigate('/onboarding')}
-                  className="w-full max-w-md py-6 text-lg" 
-                  size="lg"
-                >
-                  Iniciar Onboarding
-                </Button>
-                
-                <p className="text-sm text-muted-foreground mt-4 text-center">
-                  O processo leva apenas alguns minutos e nos permite criar uma solução verdadeiramente personalizada para você.
-                </p>
-              </CardContent>
             </Card>
           </div>
         </div>
