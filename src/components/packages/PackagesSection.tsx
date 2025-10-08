@@ -203,9 +203,24 @@ const PackagesSection = () => {
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { img: "/lovable-uploads/client-1.png", name: "Nome do Cliente", role: "Cargo, Empresa" },
-              { img: "/lovable-uploads/client-2.png", name: "Nome do Cliente", role: "Cargo, Empresa" },
-              { img: "/lovable-uploads/client-3.png", name: "Nome do Cliente", role: "Cargo, Empresa" }
+              { 
+                img: "/lovable-uploads/client-1.png", 
+                name: "Gabriel Branchi", 
+                role: "Gestor de Tráfego",
+                testimonial: "A automação de gestão de tráfego mudou completamente minha rotina! Antes eu passava horas ajustando campanhas manualmente. Agora, o sistema monitora performance em tempo real, otimiza lances automaticamente e me alerta apenas quando preciso tomar decisões estratégicas. Consegui escalar minhas operações sem precisar contratar mais pessoas, e o ROI dos meus clientes aumentou em média 35%."
+              },
+              { 
+                img: "/lovable-uploads/client-2.png", 
+                name: "Maurício Caetano", 
+                role: "Editor de Vídeos",
+                testimonial: "O agente de Social Media foi um divisor de águas! Como editor, eu sempre tive dificuldade com a parte estratégica e criação de legendas. Agora ele gera ideias criativas de conteúdo, cria variações de copy, sugere hashtags relevantes e até adapta o tom de voz para cada plataforma. Minha produtividade triplicou e consigo entregar conteúdo muito mais estratégico para meus clientes."
+              },
+              { 
+                img: "/lovable-uploads/client-3.png", 
+                name: "Ana Carolina Tavares", 
+                role: "Estrategista Digital e Social Media",
+                testimonial: "Trabalhar com os agentes de IA revolucionou minha agência! O agente de Social Media cria calendários de conteúdo completos alinhados com as estratégias dos clientes, enquanto o agente de prospecção ativa busca leads qualificados no Google Maps e agenda reuniões automaticamente. Consegui aumentar minha carteira em 60% no último trimestre sem aumentar minha equipe. É como ter dois colaboradores especialistas trabalhando 24/7!"
+              }
             ].map((item, index) => (
               <Card key={index} className="p-6">
                 <div className="flex items-center gap-1 mb-4">
@@ -214,7 +229,7 @@ const PackagesSection = () => {
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-4 italic">
-                  "Depoimento do cliente será adicionado aqui após implementação."
+                  "{item.testimonial}"
                 </p>
                 <div className="flex items-center gap-3">
                   <img 
