@@ -222,16 +222,16 @@ const PackagesSection = () => {
                 testimonial: "Trabalhar com os agentes de IA revolucionou minha agência! O agente de Social Media cria calendários de conteúdo completos alinhados com as estratégias dos clientes, enquanto o agente de prospecção ativa busca leads qualificados no Google Maps e agenda reuniões automaticamente. Consegui aumentar minha carteira em 60% no último trimestre sem aumentar minha equipe. É como ter dois colaboradores especialistas trabalhando 24/7!"
               }
             ].map((item, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className="p-6 flex flex-col h-full">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-4 italic">
+                <p className="text-muted-foreground mb-6 italic flex-grow">
                   "{item.testimonial}"
                 </p>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mt-auto">
                   <img 
                     src={item.img} 
                     alt={item.name}
