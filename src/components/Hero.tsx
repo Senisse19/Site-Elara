@@ -41,7 +41,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg"
-                onClick={() => scrollToSection("servicos")}
+                onClick={() => scrollToSection("pacotes")}
                 className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
               >
                 Conheça nossos Pacotes
