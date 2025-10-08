@@ -170,7 +170,7 @@ const PackagesSection = () => {
                 onClick={() => handleOpenForm(pkg.id)}
                 className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto"
               >
-                {pkg.id === 'ai_agent' ? 'Monte seu Agente' : pkg.id === 'software' ? 'Orçar meu Projeto' : 'Solicitar Orçamento'}
+                Solicitar Orçamento
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Card>
