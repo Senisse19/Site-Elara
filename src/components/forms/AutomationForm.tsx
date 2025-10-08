@@ -1,0 +1,223 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AutomationFormProps {
+  onSuccess: () => void;
+}
+
+const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    currentProcess: "",
+    systemsUsed: "",
+    processFrequency: "",
+    painPoints: "",
+    expectedResults: "",
+    hasDataIntegration: false,
+    additionalInfo: ""
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Inserir lead principal
+      const { data: leadData, error: leadError } = await supabase
+        .from("leads")
+        .insert({
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          package_type: "automation",
+          package_name: "Automação de Processos",
+          additional_info: formData.additionalInfo
+        })
+        .select()
+        .single();
+
+      if (leadError) throw leadError;
+
+      // Inserir detalhes específicos
+      const { error: detailsError } = await supabase
+        .from("automation_leads")
+        .insert({
+          lead_id: leadData.id,
+          current_process: formData.currentProcess,
+          systems_used: formData.systemsUsed,
+          process_frequency: formData.processFrequency,
+          pain_points: formData.painPoints,
+          expected_results: formData.expectedResults,
+          has_data_integration: formData.hasDataIntegration
+        });
+
+      if (detailsError) throw detailsError;
+
+      toast({
+        title: "Solicitação enviada!",
+        description: "Entraremos em contato em breve para discutir seu projeto.",
+      });
+
+      onSuccess();
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Por favor, tente novamente.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-4">
+        <div>
+          <Label htmlFor="fullName">Nome Completo *</Label>
+          <Input
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="email">Email *</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="phone">Telefone *</Label>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="space-y-4 pt-4 border-t">
+        <h3 className="font-semibold text-lg">Detalhes do Processo</h3>
+        
+        <div>
+          <Label htmlFor="currentProcess">Descreva o processo atual que deseja automatizar *</Label>
+          <Textarea
+            id="currentProcess"
+            name="currentProcess"
+            value={formData.currentProcess}
+            onChange={handleInputChange}
+            rows={4}
+            required
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="systemsUsed">Quais sistemas/ferramentas você utiliza atualmente?</Label>
+          <Input
+            id="systemsUsed"
+            name="systemsUsed"
+            value={formData.systemsUsed}
+            onChange={handleInputChange}
+            placeholder="Ex: Excel, SAP, CRM, etc."
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="processFrequency">Com que frequência este processo é executado?</Label>
+          <Input
+            id="processFrequency"
+            name="processFrequency"
+            value={formData.processFrequency}
+            onChange={handleInputChange}
+            placeholder="Ex: Diariamente, semanalmente..."
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="painPoints">Quais são os principais problemas/gargalos?</Label>
+          <Textarea
+            id="painPoints"
+            name="painPoints"
+            value={formData.painPoints}
+            onChange={handleInputChange}
+            rows={3}
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="expectedResults">Quais resultados você espera com a automação?</Label>
+          <Textarea
+            id="expectedResults"
+            name="expectedResults"
+            value={formData.expectedResults}
+            onChange={handleInputChange}
+            rows={3}
+          />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="hasDataIntegration"
+            checked={formData.hasDataIntegration}
+            onCheckedChange={(checked) => 
+              setFormData(prev => ({ ...prev, hasDataIntegration: checked as boolean }))
+            }
+          />
+          <Label htmlFor="hasDataIntegration" className="cursor-pointer">
+            Necessita integração com outros sistemas/dados
+          </Label>
+        </div>
+
+        <div>
+          <Label htmlFor="additionalInfo">Informações Adicionais</Label>
+          <Textarea
+            id="additionalInfo"
+            name="additionalInfo"
+            value={formData.additionalInfo}
+            onChange={handleInputChange}
+            rows={3}
+          />
+        </div>
+      </div>
+
+      <Button 
+        type="submit" 
+        className="w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Enviando..." : "Solicitar Orçamento"}
+      </Button>
+    </form>
+  );
+};
+
+export default AutomationForm;

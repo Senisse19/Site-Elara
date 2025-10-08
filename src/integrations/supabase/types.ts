@@ -14,254 +14,211 @@ export type Database = {
   }
   public: {
     Tables: {
-      onboarding_ai_infrastructure: {
+      ai_agent_leads: {
         Row: {
-          ai_objectives: string
-          ai_solution_type: string[] | null
-          compliance_requirements: string | null
-          computational_resources: string | null
+          agent_type: string
           created_at: string
-          data_sources: string | null
-          data_volume_description: string | null
-          deployment_timeline: string | null
-          expected_accuracy: string | null
+          current_solution: string | null
+          custom_requirements: string | null
           id: string
-          infrastructure_requirements: string | null
-          onboarding_general_id: string | null
-          system_integrations: string | null
-          updated_at: string
+          integration_platforms: string | null
+          lead_id: string
+          monthly_volume: string | null
         }
         Insert: {
-          ai_objectives: string
-          ai_solution_type?: string[] | null
-          compliance_requirements?: string | null
-          computational_resources?: string | null
+          agent_type: string
           created_at?: string
-          data_sources?: string | null
-          data_volume_description?: string | null
-          deployment_timeline?: string | null
-          expected_accuracy?: string | null
+          current_solution?: string | null
+          custom_requirements?: string | null
           id?: string
-          infrastructure_requirements?: string | null
-          onboarding_general_id?: string | null
-          system_integrations?: string | null
-          updated_at?: string
+          integration_platforms?: string | null
+          lead_id: string
+          monthly_volume?: string | null
         }
         Update: {
-          ai_objectives?: string
-          ai_solution_type?: string[] | null
-          compliance_requirements?: string | null
-          computational_resources?: string | null
+          agent_type?: string
           created_at?: string
-          data_sources?: string | null
-          data_volume_description?: string | null
-          deployment_timeline?: string | null
-          expected_accuracy?: string | null
+          current_solution?: string | null
+          custom_requirements?: string | null
           id?: string
-          infrastructure_requirements?: string | null
-          onboarding_general_id?: string | null
-          system_integrations?: string | null
-          updated_at?: string
+          integration_platforms?: string | null
+          lead_id?: string
+          monthly_volume?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_leads_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      onboarding_automation: {
+      automation_leads: {
         Row: {
-          bottlenecks_description: string | null
           created_at: string
-          current_process_description: string
-          expected_output: string | null
+          current_process: string
+          expected_results: string | null
+          has_data_integration: boolean | null
           id: string
-          input_data_description: string | null
-          onboarding_general_id: string | null
+          lead_id: string
+          pain_points: string | null
           process_frequency: string | null
-          process_name: string
-          systems_used: string[] | null
-          updated_at: string
+          systems_used: string | null
         }
         Insert: {
-          bottlenecks_description?: string | null
           created_at?: string
-          current_process_description: string
-          expected_output?: string | null
+          current_process: string
+          expected_results?: string | null
+          has_data_integration?: boolean | null
           id?: string
-          input_data_description?: string | null
-          onboarding_general_id?: string | null
+          lead_id: string
+          pain_points?: string | null
           process_frequency?: string | null
-          process_name: string
-          systems_used?: string[] | null
-          updated_at?: string
+          systems_used?: string | null
         }
         Update: {
-          bottlenecks_description?: string | null
           created_at?: string
-          current_process_description?: string
-          expected_output?: string | null
+          current_process?: string
+          expected_results?: string | null
+          has_data_integration?: boolean | null
           id?: string
-          input_data_description?: string | null
-          onboarding_general_id?: string | null
+          lead_id?: string
+          pain_points?: string | null
           process_frequency?: string | null
-          process_name?: string
-          systems_used?: string[] | null
-          updated_at?: string
+          systems_used?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "onboarding_automation_onboarding_general_id_fkey"
-            columns: ["onboarding_general_id"]
+            foreignKeyName: "automation_leads_lead_id_fkey"
+            columns: ["lead_id"]
             isOneToOne: false
-            referencedRelation: "onboarding_general"
+            referencedRelation: "leads"
             referencedColumns: ["id"]
           },
         ]
       }
-      onboarding_chatbot: {
+      consulting_leads: {
         Row: {
+          company_size: string | null
+          consulting_type: string
           created_at: string
-          frequent_questions: string | null
-          human_transfer_criteria: string | null
+          current_challenges: string | null
+          goals: string | null
           id: string
-          main_functions: string[] | null
-          onboarding_general_id: string | null
-          personality_description: string | null
-          platforms: string[] | null
-          system_integrations: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          frequent_questions?: string | null
-          human_transfer_criteria?: string | null
-          id?: string
-          main_functions?: string[] | null
-          onboarding_general_id?: string | null
-          personality_description?: string | null
-          platforms?: string[] | null
-          system_integrations?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          frequent_questions?: string | null
-          human_transfer_criteria?: string | null
-          id?: string
-          main_functions?: string[] | null
-          onboarding_general_id?: string | null
-          personality_description?: string | null
-          platforms?: string[] | null
-          system_integrations?: string | null
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "onboarding_chatbot_onboarding_general_id_fkey"
-            columns: ["onboarding_general_id"]
-            isOneToOne: false
-            referencedRelation: "onboarding_general"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      onboarding_general: {
-        Row: {
-          budget_range: string | null
-          challenge_description: string
-          company_name: string | null
-          company_website: string | null
-          created_at: string
-          email: string
-          expected_result: string | null
-          full_name: string
-          id: string
-          job_title: string | null
-          phone: string | null
-          service_interest: string
-          status: string | null
+          lead_id: string
           timeline: string | null
+        }
+        Insert: {
+          company_size?: string | null
+          consulting_type: string
+          created_at?: string
+          current_challenges?: string | null
+          goals?: string | null
+          id?: string
+          lead_id: string
+          timeline?: string | null
+        }
+        Update: {
+          company_size?: string | null
+          consulting_type?: string
+          created_at?: string
+          current_challenges?: string | null
+          goals?: string | null
+          id?: string
+          lead_id?: string
+          timeline?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consulting_leads_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          additional_info: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          package_name: string
+          package_price: number | null
+          package_type: string
+          phone: string
           updated_at: string
         }
         Insert: {
-          budget_range?: string | null
-          challenge_description: string
-          company_name?: string | null
-          company_website?: string | null
+          additional_info?: string | null
           created_at?: string
           email: string
-          expected_result?: string | null
           full_name: string
           id?: string
-          job_title?: string | null
-          phone?: string | null
-          service_interest: string
-          status?: string | null
-          timeline?: string | null
+          package_name: string
+          package_price?: number | null
+          package_type: string
+          phone: string
           updated_at?: string
         }
         Update: {
-          budget_range?: string | null
-          challenge_description?: string
-          company_name?: string | null
-          company_website?: string | null
+          additional_info?: string | null
           created_at?: string
           email?: string
-          expected_result?: string | null
           full_name?: string
           id?: string
-          job_title?: string | null
-          phone?: string | null
-          service_interest?: string
-          status?: string | null
-          timeline?: string | null
+          package_name?: string
+          package_price?: number | null
+          package_type?: string
+          phone?: string
           updated_at?: string
         }
         Relationships: []
       }
-      onboarding_website: {
+      software_leads: {
         Row: {
-          admired_websites: string | null
-          brand_identity_status: string | null
-          brand_keywords: string | null
-          content_readiness: string | null
           created_at: string
-          desired_pages: string[] | null
-          disliked_elements: string | null
+          design_reference: string | null
+          has_design: boolean | null
           id: string
-          main_call_to_action: string
-          onboarding_general_id: string | null
-          updated_at: string
+          integrations_needed: string | null
+          lead_id: string
+          project_type: string
+          required_features: string | null
+          timeline: string | null
         }
         Insert: {
-          admired_websites?: string | null
-          brand_identity_status?: string | null
-          brand_keywords?: string | null
-          content_readiness?: string | null
           created_at?: string
-          desired_pages?: string[] | null
-          disliked_elements?: string | null
+          design_reference?: string | null
+          has_design?: boolean | null
           id?: string
-          main_call_to_action: string
-          onboarding_general_id?: string | null
-          updated_at?: string
+          integrations_needed?: string | null
+          lead_id: string
+          project_type: string
+          required_features?: string | null
+          timeline?: string | null
         }
         Update: {
-          admired_websites?: string | null
-          brand_identity_status?: string | null
-          brand_keywords?: string | null
-          content_readiness?: string | null
           created_at?: string
-          desired_pages?: string[] | null
-          disliked_elements?: string | null
+          design_reference?: string | null
+          has_design?: boolean | null
           id?: string
-          main_call_to_action?: string
-          onboarding_general_id?: string | null
-          updated_at?: string
+          integrations_needed?: string | null
+          lead_id?: string
+          project_type?: string
+          required_features?: string | null
+          timeline?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "onboarding_website_onboarding_general_id_fkey"
-            columns: ["onboarding_general_id"]
+            foreignKeyName: "software_leads_lead_id_fkey"
+            columns: ["lead_id"]
             isOneToOne: false
-            referencedRelation: "onboarding_general"
+            referencedRelation: "leads"
             referencedColumns: ["id"]
           },
         ]
