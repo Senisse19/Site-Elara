@@ -39,7 +39,7 @@ const Header = () => {
   const navItems = [
     { id: "inicio", label: "Início" },
     { id: "sobre", label: "Sobre Mim" },
-    { id: "servicos", label: "O que Eu Faço" },
+    { id: "servicos", label: "Preços" },
     { id: "contato", label: "Contato" },
   ];
 
@@ -53,7 +53,7 @@ const Header = () => {
             Victor Senisse
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center space-x-8">
             {navItems.map((item) => (
               <Button
                 key={item.id}
@@ -67,13 +67,6 @@ const Header = () => {
               </Button>
             ))}
           </div>
-          
-          <Button 
-            onClick={() => scrollToSection("contato")}
-            className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
-          >
-            Solicitar Orçamento
-          </Button>
         </div>
       </nav>
     </header>
