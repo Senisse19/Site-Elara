@@ -195,41 +195,6 @@ const PackagesSection = () => {
           </div>
         </div>
 
-        {/* Seção de Integração CRM */}
-        <Card className="p-8 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20 mb-20">
-          <div className="flex flex-col md:flex-row items-start gap-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full flex-shrink-0">
-              <Zap className="h-8 w-8 text-primary" />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-3">
-                Potencialize seus Agentes com Integração ao seu CRM
-              </h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Conecte seus Agentes de IA diretamente ao seu sistema de CRM (Pipedrive, RD Station, etc.). 
-                Centralize todas as informações, atualize dados de clientes automaticamente e tenha uma visão 360º 
-                da sua operação de vendas e atendimento.
-              </p>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <span className="text-xl font-bold text-primary">
-                  Soluções de integração a partir de R$ 2.000 (Setup)
-                </span>
-                <Button 
-                  onClick={() => {
-                    const contactElement = document.getElementById('contato');
-                    if (contactElement) {
-                      contactElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all"
-                >
-                  Consultar Integração
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Card>
 
         {/* Seção Prova Social */}
         <div className="my-20">

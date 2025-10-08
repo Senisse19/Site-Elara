@@ -27,48 +27,56 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
   });
 
   const agentTypes = [
-    { 
-      value: "receptionist", 
+    {
+      value: "receptionist",
       label: "Agente de Atendimento (Recepcionista)",
       setup: "R$ 2.500",
       monthly: "R$ 590/mês",
       ideal: "Empresas que desejam oferecer respostas rápidas e eficientes a qualquer hora do dia."
     },
-    { 
-      value: "social_media", 
+    {
+      value: "social_media",
       label: "Agente Social Media",
       setup: "R$ 3.000",
       monthly: "R$ 790/mês",
       ideal: "Negócios que querem manter uma presença online ativa e constante, transformando interações em vendas."
     },
-    { 
-      value: "sdr", 
+    {
+      value: "sdr",
       label: "Agente SDR (Vendas)",
       setup: "R$ 5.000",
       monthly: "R$ 790/mês",
       ideal: "Times de vendas que precisam focar no fechamento de negócios, deixando a qualificação para uma IA eficiente."
     },
-    { 
-      value: "bdr", 
+    {
+      value: "bdr",
       label: "Agente BDR (Prospecção Ativa)",
       setup: "R$ 4.500",
       monthly: "R$ 890/mês",
       ideal: "Empresas que desejam escalar a geração de leads e não depender apenas de quem chega até elas."
     },
-    { 
-      value: "internal_assistant", 
+    {
+      value: "internal_assistant",
       label: "Assistente Interno de Gestão",
       setup: "R$ 3.800",
       monthly: "R$ 790/mês",
       ideal: "Empresas que buscam aumentar a produtividade interna e reduzir a carga de trabalho manual."
     },
-    { 
-      value: "combo", 
+    {
+      value: "combo_bdr_sdr",
       label: "COMBO - Agente de Prospecção e Vendas (BDR + SDR)",
       setup: "R$ 8.000",
       monthly: "R$ 1.490/mês",
-      ideal: "Empresas que desejam uma solução completa e integrada para escalar suas vendas de forma automatizada.",
+      ideal: "Empresas que desejam escalar a geração de leads de forma automatizada e personalizada.",
       isCombo: true
+    },
+    {
+      value: "crm_integration",
+      label: "Integração com CRM",
+      setup: "A partir de R$ 2.000",
+      monthly: "",
+      ideal: "Conecte seus Agentes de IA diretamente ao seu sistema de CRM (Pipedrive, RD Station, etc.). Centralize todas as informações, atualize dados de clientes automaticamente e tenha uma visão 360º da sua operação de vendas e atendimento.",
+      isExtra: true
     }
   ];
 
@@ -179,23 +187,33 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
           onValueChange={(value) => setFormData(prev => ({ ...prev, agentType: value }))}
           className="space-y-2"
         >
-          {agentTypes.map((type) => (
-            <div key={type.value} className={`p-4 border rounded-lg hover:bg-accent/50 transition-colors ${type.isCombo ? 'border-primary bg-primary/5' : ''}`}>
+          {agentTypes.map((agent) => (
+            <div 
+              key={agent.value} 
+              className={`p-4 border rounded-lg hover:bg-accent/50 transition-colors ${
+                agent.isCombo ? 'border-primary bg-primary/5' : ''
+              } ${
+                agent.isExtra ? 'border-primary/30 bg-gradient-to-r from-primary/10 to-primary/5' : ''
+              }`}
+            >
               <div className="flex items-start space-x-3">
-                <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
+                <RadioGroupItem value={agent.value} id={agent.value} className="mt-1" />
                 <div className="flex-1">
-                  <Label htmlFor={type.value} className="cursor-pointer font-medium text-base flex items-center gap-2">
-                    {type.label}
-                    {type.isCombo && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">MAIS COMPLETO</span>}
+                  <Label htmlFor={agent.value} className="cursor-pointer font-medium text-base flex items-center gap-2">
+                    {agent.label}
+                    {agent.isCombo && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">MAIS COMPLETO</span>}
+                    {agent.isExtra && <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>}
                   </Label>
-                  {formData.agentType === type.value && (
+                  {formData.agentType === agent.value && (
                     <div className="mt-3 space-y-2 animate-fade-in">
                       <div className="flex items-center gap-3 text-sm">
-                        <span className="font-semibold text-primary">Setup: {type.setup}</span>
-                        <span className="font-bold text-foreground">{type.monthly}</span>
+                        <span className="font-semibold text-primary">
+                          {agent.isExtra ? 'Valor:' : 'Setup:'} {agent.setup}
+                        </span>
+                        {agent.monthly && <span className="font-bold text-foreground">{agent.monthly}</span>}
                       </div>
                       <p className="text-sm text-muted-foreground italic">
-                        <strong>Ideal para:</strong> {type.ideal}
+                        <strong>Ideal para:</strong> {agent.ideal}
                       </p>
                     </div>
                   )}
