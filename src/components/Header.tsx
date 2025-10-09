@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState("inicio");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +36,7 @@ const Header = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
     }
   };
 
@@ -69,21 +73,29 @@ const Header = () => {
           </div>
 
           {/* Mobile menu */}
-          <div className="flex md:hidden items-center space-x-2">
-            {navItems.map((item) => (
-              <Button
-                key={item.id}
-                variant="ghost"
-                size="sm"
-                onClick={() => scrollToSection(item.id)}
-                className={`text-xs px-2 py-1 transition-colors hover:text-primary ${
-                  activeSection === item.id ? "text-primary" : "text-muted-foreground"
-                }`}
-              >
-                {item.label}
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
               </Button>
-            ))}
-          </div>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-64">
+              <nav className="flex flex-col space-y-4 mt-8">
+                {navItems.map((item) => (
+                  <Button
+                    key={item.id}
+                    variant="ghost"
+                    onClick={() => scrollToSection(item.id)}
+                    className={`justify-start text-base transition-colors hover:text-primary ${
+                      activeSection === item.id ? "text-primary font-semibold" : "text-muted-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </nav>
     </header>
