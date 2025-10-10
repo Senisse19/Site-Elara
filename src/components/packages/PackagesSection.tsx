@@ -162,7 +162,7 @@ const PackagesSection = () => {
                   </div>
                   {pkg.hasMonthlyMaintenance && (
                     <p className="text-xs text-muted-foreground">
-                      + Assinatura Mensal
+                      + Gestão e Manutenção Contínua
                     </p>
                   )}
                 </div>
