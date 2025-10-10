@@ -120,8 +120,8 @@ const PackagesSection = () => {
   };
 
   return (
-    <section id="pacotes" className="py-12 md:py-20 bg-section-gradient overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+    <section id="pacotes" className="py-12 md:py-20 bg-section-gradient overflow-hidden w-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div 
           ref={titleRef}
           className={`text-center mb-12 md:mb-16 transition-all duration-700 ${
@@ -136,32 +136,32 @@ const PackagesSection = () => {
           </p>
         </div>
 
-        <div ref={packagesRef} className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+        <div ref={packagesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 mb-12 md:mb-16 w-full">
           {packages.map((pkg, index) => (
             <Card 
               key={pkg.id} 
-              className={`p-6 md:p-8 hover:shadow-glow transition-all duration-500 group flex flex-col w-full ${
+              className={`p-5 lg:p-6 hover:shadow-glow transition-all duration-500 group flex flex-col w-full min-w-0 ${
                 visibleItems.includes(index) 
                   ? 'animate-fade-in animate-scale-in' 
                   : 'opacity-0 translate-y-10 scale-95'
               } ${pkg.isSpecial ? 'border-primary border-2' : ''}`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-primary/10 rounded-full mb-4 md:mb-6 group-hover:bg-primary/20 transition-colors">
-                <pkg.icon className="h-7 w-7 md:h-8 md:w-8 text-primary" />
+              <div className="inline-flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                <pkg.icon className="h-6 w-6 lg:h-7 lg:w-7 text-primary" />
               </div>
               
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3 leading-tight">
+              <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-3 leading-tight">
                 {pkg.title}
               </h3>
               
-              <p className="text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-sm lg:text-base text-muted-foreground mb-4 leading-relaxed">
                 {pkg.description}
               </p>
 
               {pkg.price && (
-                <div className="mb-6">
-                  <div className="text-primary font-bold text-xl mb-1">
+                <div className="mb-4">
+                  <div className="text-primary font-bold text-lg lg:text-xl mb-1">
                     {pkg.price}
                   </div>
                   {pkg.hasMonthlyMaintenance && (
@@ -172,21 +172,21 @@ const PackagesSection = () => {
                 </div>
               )}
               
-              <ul className="space-y-3 mb-6 flex-grow">
+              <ul className="space-y-2 mb-4 flex-grow">
                 {pkg.features.slice(0, 3).map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
-                    <Check className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                    <span>{feature}</span>
+                  <li key={featureIndex} className="flex items-start text-xs lg:text-sm text-muted-foreground">
+                    <Check className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="break-words">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <Button 
                 onClick={() => handleOpenForm(pkg.id)}
-                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto"
+                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto text-xs lg:text-sm"
               >
-                {pkg.buttonText}
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <span className="truncate">{pkg.buttonText}</span>
+                <ArrowRight className="ml-2 h-4 w-4 flex-shrink-0" />
               </Button>
             </Card>
           ))}
