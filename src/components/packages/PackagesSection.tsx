@@ -35,6 +35,7 @@ const PackagesSection = () => {
       title: "Otimize sua Empresa: Automação de Processos",
       description: "Automatize tarefas repetitivas e aumente a eficiência operacional com ou sem IA.",
       price: "A partir de R$ 2.800",
+      hasMonthlyMaintenance: true,
       features: [
         "Análise detalhada do processo atual",
         "Desenvolvimento de solução personalizada",
@@ -47,6 +48,7 @@ const PackagesSection = () => {
       title: "Sua Empresa no Digital: Sites e Sistemas Sob Medida",
       description: "Sites, landing pages, e-commerce e sistemas personalizados para seu negócio.",
       price: "",
+      hasMonthlyMaintenance: true,
       features: [
         "Design profissional e responsivo",
         "Integração com ferramentas existentes",
@@ -58,7 +60,8 @@ const PackagesSection = () => {
       icon: Bot,
       title: "Inteligência Artificial a seu Favor: Agentes Autônomos",
       description: "Agentes inteligentes para automatizar atendimento, vendas e gestão.",
-      price: "A partir de R$ 590/mês",
+      price: "",
+      hasMonthlyMaintenance: true,
       features: [
         "Disponíveis 24/7 sem pausas",
         "Integração com WhatsApp, Instagram e CRM",
@@ -72,6 +75,7 @@ const PackagesSection = () => {
       title: "Estratégia e Direção: Consultoria Especializada",
       description: "Orientação estratégica para automação e transformação digital do seu negócio.",
       price: "A partir de R$ 1.500",
+      hasMonthlyMaintenance: false,
       features: [
         "Auditoria de processos",
         "Planejamento estratégico",
@@ -152,8 +156,15 @@ const PackagesSection = () => {
               </p>
 
               {pkg.price && (
-                <div className="text-primary font-bold text-xl mb-6">
-                  {pkg.price}
+                <div className="mb-6">
+                  <div className="text-primary font-bold text-xl mb-1">
+                    {pkg.price}
+                  </div>
+                  {pkg.hasMonthlyMaintenance && (
+                    <p className="text-xs text-muted-foreground">
+                      * Valor de manutenção mensal cobrado (recorrência para manter o sistema)
+                    </p>
+                  )}
                 </div>
               )}
               
