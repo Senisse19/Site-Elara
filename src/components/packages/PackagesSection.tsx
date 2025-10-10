@@ -32,10 +32,11 @@ const PackagesSection = () => {
     {
       id: 'automation' as PackageType,
       icon: Settings,
-      title: "Otimize sua Empresa: Automação de Processos",
+      title: "Sua Empresa no Piloto Automático: Automação de Processos",
       description: "Automatize tarefas repetitivas e aumente a eficiência operacional com ou sem IA.",
       price: "A partir de R$ 2.800",
       hasMonthlyMaintenance: true,
+      buttonText: "Quero Automatizar Minha Empresa",
       features: [
         "Análise detalhada do processo atual",
         "Desenvolvimento de solução personalizada",
@@ -45,10 +46,11 @@ const PackagesSection = () => {
     {
       id: 'software' as PackageType,
       icon: Code2,
-      title: "Sua Empresa no Digital: Sites e Sistemas Sob Medida",
+      title: "Do Zero ao Digital: Sites e Sistemas Sob Medida",
       description: "Sites, landing pages, e-commerce e sistemas personalizados para seu negócio.",
       price: "A partir de R$ 1.200",
       hasMonthlyMaintenance: true,
+      buttonText: "Preciso de um Software Sob Medida",
       features: [
         "Design profissional e responsivo",
         "Integração com ferramentas existentes",
@@ -58,10 +60,11 @@ const PackagesSection = () => {
     {
       id: 'ai_agent' as PackageType,
       icon: Bot,
-      title: "Inteligência Artificial a seu Favor: Agentes Autônomos",
+      title: "IA que Trabalha por Você: Agentes Autônomos 24/7",
       description: "Agentes inteligentes para automatizar atendimento, vendas e gestão.",
       price: "A partir de R$ 2.000",
       hasMonthlyMaintenance: true,
+      buttonText: "Quero uma solução com IA no Meu Time",
       features: [
         "Disponíveis 24/7 sem pausas",
         "Integração com WhatsApp, Instagram e CRM",
@@ -76,6 +79,7 @@ const PackagesSection = () => {
       description: "Orientação estratégica para automação e transformação digital do seu negócio.",
       price: "A partir de R$ 1.500",
       hasMonthlyMaintenance: false,
+      buttonText: "Solicitar Orçamento",
       features: [
         "Auditoria de processos",
         "Planejamento estratégico",
@@ -181,7 +185,7 @@ const PackagesSection = () => {
                 onClick={() => handleOpenForm(pkg.id)}
                 className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto"
               >
-                Solicitar Orçamento
+                {pkg.buttonText}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Card>
