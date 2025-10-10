@@ -52,7 +52,7 @@ const About = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <div ref={contentRef} className={`space-y-6 transition-all duration-700 ${contentVisible ? 'animate-fade-in' : 'opacity-0 translate-x-10'}`}>
-            <div className="relative">
+            <div className="relative w-full">
               <img src="/lovable-uploads/profile-photo-2.png" alt="Victor Senisse - Perfil Profissional" className="w-full max-w-md mx-auto rounded-2xl shadow-card" />
             </div>
           </div>
@@ -71,7 +71,7 @@ const About = () => {
             
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">Principais Tecnologias:</h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 max-w-full">
                 {technologies.map((tech, index) => <Badge key={index} variant="secondary" className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors">
                     {tech}
                   </Badge>)}

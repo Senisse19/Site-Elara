@@ -83,10 +83,10 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="lg:w-1/2 flex justify-center">
+          <div className="lg:w-1/2 flex justify-center w-full">
             <div 
               ref={imageRef}
-              className={`relative transition-all duration-1000 delay-300 ${
+              className={`relative transition-all duration-1000 delay-300 max-w-full ${
                 imageVisible ? 'animate-scale-in' : 'opacity-0 scale-95'
               }`}
             >
@@ -94,7 +94,7 @@ const Hero = () => {
               <img
                 src="/lovable-uploads/profile-photo-1.png"
                 alt="Victor de Almeida Senisse"
-                className="relative w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full shadow-glow"
+                className="relative w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full shadow-glow max-w-full"
               />
             </div>
           </div>
