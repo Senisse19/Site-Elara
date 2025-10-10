@@ -47,7 +47,7 @@ const PackagesSection = () => {
       icon: Code2,
       title: "Sua Empresa no Digital: Sites e Sistemas Sob Medida",
       description: "Sites, landing pages, e-commerce e sistemas personalizados para seu negócio.",
-      price: "",
+      price: "A partir de R$ 3.500",
       hasMonthlyMaintenance: true,
       features: [
         "Design profissional e responsivo",
@@ -60,7 +60,7 @@ const PackagesSection = () => {
       icon: Bot,
       title: "Inteligência Artificial a seu Favor: Agentes Autônomos",
       description: "Agentes inteligentes para automatizar atendimento, vendas e gestão.",
-      price: "",
+      price: "A partir de R$ 1.200",
       hasMonthlyMaintenance: true,
       features: [
         "Disponíveis 24/7 sem pausas",
