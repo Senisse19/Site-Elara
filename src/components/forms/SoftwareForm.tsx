@@ -263,13 +263,18 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
         </div>
       </div>
 
-      <Button 
-        type="submit" 
-        className="w-full"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Enviando..." : "Solicitar Orçamento"}
-      </Button>
+      <div className="space-y-2">
+        <p className="text-sm text-center text-muted-foreground">
+          Descreva seu projeto e receba uma proposta detalhada
+        </p>
+        <Button 
+          type="submit" 
+          className="w-full"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Receber Proposta Personalizada"}
+        </Button>
+      </div>
     </form>
   );
 };

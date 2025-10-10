@@ -255,13 +255,18 @@ const ConsultingForm = ({ onSuccess }: ConsultingFormProps) => {
         </div>
       </div>
 
-      <Button 
-        type="submit" 
-        className="w-full"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Enviando..." : "Solicitar Consultoria"}
-      </Button>
+      <div className="space-y-2">
+        <p className="text-sm text-center text-muted-foreground">
+          Agende uma conversa estratégica sem compromisso
+        </p>
+        <Button 
+          type="submit" 
+          className="w-full"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Agendar Conversa com Victor"}
+        </Button>
+      </div>
     </form>
   );
 };

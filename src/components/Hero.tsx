@@ -44,7 +44,7 @@ const Hero = () => {
                 onClick={() => scrollToSection("pacotes")}
                 className="bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300"
               >
-                Conheça nossos Pacotes
+                Ver Soluções Disponíveis
               </Button>
             </div>
             

@@ -305,13 +305,18 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
         </div>
       </div>
 
-      <Button 
-        type="submit" 
-        className="w-full"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Enviando..." : "Solicitar Orçamento"}
-      </Button>
+      <div className="space-y-2">
+        <p className="text-sm text-center text-muted-foreground">
+          Configure seu agente ideal e fale com Victor sobre a implementação
+        </p>
+        <Button 
+          type="submit" 
+          className="w-full"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Falar com Victor sobre este Agente"}
+        </Button>
+      </div>
     </form>
   );
 };
