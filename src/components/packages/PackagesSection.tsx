@@ -60,7 +60,7 @@ const PackagesSection = () => {
       icon: Bot,
       title: "Inteligência Artificial a seu Favor: Agentes Autônomos",
       description: "Agentes inteligentes para automatizar atendimento, vendas e gestão.",
-      price: "A partir de R$ 2.500",
+      price: "A partir de R$ 1.200",
       hasMonthlyMaintenance: true,
       features: [
         "Disponíveis 24/7 sem pausas",
