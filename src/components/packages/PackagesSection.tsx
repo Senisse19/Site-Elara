@@ -34,9 +34,9 @@ const PackagesSection = () => {
       icon: Settings,
       title: "Sua Empresa no Piloto Automático: Automação de Processos",
       description: "Automatize tarefas repetitivas e aumente a eficiência operacional com ou sem IA.",
-      price: "A partir de R$ 2.800",
-      hasMonthlyMaintenance: true,
-      buttonText: "Quero Automatizar Minha Empresa",
+      price: "Orçamento Personalizado",
+      hasMonthlyMaintenance: false,
+      buttonText: "Solicitar Análise Gratuita",
       features: [
         "Análise detalhada do processo atual",
         "Desenvolvimento de solução personalizada",

@@ -34,42 +34,42 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       label: "Agente de Atendimento (Recepcionista)",
       setup: "A partir de R$ 2.500",
       monthly: "",
-      ideal: "Empresas que desejam oferecer respostas rápidas e eficientes a qualquer hora do dia."
-    },
-    {
-      value: "social_media",
-      label: "Agente Social Media",
-      setup: "A partir de R$ 3.000",
-      monthly: "",
-      ideal: "Negócios que querem manter uma presença online ativa e constante, transformando interações em vendas."
+      ideal: "Ideal para negócios que precisam de um atendimento impecável e 24/7. Diferenciais: Centraliza WhatsApp e Instagram em um único fluxo de atendimento. Compreende e transcreve mensagens de áudio para agilizar a resposta. Agenda, confirma e reagenda horários diretamente no Google Calendar."
     },
     {
       value: "sdr",
       label: "Agente SDR (Vendas)",
       setup: "A partir de R$ 5.000",
       monthly: "",
-      ideal: "Times de vendas que precisam focar no fechamento de negócios, deixando a qualificação para uma IA eficiente."
+      ideal: "Ideal para equipes de vendas que não querem deixar nenhum lead esfriar. Diferenciais: Executa uma cadência de follow-up inteligente (1, 3 e 7 dias) para reengajar leads. Usa IA para analisar o histórico da conversa e criar mensagens de follow-up personalizadas. Qualifica leads e agenda reuniões automaticamente quando o interesse é confirmado."
     },
     {
       value: "bdr",
       label: "Agente BDR (Prospecção Ativa)",
       setup: "A partir de R$ 4.500",
       monthly: "",
-      ideal: "Empresas que desejam escalar a geração de leads e não depender apenas de quem chega até elas."
+      ideal: "Ideal para empresas que buscam crescimento acelerado com a prospecção de novos clientes. Diferenciais: Mapeia e captura leads qualificados de fontes como o Google Maps. Analisa o site e as informações públicas do prospect para criar uma mensagem de primeiro contato ultra-personalizada. Aquece o lead antes de passá-lo para a equipe de vendas, aumentando a taxa de conversão."
+    },
+    {
+      value: "social_media",
+      label: "Agente Social Media",
+      setup: "A partir de R$ 3.000",
+      monthly: "",
+      ideal: "Ideal para marcas que desejam ter uma produção de conteúdo consistente e automatizada. Diferenciais: Cria posts, imagens e vídeos curtos a partir de simples comandos de texto. Edita imagens para adequá-las à identidade visual da marca. Agenda e realiza postagens automáticas no Instagram, X (Twitter) e TikTok."
     },
     {
       value: "internal_assistant",
       label: "Assistente Interno de Gestão",
       setup: "A partir de R$ 2.500",
       monthly: "",
-      ideal: "Empresas que buscam aumentar a produtividade interna e reduzir a carga de trabalho manual."
+      ideal: "Ideal para gestores e equipes que precisam otimizar tarefas administrativas. Diferenciais: Gerencia agendas, cria lembretes, organiza tarefas e resume e-mails. Busca informações em documentos e planilhas para fornecer respostas rápidas. Automatiza a comunicação interna e o envio de relatórios."
     },
     {
       value: "combo_bdr_sdr",
       label: "COMBO - Agente de Prospecção e Vendas (BDR + SDR)",
       setup: "A partir de R$ 8.000",
       monthly: "",
-      ideal: "Empresas que desejam escalar a geração de leads de forma automatizada e personalizada.",
+      ideal: "A solução definitiva para o seu processo comercial. Um agente encontra e qualifica novos clientes (BDR), enquanto o outro nutre e converte (SDR), trabalhando em perfeita harmonia.",
       isCombo: true
     },
     {
@@ -77,7 +77,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       label: "Integração com CRM",
       setup: "A partir de R$ 2.000",
       monthly: "",
-      ideal: "Conecte seus Agentes de IA diretamente ao seu sistema de CRM (Pipedrive, RD Station, etc.). Centralize todas as informações, atualize dados de clientes automaticamente e tenha uma visão 360º da sua operação de vendas e atendimento.",
+      ideal: "Conectamos seu agente de IA diretamente ao seu CRM (Pipedrive, Hubspot, etc.) para registrar interações, atualizar contatos e manter seu funil de vendas sempre organizado.",
       isExtra: true
     }
   ];

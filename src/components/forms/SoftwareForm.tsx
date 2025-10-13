@@ -22,6 +22,7 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
     email: "",
     phone: "",
     projectType: "",
+    investmentRange: "",
     hasDesign: false,
     designReference: "",
     requiredFeatures: "",
@@ -83,6 +84,7 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
             project_type: formData.projectType,
             project_label: projectTypeLabel,
             project_price: projectTypePrice,
+            investment_range: formData.investmentRange,
             has_design: formData.hasDesign,
             design_reference: formData.designReference,
             required_features: formData.requiredFeatures,
@@ -190,6 +192,23 @@ const SoftwareForm = ({ onSuccess }: SoftwareFormProps) => {
               </div>
             ))}
           </RadioGroup>
+        </div>
+
+        <div>
+          <Label htmlFor="investmentRange">Faixa de Investimento (Opcional)</Label>
+          <select
+            id="investmentRange"
+            name="investmentRange"
+            value={formData.investmentRange}
+            onChange={(e) => setFormData(prev => ({ ...prev, investmentRange: e.target.value }))}
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <option value="">Selecione uma faixa</option>
+            <option value="ate_2000">Até R$ 2.000</option>
+            <option value="2000_5000">Entre R$ 2.000 e R$ 5.000</option>
+            <option value="5000_10000">Entre R$ 5.000 e R$ 10.000</option>
+            <option value="acima_10000">Acima de R$ 10.000</option>
+          </select>
         </div>
 
         <div className="flex items-center space-x-2">
