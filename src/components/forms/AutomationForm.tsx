@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { automationFormSchema } from "@/lib/validations/forms";
@@ -26,6 +27,7 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
     painPoints: "",
     expectedResults: "",
     hasDataIntegration: false,
+    investmentRange: "",
     additionalInfo: ""
   });
 
@@ -73,6 +75,7 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
             pain_points: formData.painPoints,
             expected_results: formData.expectedResults,
             has_data_integration: formData.hasDataIntegration,
+            investment_range: formData.investmentRange,
             additional_info: formData.additionalInfo
           }
         });
@@ -221,6 +224,24 @@ const AutomationForm = ({ onSuccess }: AutomationFormProps) => {
           <Label htmlFor="hasDataIntegration" className="cursor-pointer">
             Necessita integração com outros sistemas/dados
           </Label>
+        </div>
+
+        <div>
+          <Label htmlFor="investmentRange">Faixa de Investimento (Opcional)</Label>
+          <Select
+            value={formData.investmentRange}
+            onValueChange={(value) => setFormData(prev => ({ ...prev, investmentRange: value }))}
+          >
+            <SelectTrigger className="w-full bg-background">
+              <SelectValue placeholder="Selecione uma faixa" />
+            </SelectTrigger>
+            <SelectContent className="bg-background z-50">
+              <SelectItem value="ate-2000">Até R$ 2.000</SelectItem>
+              <SelectItem value="2000-5000">Entre R$ 2.000 e R$ 5.000</SelectItem>
+              <SelectItem value="5000-10000">Entre R$ 5.000 e R$ 10.000</SelectItem>
+              <SelectItem value="acima-10000">Acima de R$ 10.000</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
