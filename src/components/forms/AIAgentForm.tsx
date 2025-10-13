@@ -34,14 +34,14 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       label: "Agente de Atendimento (Recepcionista)",
       setup: "A partir de R$ 2.500",
       monthly: "",
-      ideal: "Ideal para negócios que precisam de um atendimento impecável e 24/7. Diferenciais: Centraliza WhatsApp e Instagram em um único fluxo de atendimento. Compreende e transcreve mensagens de áudio para agilizar a resposta. Agenda, confirma e reagenda horários diretamente no Google Calendar."
+      ideal: "Ideal para negócios que precisam de um atendimento impecável e 24/7. Diferenciais: Centraliza WhatsApp e Instagram em um único fluxo de atendimento. Compreende e transcreve mensagens de áudio para agilizar a resposta, e consegue responder com voz gerada por IA 100% humanizada, podendo clonar uma voz real. Agenda, confirma e reagenda horários diretamente no Google Calendar."
     },
     {
       value: "sdr",
       label: "Agente SDR (Vendas)",
       setup: "A partir de R$ 5.000",
       monthly: "",
-      ideal: "Ideal para equipes de vendas que não querem deixar nenhum lead esfriar. Diferenciais: Executa uma cadência de follow-up inteligente (1, 3 e 7 dias) para reengajar leads. Usa IA para analisar o histórico da conversa e criar mensagens de follow-up personalizadas. Qualifica leads e agenda reuniões automaticamente quando o interesse é confirmado."
+      ideal: "Ideal para equipes de vendas que não querem deixar nenhum lead esfriar. Diferenciais: Executa uma cadência de follow-up inteligente (1, 3 e 7 dias) para reengajar leads. Usa IA para analisar o histórico da conversa e criar mensagens de follow-up personalizadas. Compreende e transcreve mensagens de áudio, e consegue responder com voz gerada por IA 100% humanizada, podendo clonar uma voz real. Qualifica leads e agenda reuniões automaticamente quando o interesse é confirmado."
     },
     {
       value: "bdr",
@@ -62,7 +62,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       label: "Assistente Interno de Gestão",
       setup: "A partir de R$ 2.500",
       monthly: "",
-      ideal: "Ideal para gestores e equipes que precisam otimizar tarefas administrativas. Diferenciais: Gerencia agendas, cria lembretes, organiza tarefas e resume e-mails. Busca informações em documentos e planilhas para fornecer respostas rápidas. Automatiza a comunicação interna e o envio de relatórios."
+      ideal: "Ideal para gestores e equipes que precisam otimizar tarefas administrativas. Diferenciais: Gerencia agendas, cria lembretes, organiza tarefas, envia, responde e resume e-mails. Busca informações em documentos e planilhas para fornecer respostas rápidas. Automatiza a comunicação interna e o envio de relatórios."
     },
     {
       value: "combo_bdr_sdr",

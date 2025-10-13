@@ -183,9 +183,9 @@ const PackagesSection = () => {
 
               <Button 
                 onClick={() => handleOpenForm(pkg.id)}
-                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto text-xs lg:text-sm"
+                className="w-full bg-hero-gradient text-primary-foreground hover:shadow-glow transition-all duration-300 mt-auto text-xs lg:text-sm h-auto py-3 min-h-[44px]"
               >
-                <span className="truncate">{pkg.buttonText}</span>
+                <span className="break-words text-center leading-tight flex-1">{pkg.buttonText}</span>
                 <ArrowRight className="ml-2 h-4 w-4 flex-shrink-0" />
               </Button>
             </Card>
