@@ -50,7 +50,7 @@ const PackagesSection = () => {
       description: "Sites, landing pages, e-commerce e sistemas personalizados para seu negócio.",
       price: "A partir de R$ 1.200",
       hasMonthlyMaintenance: true,
-      buttonText: "Preciso de um Software Sob Medida",
+      buttonText: "Orçar meu Sistema",
       features: [
         "Design profissional e responsivo",
         "Integração com ferramentas existentes",
@@ -64,7 +64,7 @@ const PackagesSection = () => {
       description: "Agentes inteligentes para automatizar atendimento, vendas e gestão.",
       price: "A partir de R$ 2.000",
       hasMonthlyMaintenance: true,
-      buttonText: "Quero uma solução com IA no Meu Time",
+      buttonText: "Contratar Agente IA",
       features: [
         "Disponíveis 24/7 sem pausas",
         "Integração com WhatsApp, Instagram e CRM",
