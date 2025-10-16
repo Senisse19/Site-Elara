@@ -23,6 +23,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     phone: "",
     agentType: "",
     crmIntegration: false,
+    managementPlatform: false,
     currentSolution: "",
     monthlyVolume: "",
     integrationPlatforms: "",
@@ -34,44 +35,52 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     {
       value: "receptionist",
       label: "Agente de Atendimento (Recepcionista)",
-      setup: "A partir de R$ 2.500",
+      setup: "A partir de R$ 3.000",
       monthly: "",
-      ideal: "Ideal para negócios que precisam de um atendimento impecável e 24/7. Diferenciais: Centraliza WhatsApp e Instagram em um único fluxo de atendimento. Compreende e transcreve mensagens de áudio para agilizar a resposta, e consegue responder com voz gerada por IA 100% humanizada, podendo clonar uma voz real. Agenda, confirma e reagenda horários diretamente no Google Calendar."
+      ideal: "Ideal para negócios que precisam de atendimento 24/7 sem perder nenhum cliente. O agente centraliza WhatsApp e Instagram, transcreve áudios automaticamente e responde com voz humanizada. Agenda, confirma e reagenda compromissos no Google Calendar sem intervenção humana."
     },
     {
       value: "sdr",
       label: "Agente SDR (Vendas)",
       setup: "A partir de R$ 5.000",
       monthly: "",
-      ideal: "Ideal para equipes de vendas que não querem deixar nenhum lead esfriar. Diferenciais: Executa uma cadência de follow-up inteligente (1, 3 e 7 dias) para reengajar leads. Usa IA para analisar o histórico da conversa e criar mensagens de follow-up personalizadas. Compreende e transcreve mensagens de áudio, e consegue responder com voz gerada por IA 100% humanizada, podendo clonar uma voz real. Qualifica leads e agenda reuniões automaticamente quando o interesse é confirmado."
+      ideal: "Perfeito para equipes de vendas que não querem perder nenhuma oportunidade. Executa follow-ups automáticos em 1, 3 e 7 dias, analisa o histórico de conversas para personalizar mensagens, transcreve áudios e agenda reuniões quando detecta interesse do lead. Inclui plataforma centralizada para gestão de conversas do time."
     },
     {
       value: "bdr",
       label: "Agente BDR (Prospecção Ativa)",
-      setup: "A partir de R$ 4.500",
+      setup: "A partir de R$ 3.500",
       monthly: "",
-      ideal: "Ideal para empresas que buscam crescimento acelerado com a prospecção de novos clientes. Diferenciais: Mapeia e captura leads qualificados de fontes como o Google Maps. Analisa o site e as informações públicas do prospect para criar uma mensagem de primeiro contato ultra-personalizada. Aquece o lead antes de passá-lo para a equipe de vendas, aumentando a taxa de conversão."
+      ideal: "Acelere seu crescimento com prospecção automatizada. Mapeia leads qualificados no Google Maps, analisa sites e informações públicas para criar mensagens ultra-personalizadas de primeiro contato. Aquece leads antes de passar para vendas. Inclui plataforma centralizada para gestão de conversas do time."
     },
     {
       value: "social_media",
       label: "Agente Social Media",
-      setup: "A partir de R$ 3.000",
+      setup: "A partir de R$ 5.000",
       monthly: "",
-      ideal: "Ideal para marcas que desejam ter uma produção de conteúdo consistente e automatizada. Diferenciais: Cria posts, imagens e vídeos curtos a partir de simples comandos de texto. Edita imagens para adequá-las à identidade visual da marca. Agenda e realiza postagens automáticas no Instagram, X (Twitter) e TikTok."
+      ideal: "Mantenha presença constante nas redes sociais sem esforço. Cria posts, imagens e vídeos curtos por comando de texto, edita imagens seguindo sua identidade visual e agenda postagens automáticas no Instagram, X (Twitter) e TikTok."
     },
     {
       value: "internal_assistant",
       label: "Assistente Interno de Gestão",
-      setup: "A partir de R$ 2.500",
+      setup: "A partir de R$ 3.000",
       monthly: "",
-      ideal: "Ideal para gestores e equipes que precisam otimizar tarefas administrativas. Diferenciais: Gerencia agendas, cria lembretes, organiza tarefas, envia, responde e resume e-mails. Busca informações em documentos e planilhas para fornecer respostas rápidas. Automatiza a comunicação interna e o envio de relatórios."
+      ideal: "Otimize a rotina administrativa da sua equipe. Gerencia agendas e lembretes, organiza tarefas, envia e resume e-mails automaticamente. Busca informações em documentos e planilhas, automatiza comunicação interna e envia relatórios."
     },
     {
       value: "combo_bdr_sdr",
-      label: "COMBO - Agente de Prospecção e Vendas (BDR + SDR)",
-      setup: "A partir de R$ 8.000",
+      label: "COMBO - Prospecção e Vendas (BDR + SDR)",
+      setup: "A partir de R$ 7.000",
       monthly: "",
-      ideal: "A solução definitiva para o seu processo comercial. Um agente encontra e qualifica novos clientes (BDR), enquanto o outro nutre e converte (SDR), trabalhando em perfeita harmonia.",
+      ideal: "A solução completa para seu processo comercial. O BDR encontra e aquece novos clientes, enquanto o SDR nutre e converte leads. Trabalham em harmonia perfeita. ECONOMIA: R$ 1.500 em relação à contratação separada + plataforma unificada de gerenciamento incluída.",
+      isCombo: true
+    },
+    {
+      value: "combo_reception_assistant",
+      label: "COMBO - Atendimento e Gestão (Recepcionista + Assistente Interno)",
+      setup: "A partir de R$ 5.000",
+      monthly: "",
+      ideal: "Integração perfeita entre atendimento externo e gestão interna. Quando o Assistente Interno desmarca uma reunião na agenda, o Recepcionista envia automaticamente uma mensagem ao cliente solicitando reagendamento. O Recepcionista captura novos compromissos e o Assistente organiza a agenda do time. ECONOMIA: R$ 1.000 em relação à contratação separada.",
       isCombo: true
     }
   ];
@@ -121,6 +130,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
             agent_setup: agentInfo?.setup,
             agent_monthly: agentInfo?.monthly,
             crm_integration: formData.crmIntegration,
+            management_platform: formData.managementPlatform,
             current_solution: formData.currentSolution,
             monthly_volume: formData.monthlyVolume,
             integration_platforms: formData.integrationPlatforms,
@@ -240,30 +250,67 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
           ))}
         </RadioGroup>
 
-        <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
-          <div className="flex items-start space-x-3">
-            <Checkbox
-              id="crmIntegration"
-              checked={formData.crmIntegration}
-              onCheckedChange={(checked) => 
-                setFormData(prev => ({ ...prev, crmIntegration: checked as boolean }))
-              }
-              className="mt-1"
-            />
-            <div className="flex-1">
-              <Label htmlFor="crmIntegration" className="cursor-pointer font-medium text-base flex items-center gap-2">
-                Integração com CRM
-                <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
-              </Label>
-              <div className="mt-2 space-y-2">
-                <div className="flex items-center gap-3 text-sm">
-                  <span className="font-semibold text-primary">
-                    Valor: A partir de R$ 2.000
-                  </span>
+        <div className="space-y-4">
+          <h4 className="font-semibold">Extras Disponíveis</h4>
+          
+          <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="crmIntegration"
+                checked={formData.crmIntegration}
+                onCheckedChange={(checked) => 
+                  setFormData(prev => ({ ...prev, crmIntegration: checked as boolean }))
+                }
+                className="mt-1"
+              />
+              <div className="flex-1">
+                <Label htmlFor="crmIntegration" className="cursor-pointer font-medium text-base flex items-center gap-2">
+                  Integração com CRM
+                  <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
+                </Label>
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="font-semibold text-primary">
+                      Valor: A partir de R$ 2.000
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Conecte seu agente ao CRM (Pipedrive, Hubspot, etc.) para registro automático de interações. 
+                    <br /><strong>Para BDR:</strong> O agente acessa sua lista de leads e realiza primeiro contato personalizado baseado no contexto.
+                    <br /><strong>Para SDR:</strong> Continua as conversas iniciadas pelo BDR para qualificação e fechamento.
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground italic">
-                  <strong>Ideal para:</strong> Conectamos seu agente de IA diretamente ao seu CRM (Pipedrive, Hubspot, etc.) para registrar interações, atualizar contatos e manter seu funil de vendas sempre organizado.
-                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="managementPlatform"
+                checked={formData.managementPlatform}
+                onCheckedChange={(checked) => 
+                  setFormData(prev => ({ ...prev, managementPlatform: checked as boolean }))
+                }
+                className="mt-1"
+              />
+              <div className="flex-1">
+                <Label htmlFor="managementPlatform" className="cursor-pointer font-medium text-base flex items-center gap-2">
+                  Plataforma de Gerenciamento Personalizada
+                  <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
+                </Label>
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="font-semibold text-primary">
+                      Valor: A partir de R$ 5.000
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Desenvolvemos uma plataforma personalizada para você interagir e gerenciar seu agente.
+                    <br /><strong>Exemplo para Social Media:</strong> Plataforma de chat específica para você dar comandos ao agente por mensagem.
+                    <br /><strong>Exemplo para BDR/SDR:</strong> Dashboard centralizado onde todo o time acessa chats do Instagram e WhatsApp, atribui conversas a diferentes atendentes, visualiza relatórios de clientes, acompanha andamento dos atendimentos em tempo real.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
