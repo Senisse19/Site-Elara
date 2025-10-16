@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { aiAgentFormSchema } from "@/lib/validations/forms";
@@ -21,6 +22,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     email: "",
     phone: "",
     agentType: "",
+    crmIntegration: false,
     currentSolution: "",
     monthlyVolume: "",
     integrationPlatforms: "",
@@ -71,14 +73,6 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
       monthly: "",
       ideal: "A solução definitiva para o seu processo comercial. Um agente encontra e qualifica novos clientes (BDR), enquanto o outro nutre e converte (SDR), trabalhando em perfeita harmonia.",
       isCombo: true
-    },
-    {
-      value: "crm_integration",
-      label: "Integração com CRM",
-      setup: "A partir de R$ 2.000",
-      monthly: "",
-      ideal: "Conectamos seu agente de IA diretamente ao seu CRM (Pipedrive, Hubspot, etc.) para registrar interações, atualizar contatos e manter seu funil de vendas sempre organizado.",
-      isExtra: true
     }
   ];
 
@@ -126,6 +120,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
             agent_label: agentInfo?.label,
             agent_setup: agentInfo?.setup,
             agent_monthly: agentInfo?.monthly,
+            crm_integration: formData.crmIntegration,
             current_solution: formData.currentSolution,
             monthly_volume: formData.monthlyVolume,
             integration_platforms: formData.integrationPlatforms,
@@ -217,8 +212,6 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
               key={agent.value} 
               className={`p-4 border rounded-lg hover:bg-accent/50 transition-colors ${
                 agent.isCombo ? 'border-primary bg-primary/5' : ''
-              } ${
-                agent.isExtra ? 'border-primary/30 bg-gradient-to-r from-primary/10 to-primary/5' : ''
               }`}
             >
               <div className="flex items-start space-x-3">
@@ -227,13 +220,12 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
                   <Label htmlFor={agent.value} className="cursor-pointer font-medium text-base flex items-center gap-2">
                     {agent.label}
                     {agent.isCombo && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">MAIS COMPLETO</span>}
-                    {agent.isExtra && <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>}
                   </Label>
                   {formData.agentType === agent.value && (
                     <div className="mt-3 space-y-2 animate-fade-in">
                       <div className="flex items-center gap-3 text-sm">
                         <span className="font-semibold text-primary">
-                          {agent.isExtra ? 'Valor:' : 'Setup:'} {agent.setup}
+                          Setup: {agent.setup}
                         </span>
                         {agent.monthly && <span className="font-bold text-foreground">{agent.monthly}</span>}
                       </div>
@@ -247,6 +239,35 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
             </div>
           ))}
         </RadioGroup>
+
+        <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
+          <div className="flex items-start space-x-3">
+            <Checkbox
+              id="crmIntegration"
+              checked={formData.crmIntegration}
+              onCheckedChange={(checked) => 
+                setFormData(prev => ({ ...prev, crmIntegration: checked as boolean }))
+              }
+              className="mt-1"
+            />
+            <div className="flex-1">
+              <Label htmlFor="crmIntegration" className="cursor-pointer font-medium text-base flex items-center gap-2">
+                Integração com CRM
+                <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
+              </Label>
+              <div className="mt-2 space-y-2">
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="font-semibold text-primary">
+                    Valor: A partir de R$ 2.000
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground italic">
+                  <strong>Ideal para:</strong> Conectamos seu agente de IA diretamente ao seu CRM (Pipedrive, Hubspot, etc.) para registrar interações, atualizar contatos e manter seu funil de vendas sempre organizado.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div>
           <Label htmlFor="currentSolution">Solução atual de atendimento/vendas</Label>
