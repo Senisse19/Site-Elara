@@ -23,7 +23,6 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
     phone: "",
     agentType: "",
     crmIntegration: false,
-    managementPlatform: false,
     currentSolution: "",
     monthlyVolume: "",
     integrationPlatforms: "",
@@ -130,7 +129,6 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
             agent_setup: agentInfo?.setup,
             agent_monthly: agentInfo?.monthly,
             crm_integration: formData.crmIntegration,
-            management_platform: formData.managementPlatform,
             current_solution: formData.currentSolution,
             monthly_volume: formData.monthlyVolume,
             integration_platforms: formData.integrationPlatforms,
@@ -253,7 +251,7 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
         <div className="space-y-4">
           <h4 className="font-semibold">Extras Disponíveis</h4>
           
-          <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
+          <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5 hover:bg-primary/10 transition-colors">
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="crmIntegration"
@@ -268,49 +266,20 @@ const AIAgentForm = ({ onSuccess }: AIAgentFormProps) => {
                   Integração com CRM
                   <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
                 </Label>
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="font-semibold text-primary">
-                      Valor: A partir de R$ 2.000
-                    </span>
+                {formData.crmIntegration && (
+                  <div className="mt-3 space-y-2 animate-fade-in">
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="font-semibold text-primary">
+                        Valor: A partir de R$ 2.000
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Conecte seu agente ao CRM (Pipedrive, Hubspot, etc.) para registro automático de interações. 
+                      <br /><strong>Para BDR:</strong> O agente acessa sua lista de leads e realiza primeiro contato personalizado baseado no contexto.
+                      <br /><strong>Para SDR:</strong> Continua as conversas iniciadas pelo BDR para qualificação e fechamento.
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Conecte seu agente ao CRM (Pipedrive, Hubspot, etc.) para registro automático de interações. 
-                    <br /><strong>Para BDR:</strong> O agente acessa sua lista de leads e realiza primeiro contato personalizado baseado no contexto.
-                    <br /><strong>Para SDR:</strong> Continua as conversas iniciadas pelo BDR para qualificação e fechamento.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 border border-primary/30 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5">
-            <div className="flex items-start space-x-3">
-              <Checkbox
-                id="managementPlatform"
-                checked={formData.managementPlatform}
-                onCheckedChange={(checked) => 
-                  setFormData(prev => ({ ...prev, managementPlatform: checked as boolean }))
-                }
-                className="mt-1"
-              />
-              <div className="flex-1">
-                <Label htmlFor="managementPlatform" className="cursor-pointer font-medium text-base flex items-center gap-2">
-                  Plataforma de Gerenciamento Personalizada
-                  <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">EXTRA</span>
-                </Label>
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="font-semibold text-primary">
-                      Valor: A partir de R$ 5.000
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Desenvolvemos uma plataforma personalizada para você interagir e gerenciar seu agente.
-                    <br /><strong>Exemplo para Social Media:</strong> Plataforma de chat específica para você dar comandos ao agente por mensagem.
-                    <br /><strong>Exemplo para BDR/SDR:</strong> Dashboard centralizado onde todo o time acessa chats do Instagram e WhatsApp, atribui conversas a diferentes atendentes, visualiza relatórios de clientes, acompanha andamento dos atendimentos em tempo real.
-                  </p>
-                </div>
+                )}
               </div>
             </div>
           </div>
