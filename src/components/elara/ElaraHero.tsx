@@ -90,12 +90,12 @@ const ElaraHero = () => {
               heroVisible ? 'animate-fade-in animate-scale-in' : 'opacity-0 scale-95'
             }`}
           >
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-xl">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl animate-pulse"></div>
               
               {/* Chat simulator */}
-              <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-3xl border border-primary/20 shadow-2xl p-4 sm:p-6">
+              <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-3xl border border-primary/20 shadow-2xl p-6 sm:p-8">
                 <div className="space-y-4">
                   {/* Chat header */}
                   <div className="flex items-center gap-3 pb-4 border-b border-primary/10">
