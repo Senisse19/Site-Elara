@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface DemoModalProps {
   open: boolean;
@@ -31,7 +32,7 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
     challenge: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validação básica
@@ -44,25 +45,52 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
       return;
     }
 
-    // Aqui você pode integrar com sua API/backend
-    console.log("Form submitted:", formData);
-    
-    toast({
-      title: "Solicitação enviada!",
-      description: "Entraremos em contato em breve para agendar sua demonstração.",
-    });
-    
-    onOpenChange(false);
-    setFormData({
-      name: "",
-      email: "",
-      whatsapp: "",
-      companyName: "",
-      segment: "",
-      monthlyRevenue: "",
-      dailyLeads: "",
-      challenge: "",
-    });
+    try {
+      // Inserir dados no Supabase
+      const { error } = await supabase
+        .from('leads_central')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.whatsapp,
+          source: 'elara_demo_form',
+          status: 'novo',
+          details: {
+            companyName: formData.companyName,
+            segment: formData.segment,
+            monthlyRevenue: formData.monthlyRevenue,
+            dailyLeads: formData.dailyLeads,
+            challenge: formData.challenge,
+            timestamp: new Date().toISOString()
+          }
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Solicitação enviada!",
+        description: "Entraremos em contato em breve para agendar sua demonstração.",
+      });
+      
+      onOpenChange(false);
+      setFormData({
+        name: "",
+        email: "",
+        whatsapp: "",
+        companyName: "",
+        segment: "",
+        monthlyRevenue: "",
+        dailyLeads: "",
+        challenge: "",
+      });
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { 
   Mic, 
@@ -16,11 +17,27 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ElaraCapabilities = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
+  const [api, setApi] = React.useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) return;
+
+    const intervalId = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [api]);
 
   const capabilities = [
     {
@@ -90,6 +107,7 @@ const ElaraCapabilities = () => {
         </div>
 
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: true,
@@ -119,8 +137,8 @@ const ElaraCapabilities = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex -left-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary" />
-          <CarouselNext className="hidden md:flex -right-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary" />
+          <CarouselPrevious className="-left-4 md:-left-16 bg-primary/90 border-primary hover:bg-primary text-primary-foreground w-12 h-12 shadow-lg hover:shadow-glow transition-all" />
+          <CarouselNext className="-right-4 md:-right-16 bg-primary/90 border-primary hover:bg-primary text-primary-foreground w-12 h-12 shadow-lg hover:shadow-glow transition-all" />
         </Carousel>
       </div>
     </section>

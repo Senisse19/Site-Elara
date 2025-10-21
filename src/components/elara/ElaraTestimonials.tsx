@@ -7,19 +7,19 @@ const ElaraTestimonials = () => {
     { 
       img: "/lovable-uploads/client-1.png", 
       name: "Gabriel Branchi", 
-      role: "CEO, TechSolutions",
+      role: "Empresário",
       testimonial: "Desde que implementamos a Elara, nosso tempo de resposta no WhatsApp é instantâneo, 24/7. Os clientes adoram o atendimento rápido e conseguimos qualificar leads mesmo fora do horário comercial. Nossa taxa de conversão aumentou 45% no primeiro mês."
     },
     { 
       img: "/lovable-uploads/client-2.png", 
       name: "Maurício Caetano", 
-      role: "Diretor Comercial, VendaMais",
+      role: "Gestor Comercial",
       testimonial: "Conseguimos qualificar 3x mais leads sem aumentar a equipe. A Elara faz as perguntas certas, entende o perfil do cliente e só passa para nosso time os contatos realmente prontos para fechar. Isso economizou +180 horas/mês da equipe."
     },
     { 
       img: "/lovable-uploads/client-3.png", 
       name: "Ana Carolina Tavares", 
-      role: "Fundadora, BeautyExpress",
+      role: "Empreendedora",
       testimonial: "A Elara resolve 92% das dúvidas comuns automaticamente. Perguntas sobre produtos, horários, preços e agendamentos são resolvidos na hora. Nossa equipe agora foca apenas no que realmente precisa de toque humano. A satisfação dos clientes subiu para 98%."
     }
   ];

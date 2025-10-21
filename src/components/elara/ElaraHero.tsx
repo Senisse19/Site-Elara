@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Bot } from "lucide-react";
+import { ArrowRight, Bot, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import chatMockup from "@/assets/chat-mockup.png";
 import DemoModal from "@/components/DemoModal";
 
 const ElaraHero = () => {
@@ -35,18 +34,21 @@ const ElaraHero = () => {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] tracking-tight">
                 Coloque a{" "}
-                <span className="text-primary bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-pulse">
                   Elara
                 </span>
-                , sua Atendente com IA, para trabalhar na sua empresa
+                {" "}para trabalhar na sua empresa
               </h1>
+              <p className="text-xl sm:text-2xl font-semibold text-primary/90">
+                Sua Atendente com IA 24/7
+              </p>
             </div>
             
-            <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              Treinamos e implementamos uma agente de IA generativa que fala com seus clientes, 
-              automatiza processos, qualifica leads e resolve problemas 24/7.
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed font-light">
+              Treinamos e implementamos uma agente de IA generativa que <strong className="text-foreground font-semibold">fala com seus clientes</strong>, 
+              automatiza processos, qualifica leads e <strong className="text-foreground font-semibold">resolve problemas 24/7</strong>.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -85,15 +87,52 @@ const ElaraHero = () => {
           >
             <div className="relative w-full max-w-md">
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-primary/30 rounded-3xl blur-3xl animate-pulse"></div>
+              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl animate-pulse"></div>
               
-              {/* Chat mockup image */}
-              <div className="relative">
-                <img 
-                  src={chatMockup} 
-                  alt="Simulação de chat com Elara" 
-                  className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
-                />
+              {/* Chat simulator */}
+              <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-3xl border border-primary/20 shadow-2xl p-4 sm:p-6">
+                <div className="space-y-4">
+                  {/* Chat header */}
+                  <div className="flex items-center gap-3 pb-4 border-b border-primary/10">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Bot className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Elara</p>
+                      <p className="text-xs text-muted-foreground">Atendente IA • Online</p>
+                    </div>
+                  </div>
+                  
+                  {/* Chat messages */}
+                  <div className="space-y-3">
+                    <div className="flex gap-2">
+                      <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[80%]">
+                        <p className="text-sm text-foreground">Olá! Sou a Elara 👋</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%]">
+                        <p className="text-sm text-foreground">Como posso ajudar você hoje?</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 justify-end">
+                      <div className="bg-primary rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[80%]">
+                        <p className="text-sm text-primary-foreground">Quero saber sobre preços</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[90%]">
+                        <p className="text-sm text-foreground">Claro! Nossos pacotes começam em R$ 197/mês. Quer que eu envie o catálogo completo? 📄</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Typing indicator */}
+                  <div className="flex items-center gap-2 text-muted-foreground text-xs pt-2">
+                    <MessageCircle className="h-3 w-3 animate-pulse" />
+                    <span>Elara está digitando...</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
