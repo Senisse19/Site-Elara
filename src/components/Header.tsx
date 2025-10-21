@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import elaraLogo from "@/assets/elara-logo.png";
+import elaraLogo from "@/assets/elara-logo-white.png";
 import DemoModal from "@/components/DemoModal";
 
 const Header = () => {
@@ -88,8 +88,16 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile menu */}
-          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          {/* Mobile - Demo Button + Menu */}
+          <div className="flex md:hidden items-center gap-2">
+            <Button 
+              onClick={handleDemoClick}
+              size="sm"
+              className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3"
+            >
+              Agendar
+            </Button>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
@@ -118,6 +126,7 @@ const Header = () => {
               </nav>
             </SheetContent>
           </Sheet>
+          </div>
         </div>
       </nav>
     </header>

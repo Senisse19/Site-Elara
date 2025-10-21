@@ -28,8 +28,8 @@ const Footer = () => {
             <div className="flex flex-col space-y-2">
               {[
                 { label: "Início", id: "inicio" },
-                { label: "Sobre Mim", id: "sobre" },
-                { label: "Serviços", id: "servicos" },
+                { label: "Como Funciona", id: "capacidades" },
+                { label: "Benefícios", id: "beneficios" },
                 { label: "Contato", id: "contato" }
               ].map((link) => (
                 <button

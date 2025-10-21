@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import DemoModal from "@/components/DemoModal";
+import elaraLogo from "@/assets/elara-logo-white.png";
 
 const ElaraHero = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation(0.2);
@@ -98,11 +99,11 @@ const ElaraHero = () => {
                 <div className="space-y-4">
                   {/* Chat header */}
                   <div className="flex items-center gap-3 pb-4 border-b border-primary/10">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      <Bot className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center p-1.5">
+                      <img src={elaraLogo} alt="Elara" className="w-full h-full object-contain" />
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">Elara</p>
+                      <p className="font-semibold text-foreground">Clínica Vida & Saúde</p>
                       <p className="text-xs text-muted-foreground">Atendente IA • Online</p>
                     </div>
                   </div>
@@ -111,7 +112,7 @@ const ElaraHero = () => {
                   <div className="space-y-3">
                     <div className="flex gap-2">
                       <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[80%]">
-                        <p className="text-sm text-foreground">Olá! Sou a Elara 👋</p>
+                        <p className="text-sm text-foreground">Olá! Bem-vindo à Clínica Vida & Saúde 👋</p>
                       </div>
                     </div>
                     <div className="flex gap-2">
@@ -121,12 +122,12 @@ const ElaraHero = () => {
                     </div>
                     <div className="flex gap-2 justify-end">
                       <div className="bg-primary rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[80%]">
-                        <p className="text-sm text-primary-foreground">Quero saber sobre preços</p>
+                        <p className="text-sm text-primary-foreground">Gostaria de agendar uma consulta</p>
                       </div>
                     </div>
                     <div className="flex gap-2">
                       <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[90%]">
-                        <p className="text-sm text-foreground">Claro! Nossos pacotes começam em R$ 197/mês. Quer que eu envie o catálogo completo? 📄</p>
+                        <p className="text-sm text-foreground">Perfeito! Temos horários disponíveis para esta semana. Qual especialidade você precisa? 🏥</p>
                       </div>
                     </div>
                   </div>

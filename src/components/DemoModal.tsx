@@ -95,33 +95,49 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-primary/20">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-foreground">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-primary/20 p-6 sm:p-8">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-2xl sm:text-3xl text-foreground">
             Agendar Demonstração da Elara
           </DialogTitle>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Preencha os dados abaixo para qualificarmos sua demonstração
           </p>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-foreground">
-              Seu nome *
-            </Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="João Silva"
-              required
-              className="bg-background border-primary/20"
-            />
+        <form onSubmit={handleSubmit} className="space-y-5 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-sm font-medium text-foreground">
+                Seu nome *
+              </Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="João Silva"
+                required
+                className="bg-background border-primary/20 h-11"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="whatsapp" className="text-sm font-medium text-foreground">
+                WhatsApp *
+              </Label>
+              <Input
+                id="whatsapp"
+                value={formData.whatsapp}
+                onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                placeholder="(11) 99999-9999"
+                required
+                className="bg-background border-primary/20 h-11"
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-foreground">
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
               Seu melhor e-mail *
             </Label>
             <Input
@@ -131,110 +147,100 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="joao@empresa.com"
               required
-              className="bg-background border-primary/20"
+              className="bg-background border-primary/20 h-11"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="whatsapp" className="text-foreground">
-              WhatsApp *
-            </Label>
-            <Input
-              id="whatsapp"
-              value={formData.whatsapp}
-              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-              placeholder="(11) 99999-9999"
-              required
-              className="bg-background border-primary/20"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="companyName" className="text-sm font-medium text-foreground">
+                Nome da sua empresa
+              </Label>
+              <Input
+                id="companyName"
+                value={formData.companyName}
+                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                placeholder="Minha Empresa Ltda"
+                className="bg-background border-primary/20 h-11"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="segment" className="text-sm font-medium text-foreground">
+                Segmento da empresa
+              </Label>
+              <Input
+                id="segment"
+                value={formData.segment}
+                onChange={(e) => setFormData({ ...formData, segment: e.target.value })}
+                placeholder="E-commerce, Saúde, etc"
+                className="bg-background border-primary/20 h-11"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="monthlyRevenue" className="text-sm font-medium text-foreground">
+                Faturamento mensal
+              </Label>
+              <Select
+                value={formData.monthlyRevenue}
+                onValueChange={(value) => setFormData({ ...formData, monthlyRevenue: value })}
+              >
+                <SelectTrigger className="bg-background border-primary/20 h-11">
+                  <SelectValue placeholder="Selecione" />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-primary/20 z-50">
+                  <SelectItem value="0-50k">Até R$ 50.000</SelectItem>
+                  <SelectItem value="50k-200k">R$ 50k - 200k</SelectItem>
+                  <SelectItem value="200k-500k">R$ 200k - 500k</SelectItem>
+                  <SelectItem value="500k+">Acima de R$ 500k</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="dailyLeads" className="text-sm font-medium text-foreground">
+                Leads por dia
+              </Label>
+              <Select
+                value={formData.dailyLeads}
+                onValueChange={(value) => setFormData({ ...formData, dailyLeads: value })}
+              >
+                <SelectTrigger className="bg-background border-primary/20 h-11">
+                  <SelectValue placeholder="Selecione" />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-primary/20 z-50">
+                  <SelectItem value="1-10">1-10 leads</SelectItem>
+                  <SelectItem value="11-50">11-50 leads</SelectItem>
+                  <SelectItem value="51-100">51-100 leads</SelectItem>
+                  <SelectItem value="100+">Mais de 100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="companyName" className="text-foreground">
-              Qual é o nome da sua empresa?
-            </Label>
-            <Input
-              id="companyName"
-              value={formData.companyName}
-              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-              placeholder="Minha Empresa Ltda"
-              className="bg-background border-primary/20"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="segment" className="text-foreground">
-              Qual o segmento da sua empresa?
-            </Label>
-            <Input
-              id="segment"
-              value={formData.segment}
-              onChange={(e) => setFormData({ ...formData, segment: e.target.value })}
-              placeholder="Ex: E-commerce, Saúde, Educação"
-              className="bg-background border-primary/20"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="monthlyRevenue" className="text-foreground">
-              Qual é o seu faturamento mensal atual?
-            </Label>
-            <Select
-              value={formData.monthlyRevenue}
-              onValueChange={(value) => setFormData({ ...formData, monthlyRevenue: value })}
-            >
-              <SelectTrigger className="bg-background border-primary/20">
-                <SelectValue placeholder="Selecione uma faixa" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0-50k">Até R$ 50.000</SelectItem>
-                <SelectItem value="50k-200k">R$ 50.001 a R$ 200.000</SelectItem>
-                <SelectItem value="200k-500k">R$ 200.001 a R$ 500.000</SelectItem>
-                <SelectItem value="500k+">Acima de R$ 500.000</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="dailyLeads" className="text-foreground">
-              Quantos leads (contatos) sua empresa recebe por dia?
-            </Label>
-            <Select
-              value={formData.dailyLeads}
-              onValueChange={(value) => setFormData({ ...formData, dailyLeads: value })}
-            >
-              <SelectTrigger className="bg-background border-primary/20">
-                <SelectValue placeholder="Selecione uma faixa" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1-10">1-10 leads</SelectItem>
-                <SelectItem value="11-50">11-50 leads</SelectItem>
-                <SelectItem value="51-100">51-100 leads</SelectItem>
-                <SelectItem value="100+">Mais de 100 leads</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="challenge" className="text-foreground">
-              Qual seu maior desafio no atendimento hoje?
+            <Label htmlFor="challenge" className="text-sm font-medium text-foreground">
+              Qual seu maior desafio no atendimento?
             </Label>
             <Textarea
               id="challenge"
               value={formData.challenge}
               onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-              placeholder="Ex: Não consigo atender todos os leads rapidamente, perco vendas fora do horário comercial..."
+              placeholder="Ex: Não consigo atender todos os leads rapidamente..."
               rows={4}
-              className="bg-background border-primary/20"
+              className="bg-background border-primary/20 resize-none"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white"
+            className="w-full bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-2"
             size="lg"
           >
-            Agendar Demonstração
+            Agendar Demonstração Gratuita
           </Button>
         </form>
       </DialogContent>
