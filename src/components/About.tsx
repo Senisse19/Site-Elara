@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Users, Clock, CheckCircle, TrendingUp } from "lucide-react";
+import { Users, Clock, CheckCircle, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi
 } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -142,7 +140,7 @@ const About = () => {
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
                 onClick={() => api?.scrollPrev()}
               >
-                <CarouselPrevious className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+                <ChevronLeft className="w-6 h-6" />
               </Button>
               <Button
                 variant="outline"
@@ -150,7 +148,7 @@ const About = () => {
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
                 onClick={() => api?.scrollNext()}
               >
-                <CarouselNext className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+                <ChevronRight className="w-6 h-6" />
               </Button>
             </div>
           </div>
