@@ -1,8 +1,36 @@
+import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi
+} from "@/components/ui/carousel";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ElaraTestimonials = () => {
+  const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
+  const isMobile = useIsMobile();
+  const [api, setApi] = React.useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api || !isMobile) return;
+
+    const intervalId = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [api, isMobile]);
+
   const testimonials = [
     { 
       img: "/lovable-uploads/client-1.png", 
@@ -24,8 +52,6 @@ const ElaraTestimonials = () => {
     }
   ];
 
-  const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
-
   return (
     <section id="depoimentos" className="py-20 bg-section-gradient relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent"></div>
@@ -45,37 +71,79 @@ const ElaraTestimonials = () => {
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-300 ${
-          sectionVisible ? 'animate-fade-in' : 'opacity-0'
-        }`}>
-          {testimonials.map((item, index) => (
-            <Card 
-              key={index} 
-              className="p-6 flex flex-col h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow hover:scale-105 cursor-pointer"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-base text-muted-foreground mb-6 italic flex-grow leading-relaxed">
-                "{item.testimonial}"
-              </p>
-              <div className="flex items-center gap-3 mt-auto">
-                <img 
-                  src={item.img} 
-                  alt={item.name}
-                  className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
-                />
-                <div className="flex flex-col justify-center min-w-0">
-                  <p className="font-semibold text-foreground leading-tight">{item.name}</p>
-                  <p className="text-sm text-muted-foreground leading-tight truncate">{item.role}</p>
+        {isMobile ? (
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className={`w-full transition-all duration-700 delay-300 ${
+              sectionVisible ? 'animate-fade-in' : 'opacity-0'
+            }`}
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((item, index) => (
+                <CarouselItem key={index} className="pl-4">
+                  <Card className="p-6 flex flex-col h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow">
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-base text-muted-foreground mb-6 italic flex-grow leading-relaxed">
+                      "{item.testimonial}"
+                    </p>
+                    <div className="flex items-center gap-3 mt-auto">
+                      <img 
+                        src={item.img} 
+                        alt={item.name}
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
+                      />
+                      <div className="flex flex-col justify-center min-w-0">
+                        <p className="font-semibold text-foreground leading-tight">{item.name}</p>
+                        <p className="text-sm text-muted-foreground leading-tight truncate">{item.role}</p>
+                      </div>
+                    </div>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
+            <CarouselNext className="-right-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
+          </Carousel>
+        ) : (
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}>
+            {testimonials.map((item, index) => (
+              <Card 
+                key={index} 
+                className="p-6 flex flex-col h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow hover:scale-105 cursor-pointer"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                  ))}
                 </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+                <p className="text-base text-muted-foreground mb-6 italic flex-grow leading-relaxed">
+                  "{item.testimonial}"
+                </p>
+                <div className="flex items-center gap-3 mt-auto">
+                  <img 
+                    src={item.img} 
+                    alt={item.name}
+                    className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
+                  />
+                  <div className="flex flex-col justify-center min-w-0">
+                    <p className="font-semibold text-foreground leading-tight">{item.name}</p>
+                    <p className="text-sm text-muted-foreground leading-tight truncate">{item.role}</p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

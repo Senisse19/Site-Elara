@@ -84,6 +84,11 @@ const ElaraCapabilities = () => {
       icon: MessageSquare,
       title: "Plataforma Unificada",
       description: "Caixas de entrada do Instagram e WhatsApp centralizadas em uma única plataforma (Chatwoot)."
+    },
+    {
+      icon: MessageSquare,
+      title: "Reagir mensagens",
+      description: "Reage a mensagens do WhatsApp com emojis selecionados, tornando as conversas mais naturais e engajadoras."
     }
   ];
 
@@ -137,8 +142,8 @@ const ElaraCapabilities = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-4 md:-left-16 bg-primary/90 border-primary hover:bg-primary text-primary-foreground w-12 h-12 shadow-lg hover:shadow-glow transition-all" />
-          <CarouselNext className="-right-4 md:-right-16 bg-primary/90 border-primary hover:bg-primary text-primary-foreground w-12 h-12 shadow-lg hover:shadow-glow transition-all" />
+          <CarouselPrevious className="-left-2 md:-left-16 bg-primary/70 md:bg-primary/90 border-primary/50 md:border-primary hover:bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 shadow-md md:shadow-lg hover:shadow-glow transition-all" />
+          <CarouselNext className="-right-2 md:-right-16 bg-primary/70 md:bg-primary/90 border-primary/50 md:border-primary hover:bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 shadow-md md:shadow-lg hover:shadow-glow transition-all" />
         </Carousel>
       </div>
     </section>

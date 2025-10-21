@@ -1,9 +1,35 @@
+import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Clock, DollarSign, TrendingUp, Star, Zap, Users } from "lucide-react";
-import { useStaggeredAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi
+} from "@/components/ui/carousel";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ElaraBenefits = () => {
-  const { containerRef, visibleItems } = useStaggeredAnimation(6, 150);
+  const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
+  const isMobile = useIsMobile();
+  const [api, setApi] = React.useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api || !isMobile) return;
+
+    const intervalId = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 4000);
+
+    return () => clearInterval(intervalId);
+  }, [api, isMobile]);
 
   const benefits = [
     {
@@ -55,7 +81,12 @@ const ElaraBenefits = () => {
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/5"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+        <div 
+          ref={sectionRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-foreground">Seu atendimento, vendas e suporte </span>
             <span className="text-primary bg-clip-text bg-gradient-to-r from-primary to-blue-400">
@@ -67,37 +98,75 @@ const ElaraBenefits = () => {
           </p>
         </div>
 
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {benefits.map((benefit, index) => (
-            <Card 
-              key={index}
-              className={`p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-500 group ${
-                visibleItems.includes(index) 
-                  ? 'animate-fade-in animate-scale-in' 
-                  : 'opacity-0 translate-y-10 scale-95'
-              }`}
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
-                  <benefit.icon className="h-7 w-7 text-primary" />
+        {isMobile ? (
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className={`w-full mb-16 transition-all duration-700 delay-300 ${
+              sectionVisible ? 'animate-fade-in' : 'opacity-0'
+            }`}
+          >
+            <CarouselContent className="-ml-4">
+              {benefits.map((benefit, index) => (
+                <CarouselItem key={index} className="pl-4">
+                  <Card className="p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-300 group">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
+                        <benefit.icon className="h-7 w-7 text-primary" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
+                        <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-semibold text-foreground mb-3">
+                      {benefit.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
+            <CarouselNext className="-right-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
+          </Carousel>
+        ) : (
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}>
+            {benefits.map((benefit, index) => (
+              <Card 
+                key={index}
+                className="p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-300 group hover:scale-105"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                    <benefit.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
+                    <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
-                  <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
-                </div>
-              </div>
-              
-              <h3 className="text-xl font-semibold text-foreground mb-3">
-                {benefit.title}
-              </h3>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                {benefit.description}
-              </p>
-            </Card>
-          ))}
-        </div>
+                
+                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  {benefit.title}
+                </h3>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  {benefit.description}
+                </p>
+              </Card>
+            ))}
+          </div>
+        )}
 
         {/* Por que a Elara? */}
         <div className="mt-20">
