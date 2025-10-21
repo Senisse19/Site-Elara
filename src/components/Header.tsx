@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, Bot } from "lucide-react";
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState("inicio");
@@ -13,7 +13,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["inicio", "sobre", "pacotes", "contato"];
+      const sections = ["inicio", "capacidades", "beneficios", "como-funciona", "depoimentos", "sobre", "faq", "contato"];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -42,8 +42,8 @@ const Header = () => {
 
   const navItems = [
     { id: "inicio", label: "Início" },
-    { id: "sobre", label: "Sobre Mim" },
-    { id: "pacotes", label: "Preços" },
+    { id: "capacidades", label: "Como Funciona" },
+    { id: "beneficios", label: "Benefícios" },
     { id: "contato", label: "Contato" },
   ];
 
@@ -53,8 +53,9 @@ const Header = () => {
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <div className="text-lg sm:text-2xl font-bold text-primary">
-            Victor Senisse
+          <div className="flex items-center gap-2">
+            <Bot className="h-6 w-6 text-primary" />
+            <span className="text-lg sm:text-2xl font-bold text-primary">Elara</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
@@ -70,6 +71,12 @@ const Header = () => {
                 {item.label}
               </Button>
             ))}
+            <Button 
+              onClick={() => scrollToSection("contato")}
+              className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white"
+            >
+              Agendar demonstração
+            </Button>
           </div>
 
           {/* Mobile menu */}

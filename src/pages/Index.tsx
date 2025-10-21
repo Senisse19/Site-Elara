@@ -1,18 +1,26 @@
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import ElaraHero from "@/components/elara/ElaraHero";
+import ElaraCapabilities from "@/components/elara/ElaraCapabilities";
+import ElaraBenefits from "@/components/elara/ElaraBenefits";
+import ElaraHowItWorks from "@/components/elara/ElaraHowItWorks";
+import ElaraTestimonials from "@/components/elara/ElaraTestimonials";
+import ElaraFAQ from "@/components/elara/ElaraFAQ";
 import About from "@/components/About";
-import PackagesSection from "@/components/packages/PackagesSection";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <Header />
       <main>
-        <Hero />
+        <ElaraHero />
+        <ElaraCapabilities />
+        <ElaraBenefits />
+        <ElaraHowItWorks />
+        <ElaraTestimonials />
         <About />
-        <PackagesSection />
+        <ElaraFAQ />
         <Contact />
       </main>
       <Footer />
