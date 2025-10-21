@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
@@ -72,46 +73,66 @@ const ElaraTestimonials = () => {
         </div>
 
         {isMobile ? (
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className={`w-full transition-all duration-700 delay-300 ${
-              sectionVisible ? 'animate-fade-in' : 'opacity-0'
-            }`}
-          >
-            <CarouselContent className="-ml-4">
-              {testimonials.map((item, index) => (
-                <CarouselItem key={index} className="pl-4">
-                  <Card className="p-6 flex flex-col h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow">
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <p className="text-base text-muted-foreground mb-6 italic flex-grow leading-relaxed">
-                      "{item.testimonial}"
-                    </p>
-                    <div className="flex items-center gap-3 mt-auto">
-                      <img 
-                        src={item.img} 
-                        alt={item.name}
-                        className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
-                      />
-                      <div className="flex flex-col justify-center min-w-0">
-                        <p className="font-semibold text-foreground leading-tight">{item.name}</p>
-                        <p className="text-sm text-muted-foreground leading-tight truncate">{item.role}</p>
+          <div className={`space-y-6 transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {testimonials.map((item, index) => (
+                  <CarouselItem key={index} className="pl-4">
+                    <Card className="p-6 flex flex-col h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow">
+                      <div className="flex items-center gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                        ))}
                       </div>
-                    </div>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="-left-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
-            <CarouselNext className="-right-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
-          </Carousel>
+                      <p className="text-base text-muted-foreground mb-6 italic flex-grow leading-relaxed">
+                        "{item.testimonial}"
+                      </p>
+                      <div className="flex items-center gap-3 mt-auto">
+                        <img 
+                          src={item.img} 
+                          alt={item.name}
+                          className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
+                        />
+                        <div className="flex flex-col justify-center min-w-0">
+                          <p className="font-semibold text-foreground leading-tight">{item.name}</p>
+                          <p className="text-sm text-muted-foreground leading-tight truncate">{item.role}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            
+            {/* Navigation arrows below */}
+            <div className="flex justify-center items-center gap-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => api?.scrollPrev()}
+              >
+                <CarouselPrevious className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => api?.scrollNext()}
+              >
+                <CarouselNext className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+              </Button>
+            </div>
+          </div>
         ) : (
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-300 ${
             sectionVisible ? 'animate-fade-in' : 'opacity-0'

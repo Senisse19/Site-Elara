@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Target, Zap, Users, Rocket } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
@@ -74,36 +75,56 @@ const ElaraHowItWorks = () => {
         </div>
 
         {isMobile ? (
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className={`w-full transition-all duration-700 delay-300 ${
-              sectionVisible ? 'animate-fade-in' : 'opacity-0'
-            }`}
-          >
-            <CarouselContent className="-ml-4">
-              {steps.map((step, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2">
-                  <Card className="p-6 text-center bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group h-full">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors">
-                      <step.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h4 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                      {step.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="-left-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
-            <CarouselNext className="-right-2 bg-primary/70 border-primary/50 hover:bg-primary text-primary-foreground w-10 h-10 shadow-md hover:shadow-glow transition-all" />
-          </Carousel>
+          <div className={`space-y-6 transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {steps.map((step, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2">
+                    <Card className="p-6 text-center bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group h-full">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors">
+                        <step.icon className="h-8 w-8 text-primary" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                        {step.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {step.description}
+                      </p>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            
+            {/* Navigation arrows below */}
+            <div className="flex justify-center items-center gap-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => api?.scrollPrev()}
+              >
+                <CarouselPrevious className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => api?.scrollNext()}
+              >
+                <CarouselNext className="static translate-x-0 translate-y-0 border-0 bg-transparent hover:bg-transparent w-6 h-6" />
+              </Button>
+            </div>
+          </div>
         ) : (
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-700 delay-300 ${
             sectionVisible ? 'animate-fade-in' : 'opacity-0'

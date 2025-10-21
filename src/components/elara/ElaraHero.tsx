@@ -34,21 +34,25 @@ const ElaraHero = () => {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] tracking-tight">
-                Coloque a{" "}
-                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-pulse">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="text-foreground">Coloque a </span>
+                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent">
                   Elara
                 </span>
-                {" "}para trabalhar na sua empresa
+                <br />
+                <span className="text-foreground">para trabalhar</span>
+                <br />
+                <span className="text-foreground">na sua empresa</span>
               </h1>
-              <p className="text-xl sm:text-2xl font-semibold text-primary/90">
-                Sua Atendente com IA 24/7
+              <p className="text-2xl sm:text-3xl font-semibold text-primary">
+                Atendente com IA • 24/7
               </p>
             </div>
             
-            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed font-light">
-              Treinamos e implementamos uma agente de IA generativa que <strong className="text-foreground font-semibold">fala com seus clientes</strong>, 
-              automatiza processos, qualifica leads e <strong className="text-foreground font-semibold">resolve problemas 24/7</strong>.
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              Implementamos uma agente de IA que <strong className="text-foreground">conversa com seus clientes</strong>, 
+              automatiza processos, <strong className="text-foreground">qualifica leads</strong> e resolve problemas 
+              <strong className="text-foreground"> sem parar</strong>.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
