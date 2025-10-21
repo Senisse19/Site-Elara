@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Bot } from "lucide-react";
+import { Menu } from "lucide-react";
+import elaraLogo from "@/assets/elara-logo.png";
+import DemoModal from "@/components/DemoModal";
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState("inicio");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,16 +50,22 @@ const Header = () => {
     { id: "contato", label: "Contato" },
   ];
 
+  const handleDemoClick = () => {
+    setIsDemoModalOpen(true);
+    setIsMenuOpen(false);
+  };
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? "bg-card/95 backdrop-blur-md shadow-card" : "bg-transparent"
-    }`}>
-      <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Bot className="h-6 w-6 text-primary" />
-            <span className="text-lg sm:text-2xl font-bold text-primary">Elara</span>
-          </div>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-card/95 backdrop-blur-md shadow-card" : "bg-transparent"
+      }`}>
+        <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection("inicio")}>
+              <img src={elaraLogo} alt="Elara Logo" className="h-8 w-8 object-contain" />
+              <span className="text-lg sm:text-2xl font-bold text-foreground">Elara</span>
+            </div>
           
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item) => (
@@ -72,7 +81,7 @@ const Header = () => {
               </Button>
             ))}
             <Button 
-              onClick={() => scrollToSection("contato")}
+              onClick={handleDemoClick}
               className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white"
             >
               Agendar demonstração
@@ -100,12 +109,20 @@ const Header = () => {
                     {item.label}
                   </Button>
                 ))}
+                <Button 
+                  onClick={handleDemoClick}
+                  className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-4"
+                >
+                  Agendar demonstração
+                </Button>
               </nav>
             </SheetContent>
           </Sheet>
         </div>
       </nav>
     </header>
+    <DemoModal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen} />
+    </>
   );
 };
 

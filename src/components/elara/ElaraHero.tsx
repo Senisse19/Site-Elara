@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import chatMockup from "@/assets/chat-mockup.png";
+import DemoModal from "@/components/DemoModal";
 
 const ElaraHero = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation(0.2);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -48,8 +52,8 @@ const ElaraHero = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button 
                 size="lg"
-                onClick={() => scrollToSection("contato")}
-                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all duration-300 text-white group"
+                onClick={() => setIsDemoModalOpen(true)}
+                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow hover:scale-105 transition-all duration-300 text-white group"
               >
                 Agendar Demonstração
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -58,7 +62,7 @@ const ElaraHero = () => {
                 size="lg"
                 variant="outline"
                 onClick={() => scrollToSection("capacidades")}
-                className="border-primary/30 hover:bg-primary/10"
+                className="border-primary/30 hover:bg-primary/10 hover:scale-105 transition-all duration-300"
               >
                 Conhecer Funcionalidades
               </Button>
@@ -74,61 +78,28 @@ const ElaraHero = () => {
           </div>
           
           {/* Chat Visual Mockup */}
-          <div className="lg:w-1/2 flex justify-center w-full">
+          <div 
+            className={`lg:w-1/2 flex justify-center w-full transition-all duration-700 delay-300 ${
+              heroVisible ? 'animate-fade-in animate-scale-in' : 'opacity-0 scale-95'
+            }`}
+          >
             <div className="relative w-full max-w-md">
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl"></div>
+              <div className="absolute inset-0 bg-primary/30 rounded-3xl blur-3xl animate-pulse"></div>
               
-              {/* Chat container */}
-              <div className="relative bg-card/50 backdrop-blur-xl border border-primary/20 rounded-3xl p-6 space-y-4">
-                {/* Chat messages */}
-                <div className="flex justify-end">
-                  <div className="bg-primary/20 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
-                    <p className="text-sm text-foreground">Gostaria de conhecer o catálogo de vocês.</p>
-                  </div>
-                </div>
-                
-                <div className="flex justify-start">
-                  <div className="bg-accent rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Bot className="h-4 w-4 text-primary" />
-                      <span className="text-xs text-primary font-medium">Seu agente Elara</span>
-                    </div>
-                    <p className="text-sm text-foreground">Claro, José! Vou te enviar um PDF que contém...</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-end">
-                  <div className="bg-primary/20 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
-                    <p className="text-sm text-foreground">O horário das 17h não está disponível. Posso te sugerir outro?</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-start">
-                  <div className="bg-accent rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Bot className="h-4 w-4 text-primary" />
-                      <span className="text-xs text-primary font-medium">Seu agente Elara</span>
-                    </div>
-                    <p className="text-sm text-foreground">Claro, posso ajudar com o agendamento da sua consulta.</p>
-                  </div>
-                </div>
-
-                {/* Typing indicator */}
-                <div className="flex justify-start">
-                  <div className="bg-accent rounded-2xl px-4 py-3">
-                    <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-                    </div>
-                  </div>
-                </div>
+              {/* Chat mockup image */}
+              <div className="relative">
+                <img 
+                  src={chatMockup} 
+                  alt="Simulação de chat com Elara" 
+                  className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <DemoModal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen} />
     </section>
   );
 };

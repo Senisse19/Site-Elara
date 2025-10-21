@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -6,14 +7,13 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import DemoModal from "@/components/DemoModal";
 
 const ElaraFAQ = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById("contato");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const { elementRef: ctaRef, isVisible: ctaVisible } = useScrollAnimation(0.2);
+  const { elementRef: faqRef, isVisible: faqVisible } = useScrollAnimation(0.2);
 
   const faqs = [
     {
@@ -52,7 +52,12 @@ const ElaraFAQ = () => {
       
       <div className="container mx-auto px-6 relative z-10">
         {/* CTA antes do FAQ */}
-        <div className="text-center mb-20">
+        <div 
+          ref={ctaRef}
+          className={`text-center mb-20 transition-all duration-700 ${
+            ctaVisible ? 'animate-fade-in animate-scale-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Pronto para ter um agente de IA trabalhando por você?
           </h2>
@@ -61,8 +66,8 @@ const ElaraFAQ = () => {
           </p>
           <Button 
             size="lg"
-            onClick={scrollToContact}
-            className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all duration-300 text-white group"
+            onClick={() => setIsDemoModalOpen(true)}
+            className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow hover:scale-105 transition-all duration-300 text-white group"
           >
             Agendar uma demonstração
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -70,7 +75,12 @@ const ElaraFAQ = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="max-w-4xl mx-auto">
+        <div 
+          ref={faqRef}
+          className={`max-w-4xl mx-auto transition-all duration-700 delay-300 ${
+            faqVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
             Perguntas Frequentes
           </h3>
@@ -80,7 +90,7 @@ const ElaraFAQ = () => {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="bg-card border border-primary/20 rounded-lg px-6 hover:border-primary/40 transition-colors"
+                className="bg-card border border-primary/20 rounded-lg px-6 hover:border-primary/40 hover:shadow-glow transition-all duration-300"
               >
                 <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary hover:no-underline py-6">
                   {faq.question}
@@ -93,6 +103,7 @@ const ElaraFAQ = () => {
           </Accordion>
         </div>
       </div>
+      <DemoModal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen} />
     </section>
   );
 };

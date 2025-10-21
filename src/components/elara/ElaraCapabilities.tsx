@@ -10,10 +10,17 @@ import {
   Database,
   MessageSquare
 } from "lucide-react";
-import { useStaggeredAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ElaraCapabilities = () => {
-  const { containerRef, visibleItems } = useStaggeredAnimation(9, 100);
+  const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
 
   const capabilities = [
     {
@@ -68,7 +75,12 @@ const ElaraCapabilities = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+        <div 
+          ref={sectionRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             O que ela é capaz de fazer
           </h2>
@@ -77,31 +89,39 @@ const ElaraCapabilities = () => {
           </p>
         </div>
 
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((capability, index) => (
-            <Card 
-              key={index}
-              className={`p-6 bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-500 group ${
-                visibleItems.includes(index) 
-                  ? 'animate-fade-in animate-scale-in' 
-                  : 'opacity-0 translate-y-10 scale-95'
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                <capability.icon className="h-7 w-7 text-primary" />
-              </div>
-              
-              <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                {capability.title}
-              </h3>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                {capability.description}
-              </p>
-            </Card>
-          ))}
-        </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className={`w-full transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}
+        >
+          <CarouselContent className="-ml-4">
+            {capabilities.map((capability, index) => (
+              <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <Card 
+                  className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105 cursor-pointer"
+                >
+                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                    <capability.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {capability.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground leading-relaxed">
+                    {capability.description}
+                  </p>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex -left-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary" />
+          <CarouselNext className="hidden md:flex -right-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary" />
+        </Carousel>
       </div>
     </section>
   );
