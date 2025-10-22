@@ -62,9 +62,8 @@ const Header = () => {
       }`}>
         <nav className="container mx-auto px-4 sm:px-6 py-2 sm:py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection("inicio")}>
+            <div className="flex items-center cursor-pointer" onClick={() => scrollToSection("inicio")}>
               <img src={elaraLogo} alt="Elara Logo" className="h-20 w-20 object-contain" />
-              <span className="text-lg sm:text-2xl font-bold text-foreground">Elara</span>
             </div>
           
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">

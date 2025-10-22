@@ -25,7 +25,7 @@ const ElaraTestimonials = () => {
       } else {
         api.scrollTo(0);
       }
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(intervalId);
   }, [api, isMobile]);

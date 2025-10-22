@@ -13,7 +13,9 @@ import {
   MessageSquare,
   Smile,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Calendar,
+  Bell
 } from "lucide-react";
 import {
   Carousel,
@@ -36,7 +38,7 @@ const ElaraCapabilities = () => {
       } else {
         api.scrollTo(0);
       }
-    }, 3000);
+    }, 6000);
 
     return () => clearInterval(intervalId);
   }, [api]);
@@ -91,6 +93,16 @@ const ElaraCapabilities = () => {
       icon: Smile,
       title: "Reagir mensagens",
       description: "Reage a mensagens do WhatsApp com emojis selecionados, tornando as conversas mais naturais e engajadoras."
+    },
+    {
+      icon: Calendar,
+      title: "Gestão de Agenda",
+      description: "A Elara pode agendar, reagendar e desmarcar reuniões diretamente no Google Agenda."
+    },
+    {
+      icon: Bell,
+      title: "Confirmação de Reunião",
+      description: "Entra em contato com o cliente 24 horas antes da reunião, solicitando a confirmação de comparecimento para reduzir o não comparecimento (no-show)."
     }
   ];
 
