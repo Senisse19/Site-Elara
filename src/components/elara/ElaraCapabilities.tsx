@@ -24,24 +24,30 @@ import {
   type CarouselApi
 } from "@/components/ui/carousel";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ElaraCapabilities = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
+  const isMobile = useIsMobile();
   const [api, setApi] = React.useState<CarouselApi>();
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [lastInteraction, setLastInteraction] = React.useState(Date.now());
 
   useEffect(() => {
-    if (!api) return;
+    if (!api || !isMobile || isHovered) return;
 
     const intervalId = setInterval(() => {
+      if (Date.now() - lastInteraction < 10000) return; // Wait 10s after interaction
+      
       if (api.canScrollNext()) {
         api.scrollNext();
       } else {
         api.scrollTo(0);
       }
-    }, 6000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
-  }, [api]);
+  }, [api, isMobile, isHovered, lastInteraction]);
 
   const capabilities = [
     {
@@ -135,6 +141,8 @@ const ElaraCapabilities = () => {
             className={`w-full transition-all duration-700 delay-300 ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             <CarouselContent className="-ml-4">
               {capabilities.map((capability, index) => (
@@ -161,22 +169,28 @@ const ElaraCapabilities = () => {
           
           {/* Navigation arrows below */}
           <div className="flex justify-center items-center gap-4 pt-4">
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-              onClick={() => api?.scrollPrev()}
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-              onClick={() => api?.scrollNext()}
-            >
-              <ChevronRight className="w-6 h-6" />
-            </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => {
+                  api?.scrollPrev();
+                  setLastInteraction(Date.now());
+                }}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => {
+                  api?.scrollNext();
+                  setLastInteraction(Date.now());
+                }}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </Button>
           </div>
         </div>
       </div>

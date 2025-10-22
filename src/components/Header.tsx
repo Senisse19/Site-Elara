@@ -10,10 +10,18 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [showMobileButton, setShowMobileButton] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Show mobile button when reaching "capacidades" section
+      const capacidadesSection = document.getElementById("capacidades");
+      if (capacidadesSection) {
+        const rect = capacidadesSection.getBoundingClientRect();
+        setShowMobileButton(rect.top <= 100);
+      }
       
       // Update active section based on scroll position
       const sections = ["inicio", "capacidades", "beneficios", "como-funciona", "depoimentos", "sobre", "faq", "contato"];
@@ -89,13 +97,15 @@ const Header = () => {
 
           {/* Mobile - Demo Button + Menu */}
           <div className="flex md:hidden items-center gap-2">
-            <Button 
-              onClick={handleDemoClick}
-              size="sm"
-              className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3"
-            >
-              Agendar
-            </Button>
+            {showMobileButton && (
+              <Button 
+                onClick={handleDemoClick}
+                size="sm"
+                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3 animate-fade-in"
+              >
+                Agendar
+              </Button>
+            )}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">

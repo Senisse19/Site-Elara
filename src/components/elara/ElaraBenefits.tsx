@@ -15,20 +15,24 @@ const ElaraBenefits = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
   const isMobile = useIsMobile();
   const [api, setApi] = React.useState<CarouselApi>();
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [lastInteraction, setLastInteraction] = React.useState(Date.now());
 
   useEffect(() => {
-    if (!api || !isMobile) return;
+    if (!api || !isMobile || isHovered) return;
 
     const intervalId = setInterval(() => {
+      if (Date.now() - lastInteraction < 9000) return; // Wait 9s after interaction
+      
       if (api.canScrollNext()) {
         api.scrollNext();
       } else {
         api.scrollTo(0);
       }
-    }, 4000);
+    }, 9000);
 
     return () => clearInterval(intervalId);
-  }, [api, isMobile]);
+  }, [api, isMobile, isHovered, lastInteraction]);
 
   const benefits = [
     {
@@ -108,6 +112,8 @@ const ElaraBenefits = () => {
                 loop: true,
               }}
               className="w-full"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
               <CarouselContent className="-ml-4">
                 {benefits.map((benefit, index) => (
@@ -142,7 +148,10 @@ const ElaraBenefits = () => {
                 variant="outline"
                 size="icon"
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => api?.scrollPrev()}
+                onClick={() => {
+                  api?.scrollPrev();
+                  setLastInteraction(Date.now());
+                }}
               >
                 <ChevronLeft className="w-6 h-6" />
               </Button>
@@ -150,7 +159,10 @@ const ElaraBenefits = () => {
                 variant="outline"
                 size="icon"
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => api?.scrollNext()}
+                onClick={() => {
+                  api?.scrollNext();
+                  setLastInteraction(Date.now());
+                }}
               >
                 <ChevronRight className="w-6 h-6" />
               </Button>
