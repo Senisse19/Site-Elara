@@ -101,7 +101,7 @@ const Header = () => {
               <Button 
                 onClick={handleDemoClick}
                 size="sm"
-                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3 animate-fade-in"
+                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3 animate-[fadeIn_0.5s_ease-out] animate-in slide-in-from-right-4"
               >
                 Agendar
               </Button>
