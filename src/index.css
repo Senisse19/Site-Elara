@@ -144,6 +144,28 @@ All colors MUST be HSL.
     }
   }
 
+  /* Letter reveal animation */
+  @keyframes letterReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) rotateX(90deg);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateY(-2px) rotateX(-5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+  }
+
+  .letter-reveal {
+    display: inline-block;
+    animation: letterReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+    transform-origin: center bottom;
+  }
+
   /* Word rotate in animation */
   @keyframes wordRotateIn {
     0% {

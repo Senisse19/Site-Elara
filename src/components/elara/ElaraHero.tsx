@@ -26,7 +26,7 @@ const ElaraHero = () => {
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5"></div>
       
-      <div className="container mx-auto px-6 py-24 md:py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 py-24 md:py-20 relative z-10 max-w-full overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div ref={heroRef} className={`lg:w-1/2 space-y-8 transition-all duration-700 flex flex-col items-center lg:items-start text-center lg:text-left ${heroVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
@@ -35,18 +35,47 @@ const ElaraHero = () => {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out]">Coloque a </span>
-                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-[wordRotateIn_1.2s_ease-out_0.3s_backwards] glow-text">
-                  Elara
-                </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight break-words">
+                {"Coloque a Elara".split('').map((char, i) => (
+                  <span 
+                    key={`title1-${i}`} 
+                    className="letter-reveal text-foreground glow-text"
+                    style={{ animationDelay: `${i * 0.03}s` }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
                 <br />
-                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out_0.6s_backwards]">para trabalhar</span>
+                {"para trabalhar".split('').map((char, i) => (
+                  <span 
+                    key={`title2-${i}`} 
+                    className="letter-reveal text-foreground glow-text"
+                    style={{ animationDelay: `${(14 + i) * 0.03}s` }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
                 <br />
-                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out_0.9s_backwards]">na sua empresa</span>
+                {"na sua empresa".split('').map((char, i) => (
+                  <span 
+                    key={`title3-${i}`} 
+                    className="letter-reveal text-foreground glow-text"
+                    style={{ animationDelay: `${(29 + i) * 0.03}s` }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
               </h1>
-              <p className="text-2xl sm:text-3xl font-semibold text-primary glow-text">
-                Atendente com IA • 24/7
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold break-words">
+                {"Atendente com IA • 24/7".split('').map((char, i) => (
+                  <span 
+                    key={`subtitle-${i}`} 
+                    className="letter-reveal bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent glow-text"
+                    style={{ animationDelay: `${(44 + i) * 0.03}s` }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
               </p>
             </div>
             
