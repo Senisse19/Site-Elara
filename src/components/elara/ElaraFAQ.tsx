@@ -58,7 +58,7 @@ const ElaraFAQ = () => {
             ctaVisible ? 'animate-fade-in animate-scale-in' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground glow-text mb-6">
             Pronto para ter um agente de IA trabalhando por você?
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -81,7 +81,7 @@ const ElaraFAQ = () => {
             faqVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
+          <h3 className="text-3xl lg:text-4xl font-bold text-foreground glow-text mb-12 text-center">
             Perguntas Frequentes
           </h3>
           

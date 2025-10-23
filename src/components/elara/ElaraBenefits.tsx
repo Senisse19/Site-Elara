@@ -91,8 +91,8 @@ const ElaraBenefits = () => {
           }`}
         >
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-foreground">Seu atendimento, vendas e suporte </span>
-            <span className="text-primary bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+            <span className="text-foreground glow-text">Seu atendimento, vendas e suporte </span>
+            <span className="text-primary glow-text bg-clip-text bg-gradient-to-r from-primary to-blue-400">
               no piloto automático
             </span>
           </h2>
@@ -203,7 +203,7 @@ const ElaraBenefits = () => {
         <div className="mt-20">
           <Card className="p-8 lg:p-12 bg-gradient-to-br from-primary/10 to-blue-500/10 border-primary/30">
             <div className="max-w-4xl mx-auto text-center space-y-6">
-              <h3 className="text-3xl lg:text-4xl font-bold text-foreground">
+              <h3 className="text-3xl lg:text-4xl font-bold text-foreground glow-text">
                 Por que a Elara?
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">

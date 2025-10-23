@@ -62,7 +62,7 @@ const About = () => {
   return <section id="sobre" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className={`text-center mb-16 transition-all duration-700 ${titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground glow-text mb-4">
             Sobre Mim
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
