@@ -29,13 +29,24 @@ const Header = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 150 && rect.bottom >= 150;
         }
         return false;
       });
       
       if (currentSection) {
-        setActiveSection(currentSection);
+        // Map section IDs to nav item IDs
+        const sectionToNavMap: { [key: string]: string } = {
+          "inicio": "inicio",
+          "capacidades": "capacidades",
+          "beneficios": "beneficios",
+          "como-funciona": "como-funciona",
+          "depoimentos": "depoimentos",
+          "sobre": "sobre",
+          "faq": "faq",
+          "contato": "contato"
+        };
+        setActiveSection(sectionToNavMap[currentSection] || currentSection);
       }
     };
 
@@ -62,6 +73,7 @@ const Header = () => {
     { id: "inicio", label: "Início" },
     { id: "capacidades", label: "Como Funciona" },
     { id: "beneficios", label: "Benefícios" },
+    { id: "depoimentos", label: "Depoimentos" },
     { id: "sobre", label: "Sobre Mim" },
     { id: "faq", label: "FAQ" },
     { id: "contato", label: "Contato" },
