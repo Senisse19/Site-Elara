@@ -15,7 +15,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Calendar,
-  Bell
+  Bell,
+  Target
 } from "lucide-react";
 import {
   Carousel,
@@ -109,6 +110,11 @@ const ElaraCapabilities = () => {
       icon: Bell,
       title: "Confirmação de Reunião",
       description: "Entra em contato com o cliente 24 horas antes da reunião, solicitando a confirmação de comparecimento para reduzir o não comparecimento (no-show)."
+    },
+    {
+      icon: Target,
+      title: "Prospecção Ativa e Qualificação",
+      description: "Integra com sua lista de leads ou formulário, faz prospecção ativa e qualifica clientes. Cuida desde a prospecção até o agendamento, tudo automático."
     }
   ];
 
