@@ -116,9 +116,9 @@ All colors MUST be HSL.
 
   /* Glow text effect for titles */
   .glow-text {
-    text-shadow: 0 0 20px hsl(217 91% 60% / 0.5),
-                 0 0 40px hsl(217 91% 60% / 0.3),
-                 0 0 60px hsl(217 91% 60% / 0.2);
+    text-shadow: 0 0 15px hsl(0 0% 100% / 0.15),
+                 0 0 30px hsl(0 0% 100% / 0.1),
+                 0 0 45px hsl(0 0% 100% / 0.05);
   }
 
   /* Typing dots animation */
