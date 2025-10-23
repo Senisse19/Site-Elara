@@ -132,7 +132,7 @@ const About = () => {
             >
               <CarouselContent className="-ml-2">
                 {stats.map((stat, index) => (
-                  <CarouselItem key={index} className="pl-2 basis-[85%]">
+                  <CarouselItem key={index} className="pl-2 basis-full">
                     <Card className="p-6 text-center hover:shadow-glow transition-all duration-300 bg-card-gradient border-primary/20">
                       <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
                         <stat.icon className="h-6 w-6 text-primary" />

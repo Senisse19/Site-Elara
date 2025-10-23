@@ -26,7 +26,7 @@ const ElaraHero = () => {
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 py-24 md:py-20 relative z-10 max-w-full overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-24 md:py-20 relative z-10 max-w-full overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div ref={heroRef} className={`lg:w-1/2 space-y-8 transition-all duration-700 flex flex-col items-center lg:items-start text-center lg:text-left ${heroVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
