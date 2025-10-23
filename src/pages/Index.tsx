@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import ElaraHero from "@/components/elara/ElaraHero";
 import ElaraCapabilities from "@/components/elara/ElaraCapabilities";
-import ElaraBenefitsMarquee from "@/components/elara/ElaraBenefitsMarquee";
+import ElaraBenefits from "@/components/elara/ElaraBenefits";
 import ElaraHowItWorks from "@/components/elara/ElaraHowItWorks";
 import ElaraTestimonials from "@/components/elara/ElaraTestimonials";
 import ElaraFAQ from "@/components/elara/ElaraFAQ";
@@ -16,7 +16,7 @@ const Index = () => {
       <main>
         <ElaraHero />
         <ElaraCapabilities />
-        <ElaraBenefitsMarquee />
+        <ElaraBenefits />
         <ElaraHowItWorks />
         <ElaraTestimonials />
         <About />

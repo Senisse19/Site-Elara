@@ -83,7 +83,7 @@ const Header = () => {
               <img src={elaraLogo} alt="Elara Logo" className="h-20 w-20 object-contain" />
             </div>
           
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
             {navItems.map((item) => (
               <Button
                 key={item.id}
@@ -105,25 +105,23 @@ const Header = () => {
           </div>
 
           {/* Mobile - Demo Button + Menu */}
-          <div className="flex md:hidden items-center gap-2">
-            <Button 
-              onClick={handleDemoClick}
-              size="sm"
-              className={`bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow text-white text-xs px-3 transition-all duration-300 ${
-                showMobileButton 
-                  ? 'animate-[fadeIn_0.5s_ease-out] animate-in slide-in-from-right-4' 
-                  : 'animate-[fadeOut_0.3s_ease-out] animate-out slide-out-to-right-4 opacity-0 pointer-events-none'
-              }`}
-            >
-              Agendar
-            </Button>
+          <div className="flex lg:hidden items-center gap-2">
+            {showMobileButton && (
+              <Button 
+                onClick={handleDemoClick}
+                size="sm"
+                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow text-white text-xs px-3 animate-in fade-in slide-in-from-right-2 duration-500"
+              >
+                Agendar
+              </Button>
+            )}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="sm" className="h-9 w-9">
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon" className="h-9 w-9">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72 bg-card/95 backdrop-blur-xl border-primary/20">
+            <SheetContent side="right" className="glassmorphism w-80 border-primary/30 shadow-glow">
               <nav className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => (
                   <Button
