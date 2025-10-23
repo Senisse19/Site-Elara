@@ -36,14 +36,14 @@ const ElaraHero = () => {
 
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out]">Coloque a </span>
-                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-[wordRotateIn_0.6s_ease-out_0.2s_backwards] glow-text">
+                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out]">Coloque a </span>
+                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-[wordRotateIn_1.2s_ease-out_0.3s_backwards] glow-text">
                   Elara
                 </span>
                 <br />
-                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out_0.4s_backwards]">para trabalhar</span>
+                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out_0.6s_backwards]">para trabalhar</span>
                 <br />
-                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out_0.6s_backwards]">na sua empresa</span>
+                <span className="text-foreground glow-text animate-[wordRotateIn_1.2s_ease-out_0.9s_backwards]">na sua empresa</span>
               </h1>
               <p className="text-2xl sm:text-3xl font-semibold text-primary glow-text">
                 Atendente com IA • 24/7

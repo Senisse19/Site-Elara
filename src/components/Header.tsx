@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetPortal, SheetOverlay } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import elaraLogo from "@/assets/elara-logo-white.png";
 import DemoModal from "@/components/DemoModal";
@@ -121,28 +121,34 @@ const Header = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="glassmorphism w-80 border-primary/30 shadow-glow">
-              <nav className="flex flex-col space-y-4 mt-8">
-                {navItems.map((item) => (
-                  <Button
-                    key={item.id}
-                    variant="ghost"
-                    onClick={() => scrollToSection(item.id)}
-                    className={`justify-start text-base transition-colors hover:text-primary ${
-                      activeSection === item.id ? "text-primary font-semibold" : "text-muted-foreground"
-                    }`}
+            <SheetPortal>
+              <SheetOverlay className="bg-black/30" />
+              <SheetContent 
+                side="right" 
+                className="glassmorphism w-72 sm:w-80 h-auto max-h-[70vh] border-primary/30 shadow-glow !top-20 !right-4 !bottom-auto !left-auto rounded-2xl overflow-auto"
+              >
+                <nav className="flex flex-col space-y-4 mt-8">
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      onClick={() => scrollToSection(item.id)}
+                      className={`justify-start text-base transition-colors hover:text-primary ${
+                        activeSection === item.id ? "text-primary font-semibold" : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                  <Button 
+                    onClick={handleDemoClick}
+                    className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-4"
                   >
-                    {item.label}
+                    Agendar demonstração
                   </Button>
-                ))}
-                <Button 
-                  onClick={handleDemoClick}
-                  className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-4"
-                >
-                  Agendar demonstração
-                </Button>
-              </nav>
-            </SheetContent>
+                </nav>
+              </SheetContent>
+            </SheetPortal>
           </Sheet>
           </div>
         </div>
