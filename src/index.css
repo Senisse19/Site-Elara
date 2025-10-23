@@ -211,4 +211,28 @@ All colors MUST be HSL.
   .animate-marquee:hover {
     animation-play-state: paused;
   }
+
+  /* Seamless marquee animation */
+  @keyframes marquee-seamless {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee-seamless {
+    animation: marquee-seamless 30s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-seamless:hover {
+    animation-play-state: paused;
+  }
+
+  /* Shadow glow effect */
+  .shadow-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 4px 12px hsl(var(--primary) / 0.3);
+  }
 }

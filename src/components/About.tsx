@@ -92,13 +92,13 @@ const About = () => {
             
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">Principais Tecnologias:</h4>
-              <div className="relative overflow-hidden">
-                <div className="flex gap-3 animate-marquee">
+              <div className="relative overflow-hidden py-4">
+                <div className="flex gap-4 animate-marquee-seamless">
                   {[...technologies, ...technologies].map((tech, index) => (
                     <Badge 
                       key={index} 
                       variant="secondary" 
-                      className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors whitespace-nowrap flex-shrink-0"
+                      className="text-base px-4 py-2 bg-gradient-to-br from-accent to-accent/80 text-accent-foreground hover:from-primary hover:to-primary/90 hover:text-primary-foreground transition-all duration-300 whitespace-nowrap flex-shrink-0 shadow-lg hover:shadow-glow hover:scale-105 border border-primary/20"
                     >
                       {tech}
                     </Badge>
