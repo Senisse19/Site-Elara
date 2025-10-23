@@ -36,16 +36,16 @@ const ElaraHero = () => {
 
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="text-foreground">Coloque a </span>
-                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent">
+                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out]">Coloque a </span>
+                <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-[wordRotateIn_0.6s_ease-out_0.2s_backwards] glow-text">
                   Elara
                 </span>
                 <br />
-                <span className="text-foreground">para trabalhar</span>
+                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out_0.4s_backwards]">para trabalhar</span>
                 <br />
-                <span className="text-foreground">na sua empresa</span>
+                <span className="text-foreground animate-[wordRotateIn_0.6s_ease-out_0.6s_backwards]">na sua empresa</span>
               </h1>
-              <p className="text-2xl sm:text-3xl font-semibold text-primary">
+              <p className="text-2xl sm:text-3xl font-semibold text-primary glow-text">
                 Atendente com IA • 24/7
               </p>
             </div>
@@ -81,8 +81,8 @@ const ElaraHero = () => {
               {/* Glow effect */}
               <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl animate-pulse"></div>
               
-              {/* Chat simulator */}
-              <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-3xl border border-primary/20 shadow-2xl p-4 sm:p-6">
+              {/* Chat simulator with glassmorphism */}
+              <div className="relative glassmorphism rounded-3xl border border-primary/30 shadow-2xl p-4 sm:p-6">
                 <div className="space-y-4">
                   {/* Chat header */}
                   <div className="flex items-center gap-3 pb-4 border-b border-primary/10">
@@ -95,34 +95,39 @@ const ElaraHero = () => {
                     </div>
                   </div>
                   
-                  {/* Chat messages */}
+                  {/* Chat messages with animation */}
                   <div className="space-y-3">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 animate-[slideInLeft_0.5s_ease-out]">
                       <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[80%]">
                         <p className="text-sm text-foreground">Olá! Bem-vindo à Clínica Vida & Saúde 👋</p>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 animate-[slideInLeft_0.5s_ease-out_0.5s_backwards]">
                       <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%]">
                         <p className="text-sm text-foreground">Como posso ajudar você hoje?</p>
                       </div>
                     </div>
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex gap-2 justify-end animate-[slideInRight_0.5s_ease-out_1s_backwards]">
                       <div className="bg-primary rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[80%]">
                         <p className="text-sm text-primary-foreground">Gostaria de agendar uma consulta</p>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 animate-[slideInLeft_0.5s_ease-out_1.5s_backwards]">
                       <div className="bg-primary/10 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[90%]">
                         <p className="text-sm text-foreground">Perfeito! Temos horários disponíveis para esta semana. Qual especialidade você precisa? 🏥</p>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Typing indicator */}
-                  <div className="flex items-center gap-2 text-muted-foreground text-xs pt-2">
-                    <MessageCircle className="h-3 w-3 animate-pulse" />
-                    <span>Elara está digitando...</span>
+                  {/* Typing indicator with realistic effect */}
+                  <div className="flex items-center gap-2 text-muted-foreground text-xs pt-2 animate-[fadeIn_0.5s_ease-out_2s_backwards]">
+                    <MessageCircle className="h-3 w-3" />
+                    <span className="typing-text">Elara está digitando</span>
+                    <span className="typing-dots">
+                      <span className="animate-[bounce_1s_infinite]">.</span>
+                      <span className="animate-[bounce_1s_infinite_0.2s]">.</span>
+                      <span className="animate-[bounce_1s_infinite_0.4s]">.</span>
+                    </span>
                   </div>
                 </div>
               </div>

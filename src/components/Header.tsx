@@ -46,7 +46,14 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 100; // Offset to prevent header from covering title
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
       setIsMenuOpen(false);
     }
   };
@@ -55,6 +62,8 @@ const Header = () => {
     { id: "inicio", label: "Início" },
     { id: "capacidades", label: "Como Funciona" },
     { id: "beneficios", label: "Benefícios" },
+    { id: "sobre", label: "Sobre Mim" },
+    { id: "faq", label: "FAQ" },
     { id: "contato", label: "Contato" },
   ];
 
@@ -97,22 +106,24 @@ const Header = () => {
 
           {/* Mobile - Demo Button + Menu */}
           <div className="flex md:hidden items-center gap-2">
-            {showMobileButton && (
-              <Button 
-                onClick={handleDemoClick}
-                size="sm"
-                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white text-xs px-3 animate-[fadeIn_0.5s_ease-out] animate-in slide-in-from-right-4"
-              >
-                Agendar
-              </Button>
-            )}
+            <Button 
+              onClick={handleDemoClick}
+              size="sm"
+              className={`bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow text-white text-xs px-3 transition-all duration-300 ${
+                showMobileButton 
+                  ? 'animate-[fadeIn_0.5s_ease-out] animate-in slide-in-from-right-4' 
+                  : 'animate-[fadeOut_0.3s_ease-out] animate-out slide-out-to-right-4 opacity-0 pointer-events-none'
+              }`}
+            >
+              Agendar
+            </Button>
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" size="sm" className="h-9 w-9">
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-64">
+            <SheetContent side="right" className="w-72 bg-card/95 backdrop-blur-xl border-primary/20">
               <nav className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => (
                   <Button

@@ -105,4 +105,106 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Glassmorphism effect */
+  .glassmorphism {
+    background: rgba(13, 16, 28, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(56, 133, 242, 0.3);
+  }
+
+  /* Glow text effect for titles */
+  .glow-text {
+    text-shadow: 0 0 20px hsl(217 91% 60% / 0.5),
+                 0 0 40px hsl(217 91% 60% / 0.3),
+                 0 0 60px hsl(217 91% 60% / 0.2);
+  }
+
+  /* Typing dots animation */
+  .typing-dots span {
+    display: inline-block;
+    animation: bounce 1s infinite;
+  }
+
+  .typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 60%, 100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Word rotate in animation */
+  @keyframes wordRotateIn {
+    0% {
+      opacity: 0;
+      transform: perspective(400px) rotateX(90deg);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(400px) rotateX(0deg);
+    }
+  }
+
+  /* Slide animations for chat */
+  @keyframes slideInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+
+  /* Marquee animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
 }
