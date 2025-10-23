@@ -125,7 +125,14 @@ const Header = () => {
               <SheetOverlay className="bg-black/30" />
               <SheetContent 
                 side="right" 
-                className="glassmorphism w-72 sm:w-80 h-auto max-h-[70vh] border-primary/30 shadow-glow !top-20 !right-4 !bottom-auto !left-auto rounded-2xl overflow-auto"
+                className="w-72 sm:w-80 h-auto max-h-[70vh] rounded-2xl overflow-auto !top-20 !right-4 !bottom-auto !left-auto"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.31)',
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                  backdropFilter: 'blur(12.4px)',
+                  WebkitBackdropFilter: 'blur(12.4px)',
+                  border: '1px solid rgba(255, 255, 255, 0.49)'
+                }}
               >
                 <nav className="flex flex-col space-y-4 mt-8">
                   {navItems.map((item) => (
