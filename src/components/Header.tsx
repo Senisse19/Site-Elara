@@ -112,7 +112,7 @@ const Header = () => {
               onClick={handleDemoClick}
               className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white"
             >
-              Agendar demonstração
+              Agendar Demonstração
             </Button>
           </div>
 
@@ -162,7 +162,7 @@ const Header = () => {
                     onClick={handleDemoClick}
                     className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-4"
                   >
-                    Agendar demonstração
+                    Agendar Demonstração
                   </Button>
                 </nav>
               </SheetContent>

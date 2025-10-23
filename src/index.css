@@ -252,8 +252,14 @@ All colors MUST be HSL.
   }
 
   .animate-marquee-seamless {
-    animation: marquee-seamless 30s linear infinite;
+    animation: marquee-seamless 20s linear infinite;
     will-change: transform;
+  }
+
+  @media (max-width: 768px) {
+    .animate-marquee-seamless {
+      animation: marquee-seamless 12s linear infinite;
+    }
   }
 
   .animate-marquee-seamless:hover {
