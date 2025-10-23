@@ -58,7 +58,7 @@ const About = () => {
     label: "Taxa de Sucesso",
     description: "Satisfação garantida"
   }];
-  const technologies = ["Python", "JavaScript", "TypeScript", "React", "Node.js", "Automação RPA", "n8n", "APIs REST", "Integração de Sistemas", "Análise de Dados", "Machine Learning", "Inteligência Artificial", "DevOps", "Scrum"];
+  const technologies = ["Chatwoot", "Coolify", "n8n", "Google Gemini", "Claude", "ElevenLabs", "RetailAI", "Lovable", "OpenRouter", "Evolution API", "TypeScript", "Python", "Node.js", "JavaScript"];
   return <section id="sobre" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className={`text-center mb-16 transition-all duration-700 ${titleVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
@@ -92,10 +92,18 @@ const About = () => {
             
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">Principais Tecnologias:</h4>
-              <div className="flex flex-wrap gap-2 max-w-full">
-                {technologies.map((tech, index) => <Badge key={index} variant="secondary" className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors">
-                    {tech}
-                  </Badge>)}
+              <div className="relative overflow-hidden">
+                <div className="flex gap-3 animate-marquee">
+                  {[...technologies, ...technologies].map((tech, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors whitespace-nowrap flex-shrink-0"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
