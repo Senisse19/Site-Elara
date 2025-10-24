@@ -18,7 +18,8 @@ import {
   Bell,
   Target,
   Phone,
-  Bot
+  Bot,
+  Clock
 } from "lucide-react";
 import {
   Carousel,
@@ -117,6 +118,11 @@ const ElaraCapabilities = () => {
       icon: Target,
       title: "Prospecção Ativa e Qualificação",
       description: "Integra com sua lista de leads ou formulário, faz prospecção ativa e qualifica clientes. Cuida desde a prospecção até o agendamento, tudo automático."
+    },
+    {
+      icon: Clock,
+      title: "Follow-up Automático",
+      description: "Entra em contato com leads que abandonaram a conversa ou ficaram sem responder por um período de tempo, mantendo o engajamento e aumentando as chances de conversão."
     },
     {
       icon: Bot,
