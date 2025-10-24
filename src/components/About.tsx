@@ -4,12 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Users, Clock, CheckCircle, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile";
 const About = () => {
   const {
@@ -20,13 +15,14 @@ const About = () => {
     elementRef: contentRef,
     isVisible: contentVisible
   } = useScrollAnimation(0.3);
-  const { elementRef: statsRef, isVisible: statsVisible } = useScrollAnimation(0.2);
+  const {
+    elementRef: statsRef,
+    isVisible: statsVisible
+  } = useScrollAnimation(0.2);
   const isMobile = useIsMobile();
   const [api, setApi] = React.useState<CarouselApi>();
-
   useEffect(() => {
     if (!api || !isMobile) return;
-
     const intervalId = setInterval(() => {
       if (api.canScrollNext()) {
         api.scrollNext();
@@ -34,7 +30,6 @@ const About = () => {
         api.scrollTo(0);
       }
     }, 4000);
-
     return () => clearInterval(intervalId);
   }, [api, isMobile]);
   const stats = [{
@@ -74,11 +69,7 @@ const About = () => {
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 sm:mb-16">
           {/* Imagem - sempre visível */}
           <div className="w-full flex justify-center">
-            <img 
-              src="/lovable-uploads/profile-photo-2.png" 
-              alt="Victor Senisse - Perfil Profissional" 
-              className="w-full max-w-[300px] sm:max-w-sm md:max-w-md rounded-2xl shadow-card object-cover" 
-            />
+            <img src="/lovable-uploads/profile-photo-2.png" alt="Victor Senisse - Perfil Profissional" className="w-full max-w-[300px] sm:max-w-sm md:max-w-md rounded-2xl shadow-card object-cover" />
           </div>
           
           {/* Conteúdo de texto */}
@@ -87,9 +78,7 @@ const About = () => {
               <h3 className="text-xl sm:text-2xl font-semibold text-foreground">
                 Transformando Ideias em Soluções
               </h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Com mais de 5 anos de experiência em desenvolvimento de software e gestão de automação, sou especializado em criar sistemas que otimizam processos empresariais e aumentam a produtividade das equipes.
-              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">Me chamo Victor, e com mais de 5 anos de experiência em desenvolvimento de software e gestão de automação, sou especializado em criar sistemas que otimizam processos empresariais e aumentam a produtividade das equipes.</p>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 Minha abordagem combina conhecimento técnico sólido com uma visão estratégica de negócios, 
                 garantindo que cada solução desenvolvida gere valor real para os clientes.
@@ -100,39 +89,22 @@ const About = () => {
               <h4 className="text-base sm:text-lg font-semibold text-foreground">Principais Tecnologias:</h4>
               <div className="w-full overflow-hidden py-4">
                 <div className="flex gap-3 sm:gap-4 animate-marquee-seamless">
-                  {[...technologies, ...technologies].map((tech, index) => (
-                    <Badge 
-                      key={index} 
-                      variant="secondary" 
-                      className="text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-br from-accent to-accent/80 text-accent-foreground hover:from-primary hover:to-primary/90 hover:text-primary-foreground transition-all duration-300 whitespace-nowrap flex-shrink-0 shadow-lg hover:shadow-glow hover:scale-105 border border-primary/20"
-                    >
+                  {[...technologies, ...technologies].map((tech, index) => <Badge key={index} variant="secondary" className="text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-br from-accent to-accent/80 text-accent-foreground hover:from-primary hover:to-primary/90 hover:text-primary-foreground transition-all duration-300 whitespace-nowrap flex-shrink-0 shadow-lg hover:shadow-glow hover:scale-105 border border-primary/20">
                       {tech}
-                    </Badge>
-                  ))}
+                    </Badge>)}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {isMobile ? (
-          <div 
-            ref={statsRef}
-            className={`w-full space-y-6 transition-all duration-700 ${
-              statsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full max-w-full"
-            >
+        {isMobile ? <div ref={statsRef} className={`w-full space-y-6 transition-all duration-700 ${statsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
+            <Carousel setApi={setApi} opts={{
+          align: "start",
+          loop: true
+        }} className="w-full max-w-full">
               <CarouselContent className="-ml-2">
-                {stats.map((stat, index) => (
-                  <CarouselItem key={index} className="pl-2 basis-full">
+                {stats.map((stat, index) => <CarouselItem key={index} className="pl-2 basis-full">
                     <Card className="p-6 text-center hover:shadow-glow transition-all duration-300 bg-card-gradient border-primary/20">
                       <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
                         <stat.icon className="h-6 w-6 text-primary" />
@@ -141,50 +113,29 @@ const About = () => {
                       <div className="text-sm font-medium text-foreground mb-1">{stat.label}</div>
                       <div className="text-xs text-muted-foreground">{stat.description}</div>
                     </Card>
-                  </CarouselItem>
-                ))}
+                  </CarouselItem>)}
               </CarouselContent>
             </Carousel>
             
             {/* Navigation arrows below */}
             <div className="flex justify-center items-center gap-4">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => api?.scrollPrev()}
-              >
+              <Button variant="outline" size="icon" className="rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all" onClick={() => api?.scrollPrev()}>
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => api?.scrollNext()}
-              >
+              <Button variant="outline" size="icon" className="rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all" onClick={() => api?.scrollNext()}>
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </Button>
             </div>
-          </div>
-        ) : (
-          <div 
-            ref={statsRef}
-            className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-700 ${
-              statsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            {stats.map((stat, index) => (
-              <Card key={index} className="p-6 text-center hover:shadow-glow transition-all duration-300 hover:scale-105 bg-card-gradient border-primary/20">
+          </div> : <div ref={statsRef} className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-700 ${statsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}>
+            {stats.map((stat, index) => <Card key={index} className="p-6 text-center hover:shadow-glow transition-all duration-300 hover:scale-105 bg-card-gradient border-primary/20">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
                   <stat.icon className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
                 <div className="text-sm font-medium text-foreground mb-1">{stat.label}</div>
                 <div className="text-xs text-muted-foreground">{stat.description}</div>
-              </Card>
-            ))}
-          </div>
-        )}
+              </Card>)}
+          </div>}
       </div>
     </section>;
 };
