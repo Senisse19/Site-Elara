@@ -1,38 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Clock, DollarSign, TrendingUp, Star, Zap, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { Clock, DollarSign, TrendingUp, Star, Zap, Users } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi
-} from "@/components/ui/carousel";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const ElaraBenefits = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
-  const isMobile = useIsMobile();
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [isHovered, setIsHovered] = React.useState(false);
-  const [lastInteraction, setLastInteraction] = React.useState(Date.now());
-
-  useEffect(() => {
-    if (!api || !isMobile || isHovered) return;
-
-    const intervalId = setInterval(() => {
-      if (Date.now() - lastInteraction < 9000) return; // Wait 9s after interaction
-      
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0);
-      }
-    }, 9000);
-
-    return () => clearInterval(intervalId);
-  }, [api, isMobile, isHovered, lastInteraction]);
 
   const benefits = [
     {
@@ -101,103 +73,34 @@ const ElaraBenefits = () => {
           </p>
         </div>
 
-        {isMobile ? (
-          <div className={`space-y-6 mb-16 transition-all duration-700 delay-300 ${
-            sectionVisible ? 'animate-fade-in' : 'opacity-0'
-          }`}>
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300 ${
+          sectionVisible ? 'animate-fade-in' : 'opacity-0'
+        }`}>
+          {benefits.map((benefit, index) => (
+            <Card 
+              key={index}
+              className="p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-300 group hover:scale-105"
             >
-              <CarouselContent className="-ml-4">
-                {benefits.map((benefit, index) => (
-                  <CarouselItem key={index} className="pl-4">
-                    <Card className="p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-300 group">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
-                          <benefit.icon className="h-7 w-7 text-primary" />
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
-                          <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
-                        </div>
-                      </div>
-                      
-                      <h3 className="text-xl font-semibold text-foreground mb-3">
-                        {benefit.title}
-                      </h3>
-                      
-                      <p className="text-muted-foreground leading-relaxed">
-                        {benefit.description}
-                      </p>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-            
-            {/* Navigation arrows below */}
-            <div className="flex justify-center items-center gap-4">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => {
-                  api?.scrollPrev();
-                  setLastInteraction(Date.now());
-                }}
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => {
-                  api?.scrollNext();
-                  setLastInteraction(Date.now());
-                }}
-              >
-                <ChevronRight className="w-6 h-6" />
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300 ${
-            sectionVisible ? 'animate-fade-in' : 'opacity-0'
-          }`}>
-            {benefits.map((benefit, index) => (
-              <Card 
-                key={index}
-                className="p-6 bg-card-gradient border-primary/20 hover:shadow-glow transition-all duration-300 group hover:scale-105"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                    <benefit.icon className="h-7 w-7 text-primary" />
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
-                    <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
-                  </div>
+              <div className="flex items-start justify-between mb-4">
+                <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                  <benefit.icon className="h-7 w-7 text-primary" />
                 </div>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {benefit.title}
-                </h3>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  {benefit.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        )}
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-primary">{benefit.stat}</div>
+                  <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
+                </div>
+              </div>
+              
+              <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                {benefit.title}
+              </h3>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                {benefit.description}
+              </p>
+            </Card>
+          ))}
+        </div>
 
         {/* Por que a Elara? */}
         <div className="mt-20">

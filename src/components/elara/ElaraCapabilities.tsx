@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { 
   Mic, 
   Volume2, 
@@ -11,16 +12,45 @@ import {
   Database,
   MessageSquare,
   Smile,
+  ChevronLeft,
+  ChevronRight,
   Calendar,
   Bell,
   Target,
   Phone,
   Bot
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi
+} from "@/components/ui/carousel";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ElaraCapabilities = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
+  const isMobile = useIsMobile();
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [lastInteraction, setLastInteraction] = React.useState(Date.now());
+
+  useEffect(() => {
+    if (!api || !isMobile || isHovered) return;
+
+    const intervalId = setInterval(() => {
+      if (Date.now() - lastInteraction < 10000) return;
+      
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  }, [api, isMobile, isHovered, lastInteraction]);
 
   const capabilities = [
     {
@@ -119,28 +149,92 @@ const ElaraCapabilities = () => {
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${
-          sectionVisible ? 'animate-fade-in' : 'opacity-0'
-        }`}>
-          {capabilities.map((capability, index) => (
-            <Card 
-              key={index}
-              className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105"
+{isMobile ? (
+          <div className="space-y-6">
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className={`w-full transition-all duration-700 delay-300 ${
+                sectionVisible ? 'animate-fade-in' : 'opacity-0'
+              }`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                <capability.icon className="h-7 w-7 text-primary" />
-              </div>
-              
-              <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                {capability.title}
-              </h3>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                {capability.description}
-              </p>
-            </Card>
-          ))}
-        </div>
+              <CarouselContent className="-ml-4">
+                {capabilities.map((capability, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Card 
+                      className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105 cursor-pointer"
+                    >
+                      <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                        <capability.icon className="h-7 w-7 text-primary" />
+                      </div>
+                      
+                      <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                        {capability.title}
+                      </h3>
+                      
+                      <p className="text-muted-foreground leading-relaxed">
+                        {capability.description}
+                      </p>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            
+            <div className="flex justify-center items-center gap-4 pt-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => {
+                  api?.scrollPrev();
+                  setLastInteraction(Date.now());
+                }}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
+                onClick={() => {
+                  api?.scrollNext();
+                  setLastInteraction(Date.now());
+                }}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${
+            sectionVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}>
+            {capabilities.map((capability, index) => (
+              <Card 
+                key={index}
+                className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                  <capability.icon className="h-7 w-7 text-primary" />
+                </div>
+                
+                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  {capability.title}
+                </h3>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  {capability.description}
+                </p>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
