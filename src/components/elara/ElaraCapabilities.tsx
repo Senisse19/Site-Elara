@@ -119,11 +119,6 @@ const ElaraCapabilities = () => {
       description: "Integra com sua lista de leads ou formulário, faz prospecção ativa e qualifica clientes. Cuida desde a prospecção até o agendamento, tudo automático."
     },
     {
-      icon: Phone,
-      title: "Atendimento por Ligação",
-      description: "Atende ligações com voz humanizada ultra-realista para tirar dúvidas e realizar agendamentos de forma natural e profissional."
-    },
-    {
       icon: Bot,
       title: "Assistente Interno (Bônus)",
       description: "Gerencie sua agenda fazendo solicitações por mensagem ou áudio de forma automática. Exemplo: solicite o cancelamento de todas as agendas de terça-feira e o assistente cancela e envia mensagens personalizadas aos clientes."
