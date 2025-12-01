@@ -34,7 +34,7 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validação básica
     if (!formData.name || !formData.email || !formData.whatsapp) {
       toast({
@@ -71,7 +71,7 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
         title: "Solicitação enviada!",
         description: "Entraremos em contato em breve para agendar sua demonstração.",
       });
-      
+
       onOpenChange(false);
       setFormData({
         name: "",
@@ -95,20 +95,20 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-primary/20 p-6 sm:p-8">
-        <DialogHeader className="space-y-3">
-          <DialogTitle className="text-2xl sm:text-3xl text-foreground">
+      <DialogContent className="max-w-2xl w-[95vw] max-h-[90vh] overflow-y-auto bg-card border-primary/20 p-4 sm:p-6 flex flex-col">
+        <DialogHeader className="space-y-1 shrink-0">
+          <DialogTitle className="text-xl sm:text-2xl text-foreground">
             Agendar Demonstração da Elara
           </DialogTitle>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Preencha os dados abaixo para qualificarmos sua demonstração
           </p>
         </DialogHeader>
-        
-        <form onSubmit={handleSubmit} className="space-y-5 mt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm font-medium text-foreground">
+
+        <form onSubmit={handleSubmit} className="space-y-3 mt-3 flex-1 flex flex-col justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="name" className="text-xs font-medium text-foreground">
                 Seu nome *
               </Label>
               <Input
@@ -117,12 +117,12 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="João Silva"
                 required
-                className="bg-background border-primary/20 h-11"
+                className="bg-background border-primary/20 h-9 text-sm"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="whatsapp" className="text-sm font-medium text-foreground">
+            <div className="space-y-1">
+              <Label htmlFor="whatsapp" className="text-xs font-medium text-foreground">
                 WhatsApp *
               </Label>
               <Input
@@ -131,13 +131,13 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
                 onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                 placeholder="(11) 99999-9999"
                 required
-                className="bg-background border-primary/20 h-11"
+                className="bg-background border-primary/20 h-9 text-sm"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-foreground">
+          <div className="space-y-1">
+            <Label htmlFor="email" className="text-xs font-medium text-foreground">
               Seu melhor e-mail *
             </Label>
             <Input
@@ -147,13 +147,13 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="joao@empresa.com"
               required
-              className="bg-background border-primary/20 h-11"
+              className="bg-background border-primary/20 h-9 text-sm"
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="companyName" className="text-sm font-medium text-foreground">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="companyName" className="text-xs font-medium text-foreground">
                 Nome da sua empresa
               </Label>
               <Input
@@ -161,12 +161,12 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                 placeholder="Minha Empresa Ltda"
-                className="bg-background border-primary/20 h-11"
+                className="bg-background border-primary/20 h-9 text-sm"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="segment" className="text-sm font-medium text-foreground">
+            <div className="space-y-1">
+              <Label htmlFor="segment" className="text-xs font-medium text-foreground">
                 Segmento da empresa
               </Label>
               <Input
@@ -174,21 +174,21 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
                 value={formData.segment}
                 onChange={(e) => setFormData({ ...formData, segment: e.target.value })}
                 placeholder="E-commerce, Saúde, etc"
-                className="bg-background border-primary/20 h-11"
+                className="bg-background border-primary/20 h-9 text-sm"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="monthlyRevenue" className="text-sm font-medium text-foreground">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="monthlyRevenue" className="text-xs font-medium text-foreground">
                 Faturamento mensal
               </Label>
               <Select
                 value={formData.monthlyRevenue}
                 onValueChange={(value) => setFormData({ ...formData, monthlyRevenue: value })}
               >
-                <SelectTrigger className="bg-background border-primary/20 h-11">
+                <SelectTrigger className="bg-background border-primary/20 h-9 text-sm">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border-primary/20 z-50">
@@ -200,15 +200,15 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="dailyLeads" className="text-sm font-medium text-foreground">
+            <div className="space-y-1">
+              <Label htmlFor="dailyLeads" className="text-xs font-medium text-foreground">
                 Leads por dia
               </Label>
               <Select
                 value={formData.dailyLeads}
                 onValueChange={(value) => setFormData({ ...formData, dailyLeads: value })}
               >
-                <SelectTrigger className="bg-background border-primary/20 h-11">
+                <SelectTrigger className="bg-background border-primary/20 h-9 text-sm">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border-primary/20 z-50">
@@ -221,8 +221,8 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="challenge" className="text-sm font-medium text-foreground">
+          <div className="space-y-1">
+            <Label htmlFor="challenge" className="text-xs font-medium text-foreground">
               Qual seu maior desafio no atendimento?
             </Label>
             <Textarea
@@ -230,15 +230,15 @@ const DemoModal = ({ open, onOpenChange }: DemoModalProps) => {
               value={formData.challenge}
               onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
               placeholder="Ex: Não consigo atender todos os leads rapidamente..."
-              rows={4}
-              className="bg-background border-primary/20 resize-none"
+              rows={2}
+              className="bg-background border-primary/20 resize-none text-sm min-h-[60px]"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-2"
-            size="lg"
+            className="w-full bg-gradient-to-r from-primary to-blue-500 hover:shadow-glow transition-all text-white mt-2 h-10"
+            size="default"
           >
             Agendar Demonstração Gratuita
           </Button>

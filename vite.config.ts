@@ -15,4 +15,15 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'ui-vendor': ['lucide-react', 'framer-motion'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 }));

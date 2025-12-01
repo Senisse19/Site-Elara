@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { Card } from "@/components/ui/card";
+import MagicCard from "@/components/ui/MagicCard";
 import { Button } from "@/components/ui/button";
-import { 
-  Mic, 
-  Volume2, 
-  Image, 
-  Calculator, 
-  BookOpen, 
-  UserCheck, 
-  FileText, 
+import {
+  Mic,
+  Volume2,
+  Image,
+  Calculator,
+  BookOpen,
+  UserCheck,
+  FileText,
   Database,
   MessageSquare,
   Smile,
@@ -37,12 +37,24 @@ const ElaraCapabilities = () => {
   const [isHovered, setIsHovered] = React.useState(false);
   const [lastInteraction, setLastInteraction] = React.useState(Date.now());
 
+  // Trigger stagger animation when section is visible
+  useEffect(() => {
+    if (sectionVisible) {
+      const items = document.querySelectorAll('.stagger-item');
+      items.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('visible');
+        }, index * 100);
+      });
+    }
+  }, [sectionVisible]);
+
   useEffect(() => {
     if (!api || !isMobile || isHovered) return;
 
     const intervalId = setInterval(() => {
       if (Date.now() - lastInteraction < 10000) return;
-      
+
       if (api.canScrollNext()) {
         api.scrollNext();
       } else {
@@ -134,15 +146,14 @@ const ElaraCapabilities = () => {
   return (
     <section id="capacidades" className="py-20 bg-section-gradient relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
-      
+
       <div className="container mx-auto px-6 relative z-10">
-        <div 
+        <div
           ref={sectionRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-          }`}
+          className={`text-center mb-16 transition-all duration-700 ${sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
+            }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 glow-text">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 glow-text animate-blur-reveal" style={{ animationDelay: '0.2s', opacity: 0 }}>
             O que ela é capaz de fazer
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -150,7 +161,7 @@ const ElaraCapabilities = () => {
           </p>
         </div>
 
-{isMobile ? (
+        {isMobile ? (
           <div className="space-y-6">
             <Carousel
               setApi={setApi}
@@ -158,35 +169,34 @@ const ElaraCapabilities = () => {
                 align: "start",
                 loop: true,
               }}
-              className={`w-full transition-all duration-700 delay-300 ${
-                sectionVisible ? 'animate-fade-in' : 'opacity-0'
-              }`}
+              className={`w-full transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'
+                }`}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <CarouselContent className="-ml-4">
                 {capabilities.map((capability, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card 
-                      className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105 cursor-pointer"
+                    <MagicCard
+                      className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 group cursor-pointer"
                     >
                       <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
                         <capability.icon className="h-7 w-7 text-primary" />
                       </div>
-                      
+
                       <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                         {capability.title}
                       </h3>
-                      
+
                       <p className="text-muted-foreground leading-relaxed">
                         {capability.description}
                       </p>
-                    </Card>
+                    </MagicCard>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
-            
+
             <div className="flex justify-center items-center gap-4 pt-4">
               <Button
                 variant="outline"
@@ -213,26 +223,26 @@ const ElaraCapabilities = () => {
             </div>
           </div>
         ) : (
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${
-            sectionVisible ? 'animate-fade-in' : 'opacity-0'
-          }`}>
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'
+            }`}>
             {capabilities.map((capability, index) => (
-              <Card 
-                key={index}
-                className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 group hover:scale-105"
-              >
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                  <capability.icon className="h-7 w-7 text-primary" />
-                </div>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {capability.title}
-                </h3>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  {capability.description}
-                </p>
-              </Card>
+              <div key={index} className="stagger-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                <MagicCard
+                  className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 group"
+                >
+                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                    <capability.icon className="h-7 w-7 text-primary" />
+                  </div>
+
+                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {capability.title}
+                  </h3>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    {capability.description}
+                  </p>
+                </MagicCard>
+              </div>
             ))}
           </div>
         )}
