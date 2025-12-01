@@ -100,7 +100,6 @@ const ElaraHero = () => {
         muted
         loop
         playsInline
-        poster="/hero-poster.png"
         className="absolute top-0 left-0 w-full h-full object-cover"
         style={{ zIndex: 1 }}
       >
