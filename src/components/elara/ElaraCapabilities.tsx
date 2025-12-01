@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo, useState, useCallback } from "react";
 import MagicCard from "@/components/ui/MagicCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,24 +30,112 @@ import {
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// Static data extracted
+const capabilities = [
+  {
+    icon: Mic,
+    title: "Ouvir e transcrever áudios",
+    description: "Interpreta mensagens de voz do WhatsApp e responde automaticamente com precisão."
+  },
+  {
+    icon: Volume2,
+    title: "Responder com voz clonada ultra-realista",
+    description: "Capaz de enviar respostas por áudio com voz natural e personalizada."
+  },
+  {
+    icon: Image,
+    title: "Analisar imagens",
+    description: "Reconhece documentos, fotos de produtos, comprovantes e extrai informações relevantes."
+  },
+  {
+    icon: Calculator,
+    title: "Executar cálculos e lógica avançada",
+    description: "Gera orçamentos, aplica regras de negócio e realiza cálculos complexos instantaneamente."
+  },
+  {
+    icon: BookOpen,
+    title: "Base de conhecimento",
+    description: "Carregada com informações da sua empresa para tirar dúvidas e fornecer respostas precisas."
+  },
+  {
+    icon: UserCheck,
+    title: "Qualificar clientes",
+    description: "Faz perguntas estratégicas, entende a necessidade do lead e tira dúvidas antes da conversão."
+  },
+  {
+    icon: FileText,
+    title: "Enviar arquivos",
+    description: "Envia PDFs, catálogos, contratos ou links conforme a necessidade da conversa."
+  },
+  {
+    icon: Database,
+    title: "Integrar com CRM",
+    description: "Conecta-se aos seus sistemas existentes para registrar, consultar e atualizar dados automaticamente."
+  },
+  {
+    icon: MessageSquare,
+    title: "Plataforma Unificada",
+    description: "Caixas de entrada do Instagram e WhatsApp centralizadas em uma única plataforma (Chatwoot)."
+  },
+  {
+    icon: Smile,
+    title: "Reagir mensagens",
+    description: "Reage a mensagens do WhatsApp com emojis selecionados, tornando as conversas mais naturais e engajadoras."
+  },
+  {
+    icon: Calendar,
+    title: "Gestão de Agenda",
+    description: "A Elara pode agendar, reagendar e desmarcar reuniões diretamente no Google Agenda."
+  },
+  {
+    icon: Bell,
+    title: "Confirmação de Reunião",
+    description: "Entra em contato com o cliente 24 horas antes da reunião, solicitando a confirmação de comparecimento para reduzir o não comparecimento (no-show)."
+  },
+  {
+    icon: Target,
+    title: "Prospecção Ativa e Qualificação",
+    description: "Integra com sua lista de leads ou formulário, faz prospecção ativa e qualifica clientes. Cuida desde a prospecção até o agendamento, tudo automático."
+  },
+  {
+    icon: Clock,
+    title: "Follow-up Automático",
+    description: "Entra em contato com leads que abandonaram a conversa ou ficaram sem responder por um período de tempo, mantendo o engajamento e aumentando as chances de conversão."
+  },
+  {
+    icon: Bot,
+    title: "Assistente Interno (Bônus)",
+    description: "Gerencie sua agenda fazendo solicitações por mensagem ou áudio de forma automática. Exemplo: solicite o cancelamento de todas as agendas de terça-feira e o assistente cancela e envia mensagens personalizadas aos clientes."
+  }
+];
+
+// Memoized Card Component
+const CapabilityCard = memo(({ capability }: { capability: typeof capabilities[0] }) => (
+  <MagicCard
+    className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 group cursor-pointer"
+  >
+    <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+      <capability.icon className="h-7 w-7 text-primary" />
+    </div>
+
+    <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+      {capability.title}
+    </h3>
+
+    <p className="text-muted-foreground leading-relaxed">
+      {capability.description}
+    </p>
+  </MagicCard>
+));
+
+CapabilityCard.displayName = "CapabilityCard";
+
 const ElaraCapabilities = () => {
   const { elementRef: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.2);
   const isMobile = useIsMobile();
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [isHovered, setIsHovered] = React.useState(false);
-  const [lastInteraction, setLastInteraction] = React.useState(Date.now());
-
-  // Trigger stagger animation when section is visible
-  useEffect(() => {
-    if (sectionVisible) {
-      const items = document.querySelectorAll('.stagger-item');
-      items.forEach((item, index) => {
-        setTimeout(() => {
-          item.classList.add('visible');
-        }, index * 100);
-      });
-    }
-  }, [sectionVisible]);
+  const [api, setApi] = useState<CarouselApi>();
+  const [isHovered, setIsHovered] = useState(false);
+  const [lastInteraction, setLastInteraction] = useState(Date.now());
 
   useEffect(() => {
     if (!api || !isMobile || isHovered) return;
@@ -65,83 +153,15 @@ const ElaraCapabilities = () => {
     return () => clearInterval(intervalId);
   }, [api, isMobile, isHovered, lastInteraction]);
 
-  const capabilities = [
-    {
-      icon: Mic,
-      title: "Ouvir e transcrever áudios",
-      description: "Interpreta mensagens de voz do WhatsApp e responde automaticamente com precisão."
-    },
-    {
-      icon: Volume2,
-      title: "Responder com voz clonada ultra-realista",
-      description: "Capaz de enviar respostas por áudio com voz natural e personalizada."
-    },
-    {
-      icon: Image,
-      title: "Analisar imagens",
-      description: "Reconhece documentos, fotos de produtos, comprovantes e extrai informações relevantes."
-    },
-    {
-      icon: Calculator,
-      title: "Executar cálculos e lógica avançada",
-      description: "Gera orçamentos, aplica regras de negócio e realiza cálculos complexos instantaneamente."
-    },
-    {
-      icon: BookOpen,
-      title: "Base de conhecimento",
-      description: "Carregada com informações da sua empresa para tirar dúvidas e fornecer respostas precisas."
-    },
-    {
-      icon: UserCheck,
-      title: "Qualificar clientes",
-      description: "Faz perguntas estratégicas, entende a necessidade do lead e tira dúvidas antes da conversão."
-    },
-    {
-      icon: FileText,
-      title: "Enviar arquivos",
-      description: "Envia PDFs, catálogos, contratos ou links conforme a necessidade da conversa."
-    },
-    {
-      icon: Database,
-      title: "Integrar com CRM",
-      description: "Conecta-se aos seus sistemas existentes para registrar, consultar e atualizar dados automaticamente."
-    },
-    {
-      icon: MessageSquare,
-      title: "Plataforma Unificada",
-      description: "Caixas de entrada do Instagram e WhatsApp centralizadas em uma única plataforma (Chatwoot)."
-    },
-    {
-      icon: Smile,
-      title: "Reagir mensagens",
-      description: "Reage a mensagens do WhatsApp com emojis selecionados, tornando as conversas mais naturais e engajadoras."
-    },
-    {
-      icon: Calendar,
-      title: "Gestão de Agenda",
-      description: "A Elara pode agendar, reagendar e desmarcar reuniões diretamente no Google Agenda."
-    },
-    {
-      icon: Bell,
-      title: "Confirmação de Reunião",
-      description: "Entra em contato com o cliente 24 horas antes da reunião, solicitando a confirmação de comparecimento para reduzir o não comparecimento (no-show)."
-    },
-    {
-      icon: Target,
-      title: "Prospecção Ativa e Qualificação",
-      description: "Integra com sua lista de leads ou formulário, faz prospecção ativa e qualifica clientes. Cuida desde a prospecção até o agendamento, tudo automático."
-    },
-    {
-      icon: Clock,
-      title: "Follow-up Automático",
-      description: "Entra em contato com leads que abandonaram a conversa ou ficaram sem responder por um período de tempo, mantendo o engajamento e aumentando as chances de conversão."
-    },
-    {
-      icon: Bot,
-      title: "Assistente Interno (Bônus)",
-      description: "Gerencie sua agenda fazendo solicitações por mensagem ou áudio de forma automática. Exemplo: solicite o cancelamento de todas as agendas de terça-feira e o assistente cancela e envia mensagens personalizadas aos clientes."
-    }
-  ];
+  const handlePrev = useCallback(() => {
+    api?.scrollPrev();
+    setLastInteraction(Date.now());
+  }, [api]);
+
+  const handleNext = useCallback(() => {
+    api?.scrollNext();
+    setLastInteraction(Date.now());
+  }, [api]);
 
   return (
     <section id="capacidades" className="py-20 bg-section-gradient relative overflow-hidden">
@@ -150,8 +170,7 @@ const ElaraCapabilities = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div
           ref={sectionRef}
-          className={`text-center mb-16 transition-all duration-700 ${sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
-            }`}
+          className={`text-center mb-16 transition-all duration-700 ${sectionVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'}`}
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 glow-text animate-blur-reveal" style={{ animationDelay: '0.2s', opacity: 0 }}>
             O que ela é capaz de fazer
@@ -169,29 +188,14 @@ const ElaraCapabilities = () => {
                 align: "start",
                 loop: true,
               }}
-              className={`w-full transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'
-                }`}
+              className={`w-full transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'}`}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <CarouselContent className="-ml-4">
                 {capabilities.map((capability, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <MagicCard
-                      className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 group cursor-pointer"
-                    >
-                      <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                        <capability.icon className="h-7 w-7 text-primary" />
-                      </div>
-
-                      <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {capability.title}
-                      </h3>
-
-                      <p className="text-muted-foreground leading-relaxed">
-                        {capability.description}
-                      </p>
-                    </MagicCard>
+                    <CapabilityCard capability={capability} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -202,10 +206,7 @@ const ElaraCapabilities = () => {
                 variant="outline"
                 size="icon"
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => {
-                  api?.scrollPrev();
-                  setLastInteraction(Date.now());
-                }}
+                onClick={handlePrev}
               >
                 <ChevronLeft className="w-6 h-6" />
               </Button>
@@ -213,35 +214,21 @@ const ElaraCapabilities = () => {
                 variant="outline"
                 size="icon"
                 className="rounded-full w-12 h-12 bg-card border-primary/30 hover:bg-primary/10 hover:border-primary transition-all"
-                onClick={() => {
-                  api?.scrollNext();
-                  setLastInteraction(Date.now());
-                }}
+                onClick={handleNext}
               >
                 <ChevronRight className="w-6 h-6" />
               </Button>
             </div>
           </div>
         ) : (
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'
-            }`}>
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 delay-300 ${sectionVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {capabilities.map((capability, index) => (
-              <div key={index} className="stagger-item" style={{ animationDelay: `${index * 0.1}s` }}>
-                <MagicCard
-                  className="p-6 h-full bg-card-gradient border-primary/20 hover:border-primary/40 transition-all duration-300 group"
-                >
-                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-4 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                    <capability.icon className="h-7 w-7 text-primary" />
-                  </div>
-
-                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                    {capability.title}
-                  </h3>
-
-                  <p className="text-muted-foreground leading-relaxed">
-                    {capability.description}
-                  </p>
-                </MagicCard>
+              <div
+                key={index}
+                className={`transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <CapabilityCard capability={capability} />
               </div>
             ))}
           </div>
