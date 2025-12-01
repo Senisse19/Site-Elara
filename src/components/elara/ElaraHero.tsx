@@ -84,6 +84,7 @@ ChatMockup.displayName = "ChatMockup";
 const ElaraHero = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation(0.2);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -94,18 +95,29 @@ const ElaraHero = () => {
 
   return (
     <section id="inicio" className="min-h-screen flex items-center bg-background relative overflow-hidden">
+      {/* Video Background */}
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        poster="/hero-poster.png"
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.45]"
+        onCanPlayThrough={() => setIsVideoLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-[0.45]' : 'opacity-0'}`}
         style={{ filter: 'brightness(0.8) saturate(1.1)', zIndex: 0 }}
       >
         <source src="/backgroundHero.mp4" type="video/mp4" />
       </video>
+
+      {/* Poster Overlay for Smooth Transition */}
+      <div
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
+        style={{
+          backgroundImage: 'url("/hero-poster.png")',
+          zIndex: 0,
+          filter: 'brightness(0.8) saturate(1.1)'
+        }}
+      />
 
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" style={{ zIndex: 2 }}></div>
 
