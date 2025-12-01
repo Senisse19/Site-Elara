@@ -84,7 +84,6 @@ ChatMockup.displayName = "ChatMockup";
 const ElaraHero = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation(0.2);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -95,31 +94,21 @@ const ElaraHero = () => {
 
   return (
     <section id="inicio" className="min-h-screen flex items-center bg-background relative overflow-hidden">
-      {/* Video Background */}
+      {/* Video Background - Full Screen */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
-        onCanPlayThrough={() => setIsVideoLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-[0.45]' : 'opacity-0'}`}
-        style={{ filter: 'brightness(0.8) saturate(1.1)', zIndex: 0 }}
+        poster="/hero-poster.png"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        style={{ zIndex: 1 }}
       >
-        <source src="/backgroundHero.mp4" type="video/mp4" />
+        <source src="/videoBackground.webm" type="video/webm" />
       </video>
 
-      {/* Poster Overlay for Smooth Transition */}
-      <div
-        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
-        style={{
-          backgroundImage: 'url("/hero-poster.png")',
-          zIndex: 0,
-          filter: 'brightness(0.8) saturate(1.1)'
-        }}
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" style={{ zIndex: 2 }}></div>
+      {/* Dark Overlay for Text Readability */}
+      <div className="absolute inset-0 bg-black/50" style={{ zIndex: 2 }}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-24 md:py-20 relative z-10 max-w-full overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
