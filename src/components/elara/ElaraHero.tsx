@@ -4,7 +4,6 @@ import { ArrowRight, Bot, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import DemoModal from "@/components/DemoModal";
 import elaraLogo from "@/assets/elara-logo-white.png";
-import heroTexture from "@/assets/hero-texture.png";
 
 // Extracted for performance (static allocation) and Clean Code
 const AnimatedChar = memo(({ char, index, baseIndex, className }: { char: string, index: number, baseIndex: number, className: string }) => (
@@ -100,14 +99,13 @@ const ElaraHero = () => {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover opacity-[0.45]"
         style={{ filter: 'brightness(0.8) saturate(1.1)', zIndex: 0 }}
       >
         <source src="/backgroundHero.mp4" type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `url(${heroTexture})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 1 }}></div>
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" style={{ zIndex: 2 }}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-24 md:py-20 relative z-10 max-w-full overflow-hidden">
