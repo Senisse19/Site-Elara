@@ -103,7 +103,7 @@ const ElaraHero = () => {
         className="absolute top-0 left-0 w-full h-full object-cover"
         style={{ zIndex: 1 }}
       >
-        <source src="/videoBackground.webm" type="video/webm" />
+        <source src="/backgroundVideo.mp4" type="video/mp4" />
       </video>
 
       {/* Dark Overlay for Text Readability */}
