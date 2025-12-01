@@ -100,6 +100,7 @@ const ElaraHero = () => {
         loop
         playsInline
         preload="auto"
+        poster="/hero-poster.png"
         className="absolute inset-0 w-full h-full object-cover opacity-[0.45]"
         style={{ filter: 'brightness(0.8) saturate(1.1)', zIndex: 0 }}
       >
