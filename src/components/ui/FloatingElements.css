@@ -1,0 +1,32 @@
+.floating-element {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 133, 242, 0.15) 0%,
+    rgba(96, 165, 250, 0.05) 50%,
+    transparent 100%
+  );
+  animation: float-animation infinite ease-in-out;
+  will-change: transform, opacity;
+}
+
+@keyframes float-animation {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(20px, -30px) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .floating-element {
+    animation: none;
+    opacity: 0.3;
+  }
+}

@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import { getOptimalParticleCount } from '@/utils/performanceDetector';
+import { usePerformance } from '@/contexts/PerformanceContext';
 
 interface Particle {
     x: number;
@@ -14,10 +16,24 @@ export default function ParticleBackground() {
     const particlesRef = useRef<Particle[]>([]);
     const mouseRef = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number>();
+    const { capabilities } = usePerformance();
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
+
+        // Don't render particles if performance is low or reduced motion is preferred
+        if (!capabilities) return;
+
+        const particleCount = getOptimalParticleCount();
+        if (particleCount === 0) {
+            // Clear canvas and don't start animation
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            return;
+        }
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
@@ -30,8 +46,7 @@ export default function ParticleBackground() {
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Initialize particles
-        const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000));
+        // Initialize particles with optimal count based on performance
         particlesRef.current = Array.from({ length: particleCount }, () => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
@@ -41,11 +56,11 @@ export default function ParticleBackground() {
             opacity: Math.random() * 0.5 + 0.2,
         }));
 
-        // Mouse move handler
+        // Mouse move handler - with passive listener for better performance
         const handleMouseMove = (e: MouseEvent) => {
             mouseRef.current = { x: e.clientX, y: e.clientY };
         };
-        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         // Animation loop
         const animate = () => {
@@ -57,12 +72,13 @@ export default function ParticleBackground() {
                 particle.y += particle.vy;
 
                 // Mouse interaction - particles move away from cursor
+                // Reduced interaction distance for better performance
                 const dx = mouseRef.current.x - particle.x;
                 const dy = mouseRef.current.y - particle.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 150) {
-                    const force = (150 - distance) / 150;
+                if (distance < 100) { // Reduced from 150
+                    const force = (100 - distance) / 100;
                     particle.x -= (dx / distance) * force * 2;
                     particle.y -= (dy / distance) * force * 2;
                 }
@@ -80,16 +96,17 @@ export default function ParticleBackground() {
                 ctx.fill();
 
                 // Draw connections to nearby particles
+                // Reduced connection distance for better performance
                 particlesRef.current.slice(i + 1).forEach((otherParticle) => {
                     const dx = particle.x - otherParticle.x;
                     const dy = particle.y - otherParticle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 120) {
+                    if (distance < 100) { // Reduced from 120
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(otherParticle.x, otherParticle.y);
-                        const opacity = (1 - distance / 120) * 0.2;
+                        const opacity = (1 - distance / 100) * 0.2;
                         ctx.strokeStyle = `rgba(56, 133, 242, ${opacity})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
@@ -109,7 +126,12 @@ export default function ParticleBackground() {
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, []);
+    }, [capabilities]); // Re-run if performance capabilities change
+
+    // Don't render canvas at all if not needed (saves DOM overhead)
+    if (capabilities && getOptimalParticleCount() === 0) {
+        return null;
+    }
 
     return (
         <canvas
