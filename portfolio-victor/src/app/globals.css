@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  /* Core Colors */
+  --background: #0C1423;
+  --foreground: #ededed;
+  --primary: #3B82F6;
+  --surface: #1C345E;
+
+  /* Additional utilities */
+  --font-sans: "Inter", sans-serif;
+  --font-display: var(--font-sora), "sans-serif";
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-surface: var(--surface);
+
+  /* Retain default utilities if needed */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
